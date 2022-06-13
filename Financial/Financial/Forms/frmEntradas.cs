@@ -28,6 +28,8 @@ namespace Financial.Forms
         private void btnNovo_Click(object sender, EventArgs e)
         {
             Thread tAbrirNovo = new Thread(abrirNovo);
+            tAbrirNovo.SetApartmentState(ApartmentState.STA);
+            tAbrirNovo.Start();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -35,16 +37,15 @@ namespace Financial.Forms
 
         }
 
-        private void btnBaixar_Saldo_Click(object sender, EventArgs e)
+        private void btnBaixar_cSaldo_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBaixa_sSaldo_Click(object sender, EventArgs e)
         {
 
         }
-
 
 
 
@@ -63,5 +64,6 @@ namespace Financial.Forms
             this.Close();
         }
 
+     
     }
 }

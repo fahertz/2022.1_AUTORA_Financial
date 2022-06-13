@@ -95,6 +95,7 @@
             this.Name = "frmFinancial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Financial";
+            this.Load += new System.EventHandler(this.frmFinancial_Load);
             this.ResumeLayout(false);
 
         }

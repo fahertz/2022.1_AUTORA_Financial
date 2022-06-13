@@ -1,6 +1,6 @@
 ﻿namespace Financial.Forms
 {
-    partial class frmEntradas
+    partial class frmTipoCategoria
     {
         /// <summary>
         /// Required designer variable.
@@ -28,65 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.btnFechar = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.lblTipoCategoria = new System.Windows.Forms.Label();
+            this.txtDescCategoria = new System.Windows.Forms.TextBox();
             this.btnNovo = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.btnBaixa_cSaldo = new System.Windows.Forms.Button();
-            this.btnBaixa_sSaldo = new System.Windows.Forms.Button();
             this.dgvDados = new System.Windows.Forms.DataGridView();
+            this.btnFechar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDados)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnFechar
+            // lblTipoCategoria
             // 
-            this.btnFechar.Location = new System.Drawing.Point(713, 411);
-            this.btnFechar.Name = "btnFechar";
-            this.btnFechar.Size = new System.Drawing.Size(75, 27);
-            this.btnFechar.TabIndex = 1;
-            this.btnFechar.Text = "Fechar";
-            this.btnFechar.UseVisualStyleBackColor = true;
-            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
+            this.lblTipoCategoria.AutoSize = true;
+            this.lblTipoCategoria.Location = new System.Drawing.Point(12, 8);
+            this.lblTipoCategoria.Name = "lblTipoCategoria";
+            this.lblTipoCategoria.Size = new System.Drawing.Size(91, 13);
+            this.lblTipoCategoria.TabIndex = 18;
+            this.lblTipoCategoria.Text = "Tipo da Categoria";
+            // 
+            // txtDescCategoria
+            // 
+            this.txtDescCategoria.Location = new System.Drawing.Point(12, 24);
+            this.txtDescCategoria.Name = "txtDescCategoria";
+            this.txtDescCategoria.Size = new System.Drawing.Size(614, 20);
+            this.txtDescCategoria.TabIndex = 16;
+            this.txtDescCategoria.TextChanged += new System.EventHandler(this.txtDescCategoria_TextChanged);
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(12, 12);
+            this.btnNovo.Location = new System.Drawing.Point(632, 20);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 27);
-            this.btnNovo.TabIndex = 2;
+            this.btnNovo.TabIndex = 19;
             this.btnNovo.Text = "Novo";
             this.btnNovo.UseVisualStyleBackColor = true;
             this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(93, 12);
+            this.btnEditar.Location = new System.Drawing.Point(713, 20);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 27);
-            this.btnEditar.TabIndex = 3;
+            this.btnEditar.TabIndex = 20;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
-            // btnBaixa_cSaldo
-            // 
-            this.btnBaixa_cSaldo.Location = new System.Drawing.Point(174, 12);
-            this.btnBaixa_cSaldo.Name = "btnBaixa_cSaldo";
-            this.btnBaixa_cSaldo.Size = new System.Drawing.Size(95, 27);
-            this.btnBaixa_cSaldo.TabIndex = 4;
-            this.btnBaixa_cSaldo.Text = "Bx. c Saldo";
-            this.btnBaixa_cSaldo.UseVisualStyleBackColor = true;
-            this.btnBaixa_cSaldo.Click += new System.EventHandler(this.btnBaixar_cSaldo_Click);
-            // 
-            // btnBaixa_sSaldo
-            // 
-            this.btnBaixa_sSaldo.Location = new System.Drawing.Point(275, 12);
-            this.btnBaixa_sSaldo.Name = "btnBaixa_sSaldo";
-            this.btnBaixa_sSaldo.Size = new System.Drawing.Size(95, 27);
-            this.btnBaixa_sSaldo.TabIndex = 5;
-            this.btnBaixa_sSaldo.Text = "Bx. sem Saldo";
-            this.btnBaixa_sSaldo.UseVisualStyleBackColor = true;
-            this.btnBaixa_sSaldo.Click += new System.EventHandler(this.btnBaixa_sSaldo_Click);
             // 
             // dgvDados
             // 
@@ -94,45 +81,58 @@
             this.dgvDados.AllowUserToDeleteRows = false;
             this.dgvDados.AllowUserToOrderColumns = true;
             this.dgvDados.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Blue;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvDados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Blue;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvDados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvDados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDados.Location = new System.Drawing.Point(12, 45);
+            this.dgvDados.Location = new System.Drawing.Point(12, 50);
             this.dgvDados.Name = "dgvDados";
             this.dgvDados.ReadOnly = true;
             this.dgvDados.RowHeadersVisible = false;
             this.dgvDados.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvDados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDados.Size = new System.Drawing.Size(776, 360);
-            this.dgvDados.TabIndex = 22;
+            this.dgvDados.Size = new System.Drawing.Size(776, 319);
+            this.dgvDados.TabIndex = 21;
             // 
-            // frmEntradas
+            // btnFechar
+            // 
+            this.btnFechar.Location = new System.Drawing.Point(713, 375);
+            this.btnFechar.Name = "btnFechar";
+            this.btnFechar.Size = new System.Drawing.Size(75, 27);
+            this.btnFechar.TabIndex = 22;
+            this.btnFechar.Text = "Fechar";
+            this.btnFechar.UseVisualStyleBackColor = true;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
+            // 
+            // frmTipoCategoria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 443);
+            this.ClientSize = new System.Drawing.Size(800, 411);
+            this.Controls.Add(this.btnFechar);
             this.Controls.Add(this.dgvDados);
-            this.Controls.Add(this.btnBaixa_sSaldo);
-            this.Controls.Add(this.btnBaixa_cSaldo);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnNovo);
-            this.Controls.Add(this.btnFechar);
-            this.Name = "frmEntradas";
+            this.Controls.Add(this.lblTipoCategoria);
+            this.Controls.Add(this.txtDescCategoria);
+            this.Name = "frmTipoCategoria";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Entradas";
+            this.Text = "Tipo Categoria";
+            this.Load += new System.EventHandler(this.frmTipoCategoria_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDados)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button btnFechar;
+
+        private System.Windows.Forms.Label lblTipoCategoria;
+        private System.Windows.Forms.TextBox txtDescCategoria;
         private System.Windows.Forms.Button btnNovo;
         private System.Windows.Forms.Button btnEditar;
-        private System.Windows.Forms.Button btnBaixa_cSaldo;
-        private System.Windows.Forms.Button btnBaixa_sSaldo;
         private System.Windows.Forms.DataGridView dgvDados;
+        private System.Windows.Forms.Button btnFechar;
     }
 }

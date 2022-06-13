@@ -5,7 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Financial.Forms
@@ -17,6 +19,22 @@ namespace Financial.Forms
             InitializeComponent();
         }
 
+        //Abrir categoria
+        void abrirCategoria()
+        {
+            Application.Run(new frmCategoria());
+            
+        }
+
+        private void btnCategoria_Click(object sender, EventArgs e)
+        {
+            Thread tAbrirCategoria = new Thread(abrirCategoria);
+            tAbrirCategoria.SetApartmentState(ApartmentState.STA);
+            tAbrirCategoria.Start();
+        }
+
+
+
         private void frmEntradasNovo_Load(object sender, EventArgs e)
         {
             //Carregar formas de pagamento
@@ -26,5 +44,7 @@ namespace Financial.Forms
             cbxFormaPagamento.Items.Add("Dinheiro");
 
         }
+
+        
     }
 }

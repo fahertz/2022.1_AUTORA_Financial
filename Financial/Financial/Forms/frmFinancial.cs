@@ -58,6 +58,9 @@ namespace Financial
             Application.Exit();
         }
 
-       
+        private void frmFinancial_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
