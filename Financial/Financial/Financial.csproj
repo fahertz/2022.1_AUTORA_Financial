@@ -86,6 +86,12 @@
     <Compile Include="Forms\frmTipoCategoria.Designer.cs">
       <DependentUpon>frmTipoCategoria.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmTipoCategoriaEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmTipoCategoriaEditar.Designer.cs">
+      <DependentUpon>frmTipoCategoriaEditar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmTipoCategoriaNovo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmTipoCategoria.resx">
       <DependentUpon>frmTipoCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTipoCategoriaEditar.resx">
+      <DependentUpon>frmTipoCategoriaEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmTipoCategoriaNovo.resx">
       <DependentUpon>frmTipoCategoriaNovo.cs</DependentUpon>

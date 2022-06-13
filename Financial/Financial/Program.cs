@@ -17,7 +17,7 @@ namespace Financial
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmFinancial());
+            Application.Run(new frmTipoCategoria());
         }
     }
 }

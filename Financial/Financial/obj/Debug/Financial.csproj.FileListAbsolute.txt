@@ -29,3 +29,11 @@ C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\bin
 C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\bin\Debug\Newtonsoft.Json.xml
 C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.csproj.CopyComplete
 C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmCategoria.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmCategoria.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmEntradasNovo.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmTipoCategoria.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmTipoCategoriaNovo.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\bin\Debug\Newtonsoft.Json.dll
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\bin\Debug\Newtonsoft.Json.xml
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmTipoCategoriaEditar.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.csproj.CopyComplete

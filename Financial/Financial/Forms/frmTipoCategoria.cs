@@ -31,9 +31,6 @@ namespace Financial.Forms
         string nome_Arquivo = "\\CAD_TIPO_CATEGORIA.json";                                     //Nome do arquivo
 
 
-        //Tipo Categoria
-        Tipo_Categoria categoria = new Tipo_Categoria();
-
         //Tipos de Categoria
         List<Tipo_Categoria> Tipos_Categoria = new List<Tipo_Categoria>();
 
@@ -98,31 +95,33 @@ namespace Financial.Forms
 
         }
 
-        private void abrirTipoCategoriaNovo()
-        {
-            Application.Run(new frmTipoCategoriaNovo());
-        }
-
+     
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            Thread tAbrirTipoCategoriaNovo = new Thread(abrirTipoCategoriaNovo);
-            tAbrirTipoCategoriaNovo.SetApartmentState(ApartmentState.STA);
-            tAbrirTipoCategoriaNovo.Start();
+            frmTipoCategoriaNovo frmNovo = new frmTipoCategoriaNovo();
+
+            frmNovo.ShowDialog();
+            dgvDados.Rows.Clear();
+            Tipos_Categoria.Clear();
+            carregarTipoCategoria(wpath + folder + nome_Arquivo, dgvDados);
         }
 
-        private void abrirTipoCategoriaEditar()
-        {
-            Application.Run(new frmTipoCategoriaEditar());
-        }
+       
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (dgvDados.CurrentRow.Selected)
+            if (dgvDados.CurrentRow != null)
             {
-                Thread tAbrirTipoCategoriaEditar = new Thread(abrirTipoCategoriaEditar);
-                tAbrirTipoCategoriaEditar.SetApartmentState(ApartmentState.STA);
-                tAbrirTipoCategoriaEditar.Start();
+                frmTipoCategoriaEditar frmEditar = new frmTipoCategoriaEditar();
+                frmEditar.CodCategoria = dgvDados.CurrentRow.Cells[0].Value.ToString();
+                frmEditar.DesCategoria = dgvDados.CurrentRow.Cells[1].Value.ToString();
+                frmEditar.Tipos_Categoria = Tipos_Categoria;
+                frmEditar.ShowDialog();
+                dgvDados.Rows.Clear();
+                Tipos_Categoria.Clear();
+                carregarTipoCategoria(wpath+folder+nome_Arquivo,dgvDados);
+                
             }
         }
 
@@ -152,6 +151,9 @@ namespace Financial.Forms
                 }            
         }
 
-        
+        private void dgvDados_DoubleClick(object sender, EventArgs e)
+        {
+            btnEditar_Click(sender, e);
+        }
     }
 }
