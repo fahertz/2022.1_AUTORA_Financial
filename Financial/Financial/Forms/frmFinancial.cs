@@ -1,14 +1,17 @@
 ﻿using Financial.Forms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Financial.Categoria_Financeira;
 
 namespace Financial
 {
@@ -19,9 +22,110 @@ namespace Financial
             InitializeComponent();
         }
 
+
+
         //Instancia
         Mensagem mm = new Mensagem();
 
+        ////////////////Bloco para armazenar cadastros em geral
+        //Pega a raiz bin para salvar o arquivo produtos
+        string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
+        
+
+
+
+        //Criar pastas necessárias
+        void criarPastas(string Folder)
+        {
+            //Cria a pasta se ela não existir            
+            if (!Directory.Exists(Folder))
+            {
+                Directory.CreateDirectory(Folder);
+            }
+        }
+
+        //Carregar tabelas do sistema
+        private void carregar_TipoCategoria(string path)
+        {
+            if (File.Exists(path))
+            {
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
+
+                try
+                {
+
+                    Tipos_Categoria.Add((Tipo_Categoria)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Tipo_Categoria))));
+                    reader.Close();
+
+                }
+                catch
+                {
+                    try
+                    {
+
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Tipos_Categoria.Add(new Tipo_Categoria { idTipo_Categoria = Convert.ToInt32(dr["idTipo_Categoria"].ToString()), descTipo_Categoria = dr["descTipo_Categoria"].ToString() });
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+
+                    }
+                }
+
+            }
+
+        }
+
+        private void carregar_Categoria(string path)
+        {
+            if (File.Exists(path))
+            {
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
+
+                try
+                {
+
+                    Categorias.Add((Categoria)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Categoria))));
+                    reader.Close();
+
+                }
+                catch
+                {
+                    try
+                    {
+
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Categorias.Add(new Categoria { idCategoria = Convert.ToInt32(dr["idCategoria"].ToString()), descCategoria = dr["descCategoria"].ToString(), idTipo_Categoria = Convert.ToInt32(dr["idTipo_Categoria"].ToString()) });
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+
+                    }
+                }
+
+            }
+
+        }
 
 
 
@@ -60,7 +164,9 @@ namespace Financial
 
         private void frmFinancial_Load(object sender, EventArgs e)
         {
-            
+            criarPastas(wpath+ "\\CADASTROS");
+            carregar_TipoCategoria(wpath + "\\CADASTROS" + "\\CAD_TIPO_CATEGORIA.json");
+            carregar_Categoria(wpath + "\\CADASTROS" + "\\CAD_CATEGORIA.json");
         }
     }
 }

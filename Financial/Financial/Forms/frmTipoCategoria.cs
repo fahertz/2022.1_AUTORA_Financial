@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Financial.Categoria;
+using static Financial.Categoria_Financeira;
 
 namespace Financial.Forms
 {
@@ -31,10 +31,6 @@ namespace Financial.Forms
         string nome_Arquivo = "\\CAD_TIPO_CATEGORIA.json";                                     //Nome do arquivo
 
 
-        //Tipos de Categoria
-        List<Tipo_Categoria> Tipos_Categoria = new List<Tipo_Categoria>();
-
-
         void configuracao_Grid(DataGridView _dgv)
         {
             _dgv.Invoke((MethodInvoker)delegate
@@ -46,50 +42,52 @@ namespace Financial.Forms
 
         void carregarTipoCategoria(string path,DataGridView _dgv)
         {
-            StreamReader reader = new StreamReader(path);
-
-            string linhasDoArquivo = reader.ReadToEnd();
-
-            try
+            if (File.Exists(path))
             {
-                Tipos_Categoria.Add((Tipo_Categoria)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Tipo_Categoria))));
-                reader.Close();
-                
-            }
-            catch
-            {
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
+
                 try
                 {
+                    
 
-                    DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
-
-                    DataRow[] oDataRow = dt.Select();
+                    Tipos_Categoria.Add((Tipo_Categoria)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Tipo_Categoria))));
                     reader.Close();
 
-                    foreach (DataRow dr in oDataRow)
-                    {
-                        Tipos_Categoria.Add(new Tipo_Categoria { idTipo_Categoria = Convert.ToInt32(dr["idTipo_Categoria"].ToString()), descTipo_Categoria = dr["descTipo_Categoria"].ToString() });
-                    }
-                                        
                 }
-                catch (Exception ex)
+                catch
                 {
-                    mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                    mm.Tittle = "Erro";
-                    mm.Buttons = MessageBoxButtons.OK;
-                    mm.Icon = MessageBoxIcon.Error;
-                    mm.exibirMensagem();                                        
-                }                
-            }
-            finally
-            {
-                _dgv.Invoke((MethodInvoker)delegate
-                {
-                    foreach (var item in Tipos_Categoria)
+                    try
                     {
-                        _dgv.Rows.Add(item.idTipo_Categoria.ToString(), item.descTipo_Categoria);
+                        Tipos_Categoria.Clear();
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Tipos_Categoria.Add(new Tipo_Categoria { idTipo_Categoria = Convert.ToInt32(dr["idTipo_Categoria"].ToString()), descTipo_Categoria = dr["descTipo_Categoria"].ToString() });
+                        }
+
                     }
-                });
+                    catch
+                    {
+                        throw;
+                        
+                    }
+                }
+                finally
+                {
+                    _dgv.Invoke((MethodInvoker)delegate
+                    {
+                        foreach (var item in Tipos_Categoria)
+                        {
+                            if (item != null)
+                            _dgv.Rows.Add(item.idTipo_Categoria.ToString(), item.descTipo_Categoria);
+                        }
+                    });
+                }
             }
 
 
@@ -115,8 +113,7 @@ namespace Financial.Forms
             {
                 frmTipoCategoriaEditar frmEditar = new frmTipoCategoriaEditar();
                 frmEditar.CodCategoria = dgvDados.CurrentRow.Cells[0].Value.ToString();
-                frmEditar.DesCategoria = dgvDados.CurrentRow.Cells[1].Value.ToString();
-                frmEditar.Tipos_Categoria = Tipos_Categoria;
+                frmEditar.DesCategoria = dgvDados.CurrentRow.Cells[1].Value.ToString();               
                 frmEditar.ShowDialog();
                 dgvDados.Rows.Clear();
                 Tipos_Categoria.Clear();
@@ -133,12 +130,20 @@ namespace Financial.Forms
             this.Close();
         }
 
+
+        //Load do form
         private void frmTipoCategoria_Load(object sender, EventArgs e)
         {
+            //Configurações do Form
+            this.MaximizeBox = false;
+            this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
+            this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
+
             configuracao_Grid(dgvDados);
             Task.Factory.StartNew(() => carregarTipoCategoria(wpath+folder+nome_Arquivo,dgvDados));
         }
 
+        //Pesquisa por alteração de teste
         private void txtDescCategoria_TextChanged(object sender, EventArgs e)
         {
             
@@ -151,6 +156,7 @@ namespace Financial.Forms
                 }            
         }
 
+        //Duplo clique para ativar
         private void dgvDados_DoubleClick(object sender, EventArgs e)
         {
             btnEditar_Click(sender, e);

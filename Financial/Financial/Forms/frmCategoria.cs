@@ -18,6 +18,10 @@ namespace Financial.Forms
             InitializeComponent();
         }
 
+
+
+
+        //Abrir tipo de Categoria
         void abrirTipoCategoria()
         {
             Application.Run(new frmTipoCategoria());
@@ -30,6 +34,24 @@ namespace Financial.Forms
             tAbrirTipoCategoria.SetApartmentState(ApartmentState.STA);
             tAbrirTipoCategoria.Start();
         }
+
+
+        //Botão novo
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            frmCategoriaNovo frmNovo = new frmCategoriaNovo();
+            frmNovo.ShowDialog();
+
+        }
+
+
+        //Fechar form
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        
     }
 }
 

@@ -6,29 +6,5 @@
   {
     "idTipo_Categoria": 2,
     "descTipo_Categoria": "Saúde"
-  },
-  {
-    "idTipo_Categoria": 3,
-    "descTipo_Categoria": "Teste 3"
-  },
-  {
-    "idTipo_Categoria": 4,
-    "descTipo_Categoria": "Teste 4"
-  },
-  {
-    "idTipo_Categoria": 5,
-    "descTipo_Categoria": "Dívidas"
-  },
-  {
-    "idTipo_Categoria": 6,
-    "descTipo_Categoria": "Editar 6"
-  },
-  {
-    "idTipo_Categoria": 7,
-    "descTipo_Categoria": "Variável"
-  },
-  {
-    "idTipo_Categoria": 8,
-    "descTipo_Categoria": "Nova categoria"
   }
 ]

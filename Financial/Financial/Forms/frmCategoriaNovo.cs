@@ -7,24 +7,18 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Financial.Categoria_Financeira;
 
 namespace Financial.Forms
 {
-    public partial class frmTipoCategoriaNovo : Form
+    public partial class frmCategoriaNovo : Form
     {
-        public frmTipoCategoriaNovo()
+        public frmCategoriaNovo()
         {
             InitializeComponent();
         }
-
-
-        
-
-
 
         Mensagem mm = new Mensagem();
 
@@ -32,16 +26,12 @@ namespace Financial.Forms
         //Pega a raiz bin para salvar o arquivo produtos
         string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
         string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
-        string nome_Arquivo = "\\CAD_TIPO_CATEGORIA.json";                                     //Nome do arquivo
+        string nome_Arquivo = "\\CAD_CATEGORIA.json";                                           //Nome do arquivo
 
-
-        //Tipo Categoria
-        Tipo_Categoria categoria = new Tipo_Categoria();
-   
-
+        Categoria categoria = new Categoria();
 
         //Carrega o último código adicionado
-        private int carregar_Cod_TipoCategoria(String path)
+        private int carregarCodCategoria(String path)
         {
             //Se não houver nenhum cadastro, ele indica o código Inicial como 1
             if (!File.Exists(path))
@@ -51,17 +41,17 @@ namespace Financial.Forms
             // C.C ele assume o último código já posto
             else
             {
-                
+
                 StreamReader reader = new StreamReader(path);
-                
+
                 string linhasDoArquivo = reader.ReadToEnd();
 
                 try
                 {
-                    Tipos_Categoria.Add((Tipo_Categoria)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Tipo_Categoria))));                    
-                    reader.Close();                    
-                    return Tipos_Categoria[Tipos_Categoria.Count - 1].idTipo_Categoria + 1;
-                    
+                    Categorias.Add((Categoria)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Categoria))));
+                    reader.Close();
+                    return Categorias[Categorias.Count - 1].idCategoria + 1;
+
                 }
                 catch
                 {
@@ -69,15 +59,15 @@ namespace Financial.Forms
                     {
 
                         DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
-                        
+
                         DataRow[] oDataRow = dt.Select();
-                        reader.Close();                                                
-                        
-                        return Tipos_Categoria[Tipos_Categoria.Count - 1].idTipo_Categoria + 1;
+                        reader.Close();
+
+                        return Categorias[Categorias.Count - 1].idCategoria + 1;
 
                     }
                     catch (Exception ex)
-                    {                        
+                    {
                         mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
                         mm.Tittle = "Erro";
                         mm.Buttons = MessageBoxButtons.OK;
@@ -92,19 +82,8 @@ namespace Financial.Forms
             }
         }
 
-
-        //Criar pastas necessárias
-        void criarPastas(string Folder)
-        {            
-            //Cria a pasta se ela não existir            
-            if (!Directory.Exists(Folder))
-            {
-                Directory.CreateDirectory(Folder);                
-            }            
-        }
-
         //Salvar categoria
-        void salvar_Categoria(int Codigo, string Descricao)
+        void salvar_Categoria(int Codigo, string Descricao, int codTpCat)
         {
             //Caminho da aplicação + nome da pasta
             string _folder = wpath + folder;
@@ -113,31 +92,33 @@ namespace Financial.Forms
 
             if (Descricao.Trim().Equals(String.Empty))
             {
-                mm.Message = "O campo "+lblTipoCategoria.Text+" não pode estar vazio.";
+                mm.Message = "O campo " + lblCategoria.Text + " não pode estar vazio.";
                 mm.Tittle = "Validação";
                 mm.Buttons = MessageBoxButtons.OK;
                 mm.Icon = MessageBoxIcon.Warning;
                 mm.exibirMensagem();
-                txtDescCategoria.Focus();
+                txtDescTipoCategoria.Focus();
                 this.Close();
 
             }
 
+            
+
 
             //Preenchendo os dados da classe
-            categoria.idTipo_Categoria = Codigo;
-            categoria.descTipo_Categoria = Descricao;
+            categoria.idCategoria = Codigo;
+            categoria.descCategoria = Descricao;
+            categoria.idTipo_Categoria = codTpCat;
 
-            
 
             try
             {
                 StreamWriter writer_Produtos = new StreamWriter(_folder + nome_Arquivo);
                 writer_Produtos.Close();
-                if (Tipos_Categoria.Count > 0)
+                if (Categorias.Count > 0)
                 {
-                    Tipos_Categoria.Add(categoria);
-                    File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Tipos_Categoria, Formatting.Indented), Encoding.UTF8);
+                    Categorias.Add(categoria);
+                    File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Categorias, Formatting.Indented), Encoding.UTF8);
                 }
                 else
                     File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(categoria, Formatting.Indented), Encoding.UTF8);
@@ -161,38 +142,45 @@ namespace Financial.Forms
                 mm.Icon = MessageBoxIcon.Information;
                 mm.exibirMensagem();
                 this.Close();
-            }                                    
+            }
         }
 
-        
-                                
 
-        //Load do form
-        private void frmTipoCategoriaNovo_Load(object sender, EventArgs e)
+        private void frmCategoriaNovo_Load(object sender, EventArgs e)
         {
-            //Nome do arquivo completop
-            string complete_Archive = wpath + folder + nome_Arquivo;
+            //Configurações do Form
+            txtCodCategoria.ReadOnly = true;
 
             //Caracteristicas do form
             this.MaximizeBox = false;
             this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
             this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
-            txtCodTipoCategoria.ReadOnly = true;
 
-            //Criando pastas necessárias para o processo
-            Task.Factory.StartNew(() => criarPastas(wpath + folder));
-
-            //Definindo o código Inicial do processo            
-            int lastCode = 0;            
-            Task.WaitAll(Task.Factory.StartNew(() => lastCode = carregar_Cod_TipoCategoria(complete_Archive)));
-            txtCodTipoCategoria.Text = lastCode.ToString();
+            //Carregar codigo
+            txtCodCategoria.Text = carregarCodCategoria(wpath+folder+nome_Arquivo).ToString();
         }
 
+        private void txtCodTipoCategoria_TextChanged(object sender, EventArgs e)
+        {
+            foreach (var tipos in Tipos_Categoria)
+            {
+                if (Convert.ToInt32(txtCodTipoCategoria.Text) == tipos.idTipo_Categoria )
+                {
+                    txtDescTipoCategoria.Text = tipos.descTipo_Categoria;
+                }
+            }
+        }
 
-        //Cancelar operação
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            //Salvar informações
+            lock (txtCodCategoria)
+                salvar_Categoria(Convert.ToInt32(txtCodCategoria.Text), txtDescCategoria.Text,Convert.ToInt32(txtCodTipoCategoria.Text));
+        }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if (!txtDescCategoria.Text.Trim().Equals(String.Empty)) 
+            if (!txtDescCategoria.Text.Trim().Equals(String.Empty))
             {
                 mm.Message = "Você deseja cancelar a operação?";
                 mm.Tittle = "Cancelar a operação";
@@ -206,14 +194,6 @@ namespace Financial.Forms
             {
                 this.Close();
             }
-        }
-
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            //Salvar informações
-            lock(txtCodTipoCategoria)
-            salvar_Categoria(Convert.ToInt32(txtCodTipoCategoria.Text),txtDescCategoria.Text);
-            
         }
     }
 }

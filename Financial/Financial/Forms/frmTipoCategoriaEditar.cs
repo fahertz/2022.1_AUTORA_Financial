@@ -7,9 +7,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Financial;
 using System.Windows.Forms;
-using static Financial.Categoria;
+using static Financial.Categoria_Financeira;
 
 namespace Financial.Forms
 {
@@ -29,11 +29,7 @@ namespace Financial.Forms
         string nome_Arquivo = "\\CAD_TIPO_CATEGORIA.json";                                     //Nome do arquivo
 
 
-        //Tipo Categoria
-        Tipo_Categoria categoria = new Tipo_Categoria();
-
-        //Tipos de Categoria
-        public List<Tipo_Categoria> Tipos_Categoria = new List<Tipo_Categoria>();
+   
 
 
 
@@ -141,6 +137,8 @@ namespace Financial.Forms
             }
             finally
             {
+                if (Tipos_Categoria.Count == 0)
+                    File.Delete(_folder + nome_Arquivo);
                 mm.Message = "Registro deletado com sucesso!";
                 mm.Tittle = "Deletar registro";
                 mm.Buttons = MessageBoxButtons.OK;
@@ -153,8 +151,7 @@ namespace Financial.Forms
         private void frmTipoCategoriaEditar_Load(object sender, EventArgs e)
         {
             //Configurações da Tela
-            txtCodTipoCategoria.ReadOnly = true;
-            this.StartPosition = FormStartPosition.CenterScreen;
+            txtCodTipoCategoria.ReadOnly = true;            
             this.MaximizeBox = false;
             this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
             this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
