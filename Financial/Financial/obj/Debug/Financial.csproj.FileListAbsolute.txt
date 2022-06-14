@@ -38,3 +38,5 @@ C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Finan
 C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmTipoCategoriaEditar.resources
 C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.csproj.CopyComplete
 C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmCategoriaNovo.resources
+C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmCategoriaNovo.resources
+C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmTipoCategoriaEditar.resources

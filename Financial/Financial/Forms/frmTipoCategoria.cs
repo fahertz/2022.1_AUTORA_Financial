@@ -20,10 +20,7 @@ namespace Financial.Forms
         {
             InitializeComponent();
         }
-
-
-        Mensagem mm = new Mensagem();
-
+        
         ////////////////Bloco para armazenar cadastros em geral
         //Pega a raiz bin para salvar o arquivo produtos
         string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
@@ -31,6 +28,7 @@ namespace Financial.Forms
         string nome_Arquivo = "\\CAD_TIPO_CATEGORIA.json";                                     //Nome do arquivo
 
 
+        //Configuração da Grid
         void configuracao_Grid(DataGridView _dgv)
         {
             _dgv.Invoke((MethodInvoker)delegate
@@ -40,41 +38,34 @@ namespace Financial.Forms
             });
         }
 
-        void carregarTipoCategoria(string path,DataGridView _dgv)
+        //Carregando tipo da categoria
+        void carregarTipoCategoria(string path, DataGridView _dgv)
         {
             if (File.Exists(path))
             {
+                Tipos_Categoria.Clear();
                 StreamReader reader = new StreamReader(path);
                 string linhasDoArquivo = reader.ReadToEnd();
-
                 try
                 {
-                    
-
                     Tipos_Categoria.Add((Tipo_Categoria)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Tipo_Categoria))));
                     reader.Close();
-
                 }
                 catch
                 {
                     try
-                    {
-                        Tipos_Categoria.Clear();
+                    {                        
                         DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
-
                         DataRow[] oDataRow = dt.Select();
                         reader.Close();
-
                         foreach (DataRow dr in oDataRow)
                         {
                             Tipos_Categoria.Add(new Tipo_Categoria { idTipo_Categoria = Convert.ToInt32(dr["idTipo_Categoria"].ToString()), descTipo_Categoria = dr["descTipo_Categoria"].ToString() });
                         }
-
                     }
                     catch
                     {
                         throw;
-                        
                     }
                 }
                 finally
@@ -84,50 +75,37 @@ namespace Financial.Forms
                         foreach (var item in Tipos_Categoria)
                         {
                             if (item != null)
-                            _dgv.Rows.Add(item.idTipo_Categoria.ToString(), item.descTipo_Categoria);
+                                _dgv.Rows.Add(item.idTipo_Categoria.ToString(), item.descTipo_Categoria);
                         }
                     });
                 }
             }
-
-
         }
 
-     
 
+        //Iniciando nova instância para criar um Tipo de categoria
         private void btnNovo_Click(object sender, EventArgs e)
         {
             frmTipoCategoriaNovo frmNovo = new frmTipoCategoriaNovo();
 
             frmNovo.ShowDialog();
-            dgvDados.Rows.Clear();
-            Tipos_Categoria.Clear();
+            dgvDados.Rows.Clear();            
             carregarTipoCategoria(wpath + folder + nome_Arquivo, dgvDados);
         }
 
-       
 
+        //Editar um Tipo de categoria
         private void btnEditar_Click(object sender, EventArgs e)
         {
             if (dgvDados.CurrentRow != null)
             {
                 frmTipoCategoriaEditar frmEditar = new frmTipoCategoriaEditar();
                 frmEditar.CodCategoria = dgvDados.CurrentRow.Cells[0].Value.ToString();
-                frmEditar.DesCategoria = dgvDados.CurrentRow.Cells[1].Value.ToString();               
+                frmEditar.DesCategoria = dgvDados.CurrentRow.Cells[1].Value.ToString();
                 frmEditar.ShowDialog();
                 dgvDados.Rows.Clear();
-                Tipos_Categoria.Clear();
-                carregarTipoCategoria(wpath+folder+nome_Arquivo,dgvDados);
-                
+                carregarTipoCategoria(wpath + folder + nome_Arquivo, dgvDados);
             }
-        }
-
-
-
-        //Fechar aplicação
-        private void btnFechar_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
 
@@ -140,9 +118,13 @@ namespace Financial.Forms
             this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
 
             configuracao_Grid(dgvDados);
-            Task.Factory.StartNew(() => carregarTipoCategoria(wpath+folder+nome_Arquivo,dgvDados));
+            Task.Factory.StartNew(() => carregarTipoCategoria(wpath + folder + nome_Arquivo, dgvDados));
         }
 
+
+       
+
+        
         //Pesquisa por alteração de teste
         private void txtDescCategoria_TextChanged(object sender, EventArgs e)
         {
@@ -160,6 +142,12 @@ namespace Financial.Forms
         private void dgvDados_DoubleClick(object sender, EventArgs e)
         {
             btnEditar_Click(sender, e);
+        }
+
+        //Fecha a tela
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -31,55 +31,12 @@ namespace Financial.Forms
         Categoria categoria = new Categoria();
 
         //Carrega o último código adicionado
-        private int carregarCodCategoria(String path)
+        private int carregarCodCategoria()
         {
-            //Se não houver nenhum cadastro, ele indica o código Inicial como 1
-            if (!File.Exists(path))
-            {
-                return 1;
-            }
-            // C.C ele assume o último código já posto
+            if (Categorias.Count > 0)
+                return Categorias[Categorias.Count - 1].idCategoria + 1;
             else
-            {
-
-                StreamReader reader = new StreamReader(path);
-
-                string linhasDoArquivo = reader.ReadToEnd();
-
-                try
-                {
-                    Categorias.Add((Categoria)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Categoria))));
-                    reader.Close();
-                    return Categorias[Categorias.Count - 1].idCategoria + 1;
-
-                }
-                catch
-                {
-                    try
-                    {
-
-                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
-
-                        DataRow[] oDataRow = dt.Select();
-                        reader.Close();
-
-                        return Categorias[Categorias.Count - 1].idCategoria + 1;
-
-                    }
-                    catch (Exception ex)
-                    {
-                        mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                        mm.Tittle = "Erro";
-                        mm.Buttons = MessageBoxButtons.OK;
-                        mm.Icon = MessageBoxIcon.Error;
-                        mm.exibirMensagem();
-                        this.Close();
-                        return 1;
-                    }
-                }
-
-
-            }
+                return 1;
         }
 
         //Salvar categoria
@@ -87,8 +44,6 @@ namespace Financial.Forms
         {
             //Caminho da aplicação + nome da pasta
             string _folder = wpath + folder;
-
-
 
             if (Descricao.Trim().Equals(String.Empty))
             {
@@ -101,15 +56,11 @@ namespace Financial.Forms
                 this.Close();
 
             }
-
             
-
-
             //Preenchendo os dados da classe
             categoria.idCategoria = Codigo;
             categoria.descCategoria = Descricao;
             categoria.idTipo_Categoria = codTpCat;
-
 
             try
             {
@@ -123,8 +74,6 @@ namespace Financial.Forms
                 else
                     File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(categoria, Formatting.Indented), Encoding.UTF8);
             }
-
-
             catch (Exception ex)
             {
                 mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
@@ -148,7 +97,7 @@ namespace Financial.Forms
 
         private void frmCategoriaNovo_Load(object sender, EventArgs e)
         {
-            //Configurações do Form
+             //Configurações do Form
             txtCodCategoria.ReadOnly = true;
 
             //Caracteristicas do form
@@ -156,28 +105,74 @@ namespace Financial.Forms
             this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
             this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
 
-            //Carregar codigo
-            txtCodCategoria.Text = carregarCodCategoria(wpath+folder+nome_Arquivo).ToString();
+            //Definindo o código Inicial do processo            
+            int lastCode = 0;
+            Task.WaitAny(Task.Factory.StartNew(() => lastCode = carregarCodCategoria()));
+            txtCodCategoria.Text = lastCode.ToString();            
         }
 
+
+        //Carrega o tipo de categoria ao digitar
         private void txtCodTipoCategoria_TextChanged(object sender, EventArgs e)
         {
-            foreach (var tipos in Tipos_Categoria)
+            try
             {
-                if (Convert.ToInt32(txtCodTipoCategoria.Text) == tipos.idTipo_Categoria )
+                foreach (var tipos in Tipos_Categoria)
                 {
-                    txtDescTipoCategoria.Text = tipos.descTipo_Categoria;
+                    if (Convert.ToInt32(txtCodTipoCategoria.Text) == tipos.idTipo_Categoria)
+                    {
+                        txtDescTipoCategoria.Text = tipos.descTipo_Categoria;
+                    }
                 }
+            }
+            catch
+            {
+                txtCodTipoCategoria.Text = String.Empty;
+                txtDescTipoCategoria.Text = String.Empty;
             }
         }
 
+
+        //Botão salvar
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             //Salvar informações
             lock (txtCodCategoria)
-                salvar_Categoria(Convert.ToInt32(txtCodCategoria.Text), txtDescCategoria.Text,Convert.ToInt32(txtCodTipoCategoria.Text));
+            {
+                if (txtDescTipoCategoria.Text.Equals(String.Empty))
+                {
+                    mm.Message = "O tipo de categoria não pode estar vazio";
+                    mm.Tittle = "Tipo categoria";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Warning;
+                    DialogResult result = mm.exibirMensagem();
+                    return;
+                }
+
+                int block = 1;
+                foreach (var tipo in Tipos_Categoria)
+                {
+                    if (tipo.descTipo_Categoria.ToUpper().Equals(txtDescTipoCategoria.Text.ToUpper()))
+                        block = 0;
+                }
+
+                if (block == 1)
+                {
+                    mm.Message = "Tipo de categoria inválida";
+                    mm.Tittle = "Tipo categoria";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Warning;
+                    DialogResult result = mm.exibirMensagem();
+                    return;
+                }
+
+
+
+                salvar_Categoria(Convert.ToInt32(txtCodCategoria.Text), txtDescCategoria.Text, Convert.ToInt32(txtCodTipoCategoria.Text));
+            }
         }
 
+        //Botão Cancelar
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             if (!txtDescCategoria.Text.Trim().Equals(String.Empty))

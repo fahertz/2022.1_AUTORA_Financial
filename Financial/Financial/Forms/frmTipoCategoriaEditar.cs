@@ -28,11 +28,7 @@ namespace Financial.Forms
         string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
         string nome_Arquivo = "\\CAD_TIPO_CATEGORIA.json";                                     //Nome do arquivo
 
-
    
-
-
-
         //Instância dos dados
         public string CodCategoria { get; set; }
         public string DesCategoria { get; set; }
@@ -42,10 +38,7 @@ namespace Financial.Forms
         {
             //Caminho da aplicação + nome da pasta
             string _folder = wpath + folder;
-
-           
-           
-
+                      
             if (Descricao.Trim().Equals(String.Empty))
             {
                 mm.Message = "O campo " + lblTipoCategoria.Text + " não pode estar vazio.";
@@ -54,8 +47,7 @@ namespace Financial.Forms
                 mm.Icon = MessageBoxIcon.Warning;
                 mm.exibirMensagem();
                 txtDescCategoria.Focus();
-                this.Close();
-
+                return;
             }
 
             for (int x = 0; x < Tipos_Categoria.Count; x++)
@@ -98,13 +90,11 @@ namespace Financial.Forms
             }
         }
 
-        //Salvar categoria
+        //Remover categoria
         void deletar_Categoria(int Codigo, string Descricao)
         {
             //Caminho da aplicação + nome da pasta
             string _folder = wpath + folder;
-
-
           
             for (int x = 0; x < Tipos_Categoria.Count; x++)
             {
@@ -148,6 +138,8 @@ namespace Financial.Forms
             }
         }
 
+
+        //Load do form
         private void frmTipoCategoriaEditar_Load(object sender, EventArgs e)
         {
             //Configurações da Tela
@@ -165,6 +157,7 @@ namespace Financial.Forms
             
         }
 
+        //Cancelar operação
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             if (txtDescCategoria.Text.Equals(DesCategoria))
@@ -183,6 +176,7 @@ namespace Financial.Forms
             }
         }
 
+        //Botão salvar
         private void btnSalvar_Click(object sender, EventArgs e)
         {
 
@@ -197,7 +191,7 @@ namespace Financial.Forms
                 this.Close();
             }
         }
-
+        //Botão deletar
         private void btnDeletar_Click(object sender, EventArgs e)
         {
             mm.Message = "Você deseja deletar o registro?";
