@@ -63,7 +63,9 @@ namespace Financial.Forms
 
                         foreach (DataRow dr in oDataRow)
                         {
-                            Categorias.Add(new Categoria { idCategoria = Convert.ToInt32(dr["idCategoria"].ToString()), descCategoria = dr["descCategoria"].ToString(), idTipo_Categoria = Convert.ToInt32(dr["idTipo_Categoria"].ToString()) });
+                            Categorias.Add(new Categoria { idCategoria      = Convert.ToInt32(dr["idCategoria"].ToString())
+                                                          ,descCategoria    = dr["descCategoria"].ToString()
+                                                          ,idTipo_Categoria = Convert.ToInt32(dr["idTipo_Categoria"].ToString()) });
                         }
 
                     }
@@ -97,15 +99,13 @@ namespace Financial.Forms
 
 
         //Abrir tipo de Categoria
-        void abrirTipoCategoria()
-        {
-        Application.Run(new frmTipoCategoria());
-        }
+        
         private void btnTipoCategoria_Click(object sender, EventArgs e)
         {
-            Thread tAbrirTipoCategoria = new Thread(abrirTipoCategoria);
-            tAbrirTipoCategoria.SetApartmentState(ApartmentState.STA);
-            tAbrirTipoCategoria.Start();
+            frmTipoCategoria frmTipoCategoria = new frmTipoCategoria();
+            frmTipoCategoria.ShowDialog();
+            dgvDados.Rows.Clear();
+            carregarCategoria(wpath+folder+nome_Arquivo,dgvDados);
         }
 
 
@@ -134,11 +134,21 @@ namespace Financial.Forms
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            frmCategoriaNovo frmEditar = new frmCategoriaNovo();
+            if (dgvDados.CurrentRow != null) 
+            {
+                frmCategoriaEditar frmEditar = new frmCategoriaEditar();
+                frmEditar.CodCategoria = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value.ToString());
+                frmEditar.DesCategoria = dgvDados.CurrentRow.Cells[1].Value.ToString();
+                frmEditar.CodTipCategoria = Convert.ToInt32(dgvDados.CurrentRow.Cells[2].Value.ToString());
+                frmEditar.ShowDialog();
+                dgvDados.Rows.Clear();
+                carregarCategoria(wpath + folder + nome_Arquivo, dgvDados);
+            }
+        }
 
-            frmEditar.ShowDialog();
-            dgvDados.Rows.Clear();
-            carregarCategoria(wpath + folder + nome_Arquivo, dgvDados);
+        private void dgvDados_DoubleClick(object sender, EventArgs e)
+        {
+            btnEditar_Click(sender, e);
         }
     }
 }

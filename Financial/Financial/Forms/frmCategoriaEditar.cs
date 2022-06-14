@@ -7,15 +7,15 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Financial;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Financial.Categoria_Financeira;
 
 namespace Financial.Forms
 {
-    public partial class frmTipoCategoriaEditar : Form
+    public partial class frmCategoriaEditar : Form
     {
-        public frmTipoCategoriaEditar()
+        public frmCategoriaEditar()
         {
             InitializeComponent();
         }
@@ -26,46 +26,61 @@ namespace Financial.Forms
         //Pega a raiz bin para salvar o arquivo produtos
         string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
         string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
-        string nome_Arquivo = "\\CAD_TIPO_CATEGORIA.json";                                     //Nome do arquivo
+        string nome_Arquivo = "\\CAD_CATEGORIA.json";                                     //Nome do arquivo
+        
 
-   
+
         //Instância dos dados
-        public string CodCategoria { get; set; }
+        public int CodCategoria { get; set; }
         public string DesCategoria { get; set; }
+        public int CodTipCategoria { get; set; }
+
 
         //Salvar categoria
-        void salvar_Categoria(int Codigo, string Descricao)
+        void salvar_Categoria(int Codigo, string Descricao, int CodTipCategoria, string DescTipCategoria)
         {
             //Caminho da aplicação + nome da pasta
             string _folder = wpath + folder;
-                      
+
             if (Descricao.Trim().Equals(String.Empty))
             {
-                mm.Message = "O campo " + lblTipoCategoria.Text + " não pode estar vazio.";
+                mm.Message = "O campo " + lblCategoria.Text + " não pode estar vazio.";
                 mm.Tittle = "Validação";
                 mm.Buttons = MessageBoxButtons.OK;
-                mm.Icon = MessageBoxIcon.Warning;
+                mm.Icon = MessageBoxIcon.Error;
                 mm.exibirMensagem();
                 txtDescCategoria.Focus();
                 return;
             }
 
-            for (int x = 0; x < Tipos_Categoria.Count; x++)
+            if (DescTipCategoria.Equals(String.Empty))
             {
-                if (Codigo == Tipos_Categoria[x].idTipo_Categoria)
+                mm.Message = "O campo " + lblCategoria.Text + " não pode estar vazio.";
+                mm.Tittle = "Validação";
+                mm.Buttons = MessageBoxButtons.OK;
+                mm.Icon = MessageBoxIcon.Error;
+                mm.exibirMensagem();
+                txtDescTipoCategoria.Focus();
+                return;
+            }
+
+            for (int x = 0; x < Categorias.Count; x++)
+            {
+                if (Codigo == Categorias[x].idCategoria)
                 {
-                    Tipos_Categoria[x].descTipo_Categoria = Descricao;
+                    Categorias[x].descCategoria = Descricao;
+                    Categorias[x].idTipo_Categoria = CodTipCategoria;
                     break;
                 }
             }
-          
+
             try
             {
                 StreamWriter writer_Produtos = new StreamWriter(_folder + nome_Arquivo);
                 writer_Produtos.Close();
-                if (Tipos_Categoria.Count > 0)
-                {                  
-                        File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Tipos_Categoria, Formatting.Indented), Encoding.UTF8);                    
+                if (Categorias.Count > 0)
+                {
+                    File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Categorias, Formatting.Indented), Encoding.UTF8);
                 }
             }
 
@@ -90,17 +105,18 @@ namespace Financial.Forms
             }
         }
 
+
         //Remover categoria
         void deletar_Categoria(int Codigo)
         {
             //Caminho da aplicação + nome da pasta
             string _folder = wpath + folder;
-          
-            for (int x = 0; x < Tipos_Categoria.Count; x++)
+
+            for (int x = 0; x < Categorias.Count; x++)
             {
-                if (Codigo == Tipos_Categoria[x].idTipo_Categoria)
+                if (Codigo == Categorias[x].idCategoria)
                 {
-                    Tipos_Categoria.Remove(Tipos_Categoria[x]);
+                    Categorias.Remove(Categorias[x]);
                     break;
                 }
             }
@@ -109,9 +125,9 @@ namespace Financial.Forms
             {
                 StreamWriter writer_Produtos = new StreamWriter(_folder + nome_Arquivo);
                 writer_Produtos.Close();
-                if (Tipos_Categoria.Count > 0)
+                if (Categorias.Count > 0)
                 {
-                    File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Tipos_Categoria, Formatting.Indented), Encoding.UTF8);
+                    File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Categorias, Formatting.Indented), Encoding.UTF8);
                 }
             }
 
@@ -127,7 +143,7 @@ namespace Financial.Forms
             }
             finally
             {
-                if (Tipos_Categoria.Count == 0)
+                if (Categorias.Count == 0)
                     File.Delete(_folder + nome_Arquivo);
                 mm.Message = "Registro deletado com sucesso!";
                 mm.Tittle = "Deletar registro";
@@ -139,25 +155,23 @@ namespace Financial.Forms
         }
 
 
-        //Load do form
-        private void frmTipoCategoriaEditar_Load(object sender, EventArgs e)
+
+
+        private void frmCategoriaEditar_Load(object sender, EventArgs e)
         {
             //Configurações da Tela
-            txtCodTipoCategoria.ReadOnly = true;            
+            txtCodCategoria.ReadOnly = true;
             this.MaximizeBox = false;
             this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
             this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
 
 
             //Dados herdados
-            txtCodTipoCategoria.Text = CodCategoria;
+            txtCodCategoria.Text = CodCategoria.ToString();
             txtDescCategoria.Text = DesCategoria;
-
-            
-            
+            txtCodTipoCategoria.Text = CodTipCategoria.ToString();
         }
 
-        //Cancelar operação
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             if (txtDescCategoria.Text.Equals(DesCategoria))
@@ -176,45 +190,57 @@ namespace Financial.Forms
             }
         }
 
-        //Botão salvar
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-
             mm.Message = "Você deseja salvar a operação?";
             mm.Tittle = "Salvar a operação";
             mm.Buttons = MessageBoxButtons.YesNo;
-            mm.Icon = MessageBoxIcon.Warning;
+            mm.Icon = MessageBoxIcon.Question;
             DialogResult result = mm.exibirMensagem();
             if (result == DialogResult.Yes)
             {
-                salvar_Categoria(Convert.ToInt32(txtCodTipoCategoria.Text), txtDescCategoria.Text);
+                salvar_Categoria(Convert.ToInt32(txtCodCategoria.Text), txtDescCategoria.Text,Convert.ToInt32(txtCodTipoCategoria.Text),txtDescTipoCategoria.Text);
                 this.Close();
             }
         }
-        //Botão deletar
+
         private void btnDeletar_Click(object sender, EventArgs e)
         {
             mm.Message = "Você deseja deletar o registro?";
             mm.Tittle = "Deletar registro";
             mm.Buttons = MessageBoxButtons.YesNo;
-            mm.Icon = MessageBoxIcon.Warning;
+            mm.Icon = MessageBoxIcon.Question;
             DialogResult result = mm.exibirMensagem();
             if (result == DialogResult.Yes)
             {
-                foreach (var item in Categorias)
+                
+
+                deletar_Categoria(Convert.ToInt32(txtCodCategoria.Text));
+                this.Close();
+            }
+
+        }
+
+        private void txtCodTipoCategoria_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (var tipos in Tipos_Categoria)
                 {
-                    if (Convert.ToInt32(txtCodTipoCategoria.Text) == item.idTipo_Categoria)
+                    if (Convert.ToInt32(txtCodTipoCategoria.Text) == tipos.idTipo_Categoria)
                     {
-                        mm.Message = "Impossível deletar, registro associado.";
-                        mm.Tittle = "Deletar registro";
-                        mm.Buttons = MessageBoxButtons.OK;
-                        mm.Icon = MessageBoxIcon.Warning;
-                        mm.exibirMensagem();
-                        return;
+                        txtDescTipoCategoria.Text = tipos.descTipo_Categoria;
+                    }
+                    else
+                    {
+                        txtDescTipoCategoria.Text = String.Empty;
                     }
                 }
-                deletar_Categoria(Convert.ToInt32(txtCodTipoCategoria.Text));
-                this.Close();
+            }
+            catch
+            {
+                txtCodTipoCategoria.Text = String.Empty;
+                txtDescTipoCategoria.Text = String.Empty;
             }
         }
     }

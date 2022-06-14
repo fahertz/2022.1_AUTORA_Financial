@@ -123,6 +123,10 @@ namespace Financial.Forms
                     {
                         txtDescTipoCategoria.Text = tipos.descTipo_Categoria;
                     }
+                    else
+                    {
+                        txtDescTipoCategoria.Text = String.Empty;
+                    }
                 }
             }
             catch

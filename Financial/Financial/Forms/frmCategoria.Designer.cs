@@ -78,6 +78,7 @@
             this.dgvDados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDados.Size = new System.Drawing.Size(776, 319);
             this.dgvDados.TabIndex = 30;
+            this.dgvDados.DoubleClick += new System.EventHandler(this.dgvDados_DoubleClick);
             // 
             // btnEditar
             // 
