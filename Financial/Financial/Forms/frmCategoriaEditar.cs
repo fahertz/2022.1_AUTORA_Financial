@@ -230,10 +230,11 @@ namespace Financial.Forms
                     if (Convert.ToInt32(txtCodTipoCategoria.Text) == tipos.idTipo_Categoria)
                     {
                         txtDescTipoCategoria.Text = tipos.descTipo_Categoria;
+                        break;
                     }
                     else
                     {
-                        txtDescTipoCategoria.Text = String.Empty;
+                        txtDescTipoCategoria.Text = String.Empty;                        
                     }
                 }
             }

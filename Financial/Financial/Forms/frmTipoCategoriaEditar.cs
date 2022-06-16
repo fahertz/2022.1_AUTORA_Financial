@@ -205,7 +205,7 @@ namespace Financial.Forms
                 {
                     if (Convert.ToInt32(txtCodTipoCategoria.Text) == item.idTipo_Categoria)
                     {
-                        mm.Message = "Impossível deletar, registro associado.";
+                        mm.Message = "Impossível deletar, registro associado. Verifique a qual categoria o tipo está associado.";
                         mm.Tittle = "Deletar registro";
                         mm.Buttons = MessageBoxButtons.OK;
                         mm.Icon = MessageBoxIcon.Warning;

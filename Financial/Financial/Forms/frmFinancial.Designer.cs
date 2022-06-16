@@ -33,7 +33,7 @@
             this.btnRelatorios = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
             this.btnBackup = new System.Windows.Forms.Button();
-            this.btnCategorias = new System.Windows.Forms.Button();
+            this.btnCadastros = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnEntradas
@@ -83,22 +83,22 @@
             this.btnBackup.Text = "Backup";
             this.btnBackup.UseVisualStyleBackColor = true;
             // 
-            // btnCategorias
+            // btnCadastros
             // 
-            this.btnCategorias.Location = new System.Drawing.Point(491, 102);
-            this.btnCategorias.Name = "btnCategorias";
-            this.btnCategorias.Size = new System.Drawing.Size(249, 69);
-            this.btnCategorias.TabIndex = 5;
-            this.btnCategorias.Text = "Categorias";
-            this.btnCategorias.UseVisualStyleBackColor = true;
-            this.btnCategorias.Click += new System.EventHandler(this.btnCategorias_Click);
+            this.btnCadastros.Location = new System.Drawing.Point(12, 252);
+            this.btnCadastros.Name = "btnCadastros";
+            this.btnCadastros.Size = new System.Drawing.Size(249, 69);
+            this.btnCadastros.TabIndex = 5;
+            this.btnCadastros.Text = "Cadastros";
+            this.btnCadastros.UseVisualStyleBackColor = true;
+            this.btnCadastros.Click += new System.EventHandler(this.btnCadastros_Click);
             // 
             // frmFinancial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnCategorias);
+            this.Controls.Add(this.btnCadastros);
             this.Controls.Add(this.btnBackup);
             this.Controls.Add(this.btnSair);
             this.Controls.Add(this.btnRelatorios);
@@ -119,7 +119,7 @@
         private System.Windows.Forms.Button btnRelatorios;
         private System.Windows.Forms.Button btnSair;
         private System.Windows.Forms.Button btnBackup;
-        private System.Windows.Forms.Button btnCategorias;
+        private System.Windows.Forms.Button btnCadastros;
     }
 }
 

@@ -74,6 +74,7 @@
             this.dgvDados.Name = "dgvDados";
             this.dgvDados.ReadOnly = true;
             this.dgvDados.RowHeadersVisible = false;
+            this.dgvDados.RowHeadersWidth = 51;
             this.dgvDados.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvDados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDados.Size = new System.Drawing.Size(776, 319);
@@ -105,7 +106,7 @@
             this.lblCategoria.AutoSize = true;
             this.lblCategoria.Location = new System.Drawing.Point(12, 6);
             this.lblCategoria.Name = "lblCategoria";
-            this.lblCategoria.Size = new System.Drawing.Size(52, 13);
+            this.lblCategoria.Size = new System.Drawing.Size(60, 15);
             this.lblCategoria.TabIndex = 27;
             this.lblCategoria.Text = "Categoria";
             // 
@@ -115,6 +116,7 @@
             this.txtCategoria.Name = "txtCategoria";
             this.txtCategoria.Size = new System.Drawing.Size(614, 20);
             this.txtCategoria.TabIndex = 26;
+            this.txtCategoria.TextChanged += new System.EventHandler(this.txtCategoria_TextChanged);
             // 
             // frmCategoria
             // 

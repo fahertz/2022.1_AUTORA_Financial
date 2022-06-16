@@ -169,10 +169,18 @@ namespace Financial
             carregar_Categoria(wpath + "\\CADASTROS" + "\\CAD_CATEGORIA.json");
         }
 
-        private void btnCategorias_Click(object sender, EventArgs e)
+        
+
+        private void abrirCadastros()
         {
-            frmCategoria frm = new frmCategoria();
-            frm.Show();
+
+        }
+
+
+
+        private void btnCadastros_Click(object sender, EventArgs e)
+        {
+            abrirCadastros();
         }
     }
 }

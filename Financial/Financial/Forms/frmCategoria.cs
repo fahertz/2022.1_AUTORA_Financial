@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 using static Financial.Categoria_Financeira;
 using Newtonsoft.Json;
+using System.Drawing;
 
 namespace Financial.Forms
 {
@@ -128,6 +122,13 @@ namespace Financial.Forms
 
         private void frmCategoria_Load(object sender, EventArgs e)
         {
+            //Configurações da Tela
+            
+            this.MaximizeBox = false;
+            this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
+            this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
+
+
             configuracao_Grid(dgvDados);
             carregarCategoria(wpath+folder+nome_Arquivo,dgvDados);
         }
@@ -149,6 +150,17 @@ namespace Financial.Forms
         private void dgvDados_DoubleClick(object sender, EventArgs e)
         {
             btnEditar_Click(sender, e);
+        }
+
+        private void txtCategoria_TextChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvDados.Rows)
+            {
+                if (row.Cells[1].Value.ToString().Contains(txtCategoria.Text) || row.Cells[0].Value.ToString().Contains(txtCategoria.Text) || row.Cells[3].Value.ToString().Contains(txtCategoria.Text))
+                    row.Visible = true;
+                else
+                    row.Visible = false;
+            }
         }
     }
 }
