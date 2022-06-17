@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace Financial.Forms
 {
-    public partial class frmEntidades : Form
+    public partial class frmClassificacoesEditar : Form
     {
-        public frmEntidades()
+        public frmClassificacoesEditar()
         {
             InitializeComponent();
-        }
-
-        private void frmEntidades_Load(object sender, EventArgs e)
-        {
-            Formulario.configuracaoPadrao(this);
         }
     }
 }

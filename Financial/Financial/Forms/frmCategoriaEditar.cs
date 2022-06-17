@@ -161,9 +161,7 @@ namespace Financial.Forms
         {
             //Configurações da Tela
             txtCodCategoria.ReadOnly = true;
-            this.MaximizeBox = false;
-            this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
-            this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
+            Formulario.configuracaoPadrao(this);
 
 
             //Dados herdados

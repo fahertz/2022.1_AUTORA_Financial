@@ -64,6 +64,9 @@ namespace Financial.Forms
             this.Close();
         }
 
-     
+        private void frmEntradas_Load(object sender, EventArgs e)
+        {
+            Formulario.configuracaoPadrao(this);
+        }
     }
 }

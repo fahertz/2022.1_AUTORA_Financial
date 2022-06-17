@@ -1,6 +1,6 @@
 ﻿namespace Financial.Forms
 {
-    partial class frmEntidades
+    partial class frmClassificacoesNovo
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,14 @@
         {
             this.SuspendLayout();
             // 
-            // frmEntidades
+            // frmClassificacoesNovo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "frmEntidades";
-            this.Text = "frmEntidades";
-            this.Load += new System.EventHandler(this.frmEntidades_Load);
+            this.Name = "frmClassificacoesNovo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Nova Classificação";
             this.ResumeLayout(false);
 
         }

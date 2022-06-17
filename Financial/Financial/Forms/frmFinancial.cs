@@ -164,6 +164,8 @@ namespace Financial
 
         private void frmFinancial_Load(object sender, EventArgs e)
         {
+
+            Formulario.configuracaoPadrao(this);
             criarPastas(wpath+ "\\CADASTROS");
             carregar_TipoCategoria(wpath + "\\CADASTROS" + "\\CAD_TIPO_CATEGORIA.json");
             carregar_Categoria(wpath + "\\CADASTROS" + "\\CAD_CATEGORIA.json");
@@ -171,16 +173,17 @@ namespace Financial
 
         
 
+
         private void abrirCadastros()
         {
-
+            Application.Run(new frmCadastros());
         }
-
-
 
         private void btnCadastros_Click(object sender, EventArgs e)
         {
-            abrirCadastros();
+            Thread tAbrirCadastros = new Thread(abrirCadastros);
+            tAbrirCadastros.SetApartmentState(ApartmentState.STA);
+            tAbrirCadastros.Start();
         }
     }
 }

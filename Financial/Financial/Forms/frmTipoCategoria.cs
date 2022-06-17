@@ -113,9 +113,7 @@ namespace Financial.Forms
         private void frmTipoCategoria_Load(object sender, EventArgs e)
         {
             //Configurações do Form
-            this.MaximizeBox = false;
-            this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
-            this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
+            Formulario.configuracaoPadrao(this);
 
             configuracao_Grid(dgvDados);
             Task.Factory.StartNew(() => carregarTipoCategoria(wpath + folder + nome_Arquivo, dgvDados));

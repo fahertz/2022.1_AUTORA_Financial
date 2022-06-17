@@ -50,6 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Categoria_Financeira.cs" />
+    <Compile Include="Entidades.cs" />
+    <Compile Include="Forms\frmCadastros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCadastros.Designer.cs">
+      <DependentUpon>frmCadastros.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmCategoria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +74,24 @@
     </Compile>
     <Compile Include="Forms\frmCategoriaNovo.Designer.cs">
       <DependentUpon>frmCategoriaNovo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmClassificacoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassificacoes.Designer.cs">
+      <DependentUpon>frmClassificacoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmClassificacoesEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassificacoesEditar.Designer.cs">
+      <DependentUpon>frmClassificacoesEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmClassificacoesNovo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassificacoesNovo.Designer.cs">
+      <DependentUpon>frmClassificacoesNovo.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmEntidades.cs">
       <SubType>Form</SubType>
@@ -110,9 +135,13 @@
     <Compile Include="Forms\frmTipoCategoriaNovo.Designer.cs">
       <DependentUpon>frmTipoCategoriaNovo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formulario.cs" />
     <Compile Include="Mensagem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\frmCadastros.resx">
+      <DependentUpon>frmCadastros.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCategoria.resx">
       <DependentUpon>frmCategoria.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +150,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCategoriaNovo.resx">
       <DependentUpon>frmCategoriaNovo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassificacoes.resx">
+      <DependentUpon>frmClassificacoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassificacoesEditar.resx">
+      <DependentUpon>frmClassificacoesEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassificacoesNovo.resx">
+      <DependentUpon>frmClassificacoesNovo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEntidades.resx">
+      <DependentUpon>frmEntidades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEntradas.resx">
       <DependentUpon>frmEntradas.cs</DependentUpon>

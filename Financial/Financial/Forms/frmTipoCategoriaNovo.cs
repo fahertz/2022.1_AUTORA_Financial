@@ -118,9 +118,7 @@ namespace Financial.Forms
             string complete_Archive = wpath + folder + nome_Arquivo;
 
             //Caracteristicas do form
-            this.MaximizeBox = false;
-            this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
-            this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
+            Formulario.configuracaoPadrao(this);
             txtCodTipoCategoria.ReadOnly = true;
             
             //Definindo o código Inicial do processo            

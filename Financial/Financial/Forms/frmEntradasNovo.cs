@@ -43,8 +43,9 @@ namespace Financial.Forms
             cbxFormaPagamento.Items.Add("Cartão Débito");
             cbxFormaPagamento.Items.Add("Dinheiro");
 
+            Formulario.configuracaoPadrao(this);
         }
 
-        
+
     }
 }

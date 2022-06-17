@@ -143,10 +143,8 @@ namespace Financial.Forms
         private void frmTipoCategoriaEditar_Load(object sender, EventArgs e)
         {
             //Configurações da Tela
-            txtCodTipoCategoria.ReadOnly = true;            
-            this.MaximizeBox = false;
-            this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
-            this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
+            txtCodTipoCategoria.ReadOnly = true;
+            Formulario.configuracaoPadrao(this);
 
 
             //Dados herdados

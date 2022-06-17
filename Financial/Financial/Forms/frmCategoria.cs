@@ -123,10 +123,7 @@ namespace Financial.Forms
         private void frmCategoria_Load(object sender, EventArgs e)
         {
             //Configurações da Tela
-            
-            this.MaximizeBox = false;
-            this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
-            this.MaximumSize = new Size(this.Size.Width, this.Size.Height);
+            Formulario.configuracaoPadrao(this);
 
 
             configuracao_Grid(dgvDados);
