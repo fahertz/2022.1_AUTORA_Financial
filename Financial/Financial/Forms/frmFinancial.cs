@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Financial.Categoria_Financeira;
+using static Financial.Classificacao;
 
 namespace Financial
 {
@@ -127,7 +128,46 @@ namespace Financial
 
         }
 
+        private void carregar_Classificacao(string path)
+        {
+            if (File.Exists(path))
+            {
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
 
+                try
+                {
+
+                    Classificacoes.Add((Classificacao)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Classificacao))));
+                    reader.Close();
+
+                }
+                catch
+                {
+                    try
+                    {
+
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Classificacoes.Add(new Classificacao { idClassificacao = Convert.ToInt32(dr["idClassificacao"].ToString()), nomeClassificacao = dr["nomeClassificacao"].ToString()});
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+
+                    }
+                }
+
+            }
+
+        }
 
 
         private void abrir_Entradas()
@@ -169,6 +209,7 @@ namespace Financial
             criarPastas(wpath+ "\\CADASTROS");
             carregar_TipoCategoria(wpath + "\\CADASTROS" + "\\CAD_TIPO_CATEGORIA.json");
             carregar_Categoria(wpath + "\\CADASTROS" + "\\CAD_CATEGORIA.json");
+            carregar_Classificacao(wpath + "\\CADASTROS" + "\\CAD_CLASSIFICACAO.json");
         }
 
         

@@ -46,3 +46,9 @@ C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\obj
 C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmClassificacoes.resources
 C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmClassificacoesEditar.resources
 C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmClassificacoesNovo.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmCadastros.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmCategoriaEditar.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmClassificacoes.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmClassificacoesEditar.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmClassificacoesNovo.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmEntidades.resources

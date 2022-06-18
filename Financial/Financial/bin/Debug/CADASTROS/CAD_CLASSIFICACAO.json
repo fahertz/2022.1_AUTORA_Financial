@@ -1,0 +1,10 @@
+﻿[
+  {
+    "idClassificacao": 1,
+    "nomeClassificacao": "Credor"
+  },
+  {
+    "idClassificacao": 2,
+    "nomeClassificacao": "Devedor"
+  }
+]

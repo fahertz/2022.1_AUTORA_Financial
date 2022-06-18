@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnFechar = new System.Windows.Forms.Button();
             this.dgvDados = new System.Windows.Forms.DataGridView();
             this.btnEditar = new System.Windows.Forms.Button();
@@ -40,9 +40,10 @@
             // 
             // btnFechar
             // 
-            this.btnFechar.Location = new System.Drawing.Point(713, 375);
+            this.btnFechar.Location = new System.Drawing.Point(951, 462);
+            this.btnFechar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnFechar.Name = "btnFechar";
-            this.btnFechar.Size = new System.Drawing.Size(75, 27);
+            this.btnFechar.Size = new System.Drawing.Size(100, 33);
             this.btnFechar.TabIndex = 28;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = true;
@@ -54,25 +55,28 @@
             this.dgvDados.AllowUserToDeleteRows = false;
             this.dgvDados.AllowUserToOrderColumns = true;
             this.dgvDados.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Blue;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvDados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Blue;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvDados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDados.Location = new System.Drawing.Point(12, 50);
+            this.dgvDados.Location = new System.Drawing.Point(16, 62);
+            this.dgvDados.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvDados.Name = "dgvDados";
             this.dgvDados.ReadOnly = true;
             this.dgvDados.RowHeadersVisible = false;
             this.dgvDados.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvDados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDados.Size = new System.Drawing.Size(776, 319);
+            this.dgvDados.Size = new System.Drawing.Size(1035, 393);
             this.dgvDados.TabIndex = 27;
+            this.dgvDados.DoubleClick += new System.EventHandler(this.dgvDados_DoubleClick);
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(713, 20);
+            this.btnEditar.Location = new System.Drawing.Point(951, 25);
+            this.btnEditar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 27);
+            this.btnEditar.Size = new System.Drawing.Size(100, 33);
             this.btnEditar.TabIndex = 26;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
@@ -80,9 +84,10 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(632, 20);
+            this.btnNovo.Location = new System.Drawing.Point(843, 25);
+            this.btnNovo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 27);
+            this.btnNovo.Size = new System.Drawing.Size(100, 33);
             this.btnNovo.TabIndex = 25;
             this.btnNovo.Text = "Novo";
             this.btnNovo.UseVisualStyleBackColor = true;
@@ -91,30 +96,34 @@
             // lblClassificacao
             // 
             this.lblClassificacao.AutoSize = true;
-            this.lblClassificacao.Location = new System.Drawing.Point(12, 8);
+            this.lblClassificacao.Location = new System.Drawing.Point(16, 10);
+            this.lblClassificacao.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblClassificacao.Name = "lblClassificacao";
-            this.lblClassificacao.Size = new System.Drawing.Size(74, 13);
+            this.lblClassificacao.Size = new System.Drawing.Size(95, 16);
             this.lblClassificacao.TabIndex = 24;
             this.lblClassificacao.Text = "Classificações";
             // 
             // txtClassificacao
             // 
-            this.txtClassificacao.Location = new System.Drawing.Point(12, 24);
+            this.txtClassificacao.Location = new System.Drawing.Point(16, 30);
+            this.txtClassificacao.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtClassificacao.Name = "txtClassificacao";
-            this.txtClassificacao.Size = new System.Drawing.Size(614, 20);
+            this.txtClassificacao.Size = new System.Drawing.Size(817, 22);
             this.txtClassificacao.TabIndex = 23;
+            this.txtClassificacao.TextChanged += new System.EventHandler(this.txtClassificacao_TextChanged);
             // 
             // frmClassificacoes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 408);
+            this.ClientSize = new System.Drawing.Size(1067, 502);
             this.Controls.Add(this.btnFechar);
             this.Controls.Add(this.dgvDados);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnNovo);
             this.Controls.Add(this.lblClassificacao);
             this.Controls.Add(this.txtClassificacao);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmClassificacoes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Classificações";

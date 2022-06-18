@@ -27,5 +27,8 @@ namespace Financial
         public int idClassificacao { get; set; }
         public string nomeClassificacao { get; set; }
 
+        public static List<Classificacao> Classificacoes = new List<Classificacao>();
     }
+
+    
 }
