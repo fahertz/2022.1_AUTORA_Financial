@@ -99,6 +99,18 @@
     <Compile Include="Forms\frmEntidades.Designer.cs">
       <DependentUpon>frmEntidades.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmEntidadesEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEntidadesEditar.Designer.cs">
+      <DependentUpon>frmEntidadesEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmEntidadesNovo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEntidadesNovo.Designer.cs">
+      <DependentUpon>frmEntidadesNovo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmEntradas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEntidades.resx">
       <DependentUpon>frmEntidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEntidadesNovo.resx">
+      <DependentUpon>frmEntidadesNovo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEntradas.resx">
       <DependentUpon>frmEntradas.cs</DependentUpon>

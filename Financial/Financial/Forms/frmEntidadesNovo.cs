@@ -16,5 +16,20 @@ namespace Financial.Forms
         {
             InitializeComponent();
         }
+
+ 
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {         
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmEntidadesNovo_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

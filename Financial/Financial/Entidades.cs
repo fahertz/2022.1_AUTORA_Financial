@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Financial
 {
-    public class Entidades
+    public class Entidade
     {
         public int idEntidade { get; set; }
         public string nomeEntidade { get; set; }
