@@ -10,10 +10,11 @@ namespace Financial
     {
         public int idEntidade { get; set; }
         public string nomeEntidade { get; set; }
-
-        public string contatoEntidade { get; set; }  
+        public string telefoneEntidade { get; set; }
+        public string obsContatoEntidade { get; set; }
         public string obsEntidade { get; set; }
-        
+
+        public static List<Entidade> Entidades = new List<Entidade>();
     }
 
     public class Entidade_Classificacao

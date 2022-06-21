@@ -65,11 +65,17 @@ namespace Financial.Forms
         }
 
 
+        private void abrirEntidades()
+        {
+            Application.Run(new frmEntidades());
+        }
 
 
         private void btnEntidades_Click(object sender, EventArgs e)
         {
-
+            Thread tAbrirEntidades = new Thread(abrirEntidades);
+            tAbrirEntidades.SetApartmentState(ApartmentState.STA);
+            tAbrirEntidades.Start();
         }
 
 
