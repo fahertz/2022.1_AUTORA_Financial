@@ -54,8 +54,7 @@ namespace Financial.Forms
         private void frmClassificacoesAux_Load(object sender, EventArgs e)
         {
             this.Text = "Adicionar Classificação";
-            Formulario.configuracaoPadrao(this);
-            carregarClassificacoes(clb_Back,Classificacoes);
+            Formulario.configuracaoPadrao(this);            
             filtrar_Classificacao(txtClassificacao.Text, clb_Back, clbClassificacoes);
         }
 

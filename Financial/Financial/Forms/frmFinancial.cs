@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Financial.Categoria_Financeira;
 using static Financial.Classificacao;
+using static Financial.Entidade;
+using static Financial.Entidade_Classificacao;
+
 
 namespace Financial
 {
@@ -170,6 +173,90 @@ namespace Financial
         }
 
 
+        private void carregar_Entidade(string path)
+        {
+            if (File.Exists(path))
+            {
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
+
+                try
+                {
+
+                    Entidades.Add((Entidade)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Entidade))));
+                    reader.Close();
+
+                }
+                catch
+                {
+                    try
+                    {
+
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Entidades.Add(new Entidade { idEntidade = Convert.ToInt32(dr["idEntidade"].ToString())
+                                                       , nomeEntidade = dr["nomeEntidade"].ToString() 
+                                                       , telefoneEntidade = dr["telefoneEntidade"].ToString()
+                                                       , emailEntidade = dr["emailEntidade"].ToString()
+                                                       , obsEntidade = dr["obsEntidade"].ToString()
+                            });
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+
+            }
+        }
+        private void carregar_Entidade_Classificacao(string path)
+        {
+            if (File.Exists(path))
+            {
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
+
+                try
+                {
+
+                    Entidades_Classificacoes.Add((Entidade_Classificacao)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Entidade_Classificacao))));
+                    reader.Close();
+
+                }
+                catch
+                {
+                    try
+                    {
+
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Entidades_Classificacoes.Add(new Entidade_Classificacao { idEntidade  = Convert.ToInt32(dr["idEntidade"].ToString())
+                                                                                    , idClassificacao = Convert.ToInt32(dr["idClassificacao"].ToString()) });
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+
+                    }
+                }
+
+            }
+        }
+
         private void abrir_Entradas()
         {
             Application.Run(new frmEntradas());
@@ -210,6 +297,8 @@ namespace Financial
             carregar_TipoCategoria(wpath + "\\CADASTROS" + "\\CAD_TIPO_CATEGORIA.json");
             carregar_Categoria(wpath + "\\CADASTROS" + "\\CAD_CATEGORIA.json");
             carregar_Classificacao(wpath + "\\CADASTROS" + "\\CAD_CLASSIFICACAO.json");
+            carregar_Entidade(wpath + "\\CADASTROS" + "\\CAD_ENTIDADE.json");
+            carregar_Entidade_Classificacao(wpath + "\\CADASTROS" + "\\CAD_ENTIDADE_CLASSIFICACAO.json");
         }
 
         

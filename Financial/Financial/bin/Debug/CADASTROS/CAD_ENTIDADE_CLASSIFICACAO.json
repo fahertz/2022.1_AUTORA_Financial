@@ -1,0 +1,14 @@
+﻿[
+  {
+    "idEntidade": 1,
+    "idClassificacao": 1
+  },
+  {
+    "idEntidade": 1,
+    "idClassificacao": 2
+  },
+  {
+    "idEntidade": 2,
+    "idClassificacao": 1
+  }
+]

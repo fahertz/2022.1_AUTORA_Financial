@@ -1,0 +1,16 @@
+﻿[
+  {
+    "idEntidade": 1,
+    "nomeEntidade": "Teste",
+    "telefoneEntidade": "(  )      -",
+    "emailEntidade": "",
+    "obsEntidade": ""
+  },
+  {
+    "idEntidade": 2,
+    "nomeEntidade": "Rafael Feliciano",
+    "telefoneEntidade": "(81) 99644-2008",
+    "emailEntidade": "rafaelfsilva314@gmail.com",
+    "obsEntidade": "cadastro de teste"
+  }
+]
