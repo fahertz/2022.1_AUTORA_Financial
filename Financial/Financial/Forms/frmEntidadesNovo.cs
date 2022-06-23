@@ -36,7 +36,6 @@ namespace Financial.Forms
         Entidade_Classificacao ent_class = new Entidade_Classificacao();
 
 
-
         //Carrega o último código adicionado
         private int carregarCodEntidade()
         {
@@ -57,6 +56,9 @@ namespace Financial.Forms
 
         private void salvar_Entidade(int idEntidade, string nomeEntidade, [Optional] DataGridView _dgvClassificacoes, [Optional] string telefoneEntidade, [Optional] string emailEntidade, [Optional] string obsEntidade)
         {
+
+            //Flag usada para controalr as validações
+            int insert = 0;
             if (dgvDados.Rows.Count == 0)
             {
                 mm.Message = "Adicione pelo menos uma classificação a entidade.";
@@ -77,7 +79,7 @@ namespace Financial.Forms
                 return;
             }
 
-            if (!mtxTelefone.MaskFull || mtxTelefone.Text.Trim().Equals(String.Empty) || txtEmail.Text.ToString().Trim().Equals(String.Empty)
+            if (mtxTelefone.Text.Trim().Equals(String.Empty) || txtEmail.Text.ToString().Trim().Equals(String.Empty)
                 || txtObservacao.Text.ToString().Trim().Equals(String.Empty))
             {
                 mm.Message = "Existem campos que não estão devidamente preenchidos, deseja salvar mesmo assim?";
@@ -87,87 +89,100 @@ namespace Financial.Forms
                 DialogResult result = mm.exibirMensagem();
                 if (result == DialogResult.Yes)
                 {
-                    //Caminho da aplicação + nome da pasta
-                    string _folder = wpath + folder;
-
-                    //Inserção entidade
-                    try
-                    {                        
-                        //Preenchendo os dados da classe
-                        entidade.idEntidade = idEntidade;
-                        entidade.nomeEntidade = nomeEntidade;
-                        entidade.telefoneEntidade = telefoneEntidade;
-                        entidade.emailEntidade = emailEntidade;
-                        entidade.obsEntidade = obsEntidade;
-
-                        StreamWriter writerEntidade = new StreamWriter(_folder + nome_ArquivoEntidade);
-                        writerEntidade.Close();
-
-                        
-                        if (Entidades.Count > 0)
-                        {
-                            Entidades.Add(entidade);                            
-                            File.WriteAllText(_folder + nome_ArquivoEntidade, JsonConvert.SerializeObject(Entidades, Formatting.Indented), Encoding.UTF8);
-                        }
-                        else
-                            File.WriteAllText(_folder + nome_ArquivoEntidade, JsonConvert.SerializeObject(entidade, Formatting.Indented), Encoding.UTF8);
-                    }
-                    catch (Exception ex)
-                    {
-                        mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                        mm.Tittle = "Erro";
-                        mm.Buttons = MessageBoxButtons.OK;
-                        mm.Icon = MessageBoxIcon.Error;
-                        mm.exibirMensagem();
-                        this.Close();
-                    }                    
-
-                    //Inserção da Entidade_Classificacao
-                    try
-                    {
-                        List<Entidade_Classificacao> transicaoEntidades_Classificacao = new List<Entidade_Classificacao>();
-                        //Preenchendo os dados da classe
-                        ent_class.idEntidade = idEntidade;
-                        foreach (DataGridViewRow row in dgvDados.Rows)
-                        {
-                            ent_class.idClassificacao = Convert.ToInt32(row.Cells[0].Value.ToString());
-                            transicaoEntidades_Classificacao.Add((Entidade_Classificacao)ent_class.Clone());
-                        }
-                        StreamWriter writer = new StreamWriter(_folder + nome_ArquivoEntidade_Classificacao);
-                        writer.Close();
-
-                        foreach (var item in transicaoEntidades_Classificacao)
-                        {
-                            Entidades_Classificacoes.Add(item);
-
-                        }
-                        File.WriteAllText(_folder + nome_ArquivoEntidade_Classificacao, JsonConvert.SerializeObject(Entidades_Classificacoes, Formatting.Indented), Encoding.UTF8);
-
-                    }
-                    catch (Exception ex)
-                    {
-                        mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                        mm.Tittle = "Erro";
-                        mm.Buttons = MessageBoxButtons.OK;
-                        mm.Icon = MessageBoxIcon.Error;
-                        mm.exibirMensagem();
-                        this.Close();
-                    }
-
-
-
-                    //Mensagem de entidade inserida com sucesso!
-                    mm.Message = "Entidade " + txtDescEntidade.Text + " inserida com sucesso!";
-                    mm.Tittle = "Informação";
-                    mm.Buttons = MessageBoxButtons.OK;
-                    mm.Icon = MessageBoxIcon.Information;
-                    mm.exibirMensagem();
-                    this.Close();
+                    insert = 1;
                 }
                 else
                     return;
+            }
+            else
+            {
+                insert = 1;
+
+            }
+
+            if (insert == 1)
+            {
+                //Caminho da aplicação + nome da pasta
+                string _folder = wpath + folder;
+
+                //Inserção entidade
+                try
+                {
+                    //Preenchendo os dados da classe
+                    entidade.idEntidade = idEntidade;
+                    entidade.nomeEntidade = nomeEntidade;
+                    entidade.telefoneEntidade = telefoneEntidade;
+                    entidade.emailEntidade = emailEntidade;
+                    entidade.obsEntidade = obsEntidade;
+
+                    StreamWriter writerEntidade = new StreamWriter(_folder + nome_ArquivoEntidade);
+                    writerEntidade.Close();
+
+
+                    if (Entidades.Count > 0)
+                    {
+                        Entidades.Add(entidade);
+                        File.WriteAllText(_folder + nome_ArquivoEntidade, JsonConvert.SerializeObject(Entidades, Formatting.Indented), Encoding.UTF8);
+                    }
+                    else
+                        File.WriteAllText(_folder + nome_ArquivoEntidade, JsonConvert.SerializeObject(entidade, Formatting.Indented), Encoding.UTF8);
                 }
-            }        
+                catch (Exception ex)
+                {
+                    mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
+                    mm.Tittle = "Erro";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Error;
+                    mm.exibirMensagem();
+                    this.Close();
+                }
+
+                //Inserção da Entidade_Classificacao
+                try
+                {
+                    List<Entidade_Classificacao> transicaoEntidades_Classificacao = new List<Entidade_Classificacao>();
+                    //Preenchendo os dados da classe
+                    ent_class.idEntidade = idEntidade;
+                    foreach (DataGridViewRow row in dgvDados.Rows)
+                    {
+                        ent_class.idClassificacao = Convert.ToInt32(row.Cells[0].Value.ToString());
+                        transicaoEntidades_Classificacao.Add((Entidade_Classificacao)ent_class.Clone());
+                    }
+                    StreamWriter writer = new StreamWriter(_folder + nome_ArquivoEntidade_Classificacao);
+                    writer.Close();
+
+                    foreach (var item in transicaoEntidades_Classificacao)
+                    {
+                        Entidades_Classificacoes.Add(item);
+
+                    }
+                    File.WriteAllText(_folder + nome_ArquivoEntidade_Classificacao, JsonConvert.SerializeObject(Entidades_Classificacoes, Formatting.Indented), Encoding.UTF8);
+
+                }
+                catch (Exception ex)
+                {
+                    mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
+                    mm.Tittle = "Erro";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Error;
+                    mm.exibirMensagem();
+                    this.Close();
+                }
+
+
+
+                //Mensagem de entidade inserida com sucesso!
+                mm.Message = "Entidade " + txtDescEntidade.Text + " inserida com sucesso!";
+                mm.Tittle = "Informação";
+                mm.Buttons = MessageBoxButtons.OK;
+                mm.Icon = MessageBoxIcon.Information;
+                mm.exibirMensagem();
+                this.Close();
+
+            }
+
+        }
+
 
 
         private void btnCancelar_Click(object sender, EventArgs e)

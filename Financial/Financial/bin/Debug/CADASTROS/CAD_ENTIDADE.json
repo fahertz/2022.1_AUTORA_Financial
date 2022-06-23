@@ -12,5 +12,19 @@
     "telefoneEntidade": "(81) 99644-2008",
     "emailEntidade": "rafaelfsilva314@gmail.com",
     "obsEntidade": "cadastro de teste"
+  },
+  {
+    "idEntidade": 3,
+    "nomeEntidade": "Entidade Nova",
+    "telefoneEntidade": "(  )      -",
+    "emailEntidade": "",
+    "obsEntidade": ""
+  },
+  {
+    "idEntidade": 4,
+    "nomeEntidade": "asdsdasd",
+    "telefoneEntidade": "(98) 95615-6156",
+    "emailEntidade": "asdf1f6a51d86a1s56",
+    "obsEntidade": "asdasd45456asd4561ads"
   }
 ]

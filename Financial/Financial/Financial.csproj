@@ -184,6 +184,9 @@
     <EmbeddedResource Include="Forms\frmEntidades.resx">
       <DependentUpon>frmEntidades.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEntidadesEditar.resx">
+      <DependentUpon>frmEntidadesEditar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEntidadesNovo.resx">
       <DependentUpon>frmEntidadesNovo.cs</DependentUpon>
     </EmbeddedResource>
