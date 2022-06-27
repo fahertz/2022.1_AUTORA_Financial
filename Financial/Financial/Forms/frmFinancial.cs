@@ -15,6 +15,7 @@ using static Financial.Categoria_Financeira;
 using static Financial.Classificacao;
 using static Financial.Entidade;
 using static Financial.Entidade_Classificacao;
+using static Financial.Local;
 
 
 namespace Financial
@@ -89,7 +90,6 @@ namespace Financial
             }
 
         }
-
         private void carregar_Categoria(string path)
         {
             if (File.Exists(path))
@@ -130,7 +130,6 @@ namespace Financial
             }
 
         }
-
         private void carregar_Classificacao(string path)
         {
             if (File.Exists(path))
@@ -171,8 +170,6 @@ namespace Financial
             }
 
         }
-
-
         private void carregar_Entidade(string path)
         {
             if (File.Exists(path))
@@ -242,7 +239,7 @@ namespace Financial
 
                         foreach (DataRow dr in oDataRow)
                         {
-                            Entidades_Classificacoes.Add(new Entidade_Classificacao { idEntidade  = Convert.ToInt32(dr["idEntidade"].ToString())
+                            Entidades_Classificacoes.Add(new Entidade_Classificacao { idEntidade = Convert.ToInt32(dr["idEntidade"].ToString())
                                                                                     , idClassificacao = Convert.ToInt32(dr["idClassificacao"].ToString()) });
                         }
 
@@ -256,13 +253,73 @@ namespace Financial
 
             }
         }
+        private void carregar_Local(string path)
+        {
+            if (File.Exists(path))
+            {
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
+
+                try
+                {
+
+                    Locais.Add((Local)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Local))));
+                    reader.Close();
+
+                }
+                catch
+                {
+                    try
+                    {
+
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Locais.Add(new Local
+                            {
+                                idLocal = Convert.ToInt32(dr["idLocal"].ToString())                                                                                    
+                                ,nameLocal = dr["nameLocal"].ToString()
+                                ,valorLocal = Convert.ToDouble(dr["valorLocal"].ToString())
+                                ,observacaoLocal = dr["observacaoLocal"].ToString()
+                            });
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+
+                    }
+                }
+
+            }
+        }
+
+        //Load do form
+        private void frmFinancial_Load(object sender, EventArgs e)
+        {
+            Formulario.configuracaoPadrao(this);
+            Task.Factory.StartNew(() => criarPastas(wpath + "\\CADASTROS"));
+            Task.Factory.StartNew(() => carregar_TipoCategoria(wpath + "\\CADASTROS" + "\\CAD_TIPO_CATEGORIA.json"));
+            Task.Factory.StartNew(() => carregar_Categoria(wpath + "\\CADASTROS" + "\\CAD_CATEGORIA.json"));
+            Task.Factory.StartNew(() => carregar_Classificacao(wpath + "\\CADASTROS" + "\\CAD_CLASSIFICACAO.json"));
+            Task.Factory.StartNew(() => carregar_Entidade(wpath + "\\CADASTROS" + "\\CAD_ENTIDADE.json"));
+            Task.Factory.StartNew(() => carregar_Entidade_Classificacao(wpath + "\\CADASTROS" + "\\CAD_ENTIDADE_CLASSIFICACAO.json"));
+            Task.Factory.StartNew(() => carregar_Local(wpath + "\\CADASTROS" + "\\CAD_LOCAL.json"));
+        }
+
+
+
+
 
         private void abrir_Entradas()
         {
-            Application.Run(new frmEntradas());
-            
+            Application.Run(new frmEntradas());            
         }
-
 
         //Abrir tela de entradas
         private void btnEntradas_Click(object sender, EventArgs e)
@@ -271,10 +328,19 @@ namespace Financial
             t1.SetApartmentState(ApartmentState.STA);
             t1.Start();
         }
+      
+    
+        private void abrirCadastros()
+        {
+            Application.Run(new frmCadastros());
+        }
 
-
-
-
+        private void btnCadastros_Click(object sender, EventArgs e)
+        {
+            Thread tAbrirCadastros = new Thread(abrirCadastros);
+            tAbrirCadastros.SetApartmentState(ApartmentState.STA);
+            tAbrirCadastros.Start();
+        }
 
 
         //Encerrar Aplicação
@@ -286,34 +352,7 @@ namespace Financial
             mm.Icon = MessageBoxIcon.Warning;
             DialogResult result = mm.exibirMensagem();
             if (result == DialogResult.Yes)
-            Application.Exit();
-        }
-
-        private void frmFinancial_Load(object sender, EventArgs e)
-        {
-
-            Formulario.configuracaoPadrao(this);
-            criarPastas(wpath+ "\\CADASTROS");
-            carregar_TipoCategoria(wpath + "\\CADASTROS" + "\\CAD_TIPO_CATEGORIA.json");
-            carregar_Categoria(wpath + "\\CADASTROS" + "\\CAD_CATEGORIA.json");
-            carregar_Classificacao(wpath + "\\CADASTROS" + "\\CAD_CLASSIFICACAO.json");
-            carregar_Entidade(wpath + "\\CADASTROS" + "\\CAD_ENTIDADE.json");
-            carregar_Entidade_Classificacao(wpath + "\\CADASTROS" + "\\CAD_ENTIDADE_CLASSIFICACAO.json");
-        }
-
-        
-
-
-        private void abrirCadastros()
-        {
-            Application.Run(new frmCadastros());
-        }
-
-        private void btnCadastros_Click(object sender, EventArgs e)
-        {
-            Thread tAbrirCadastros = new Thread(abrirCadastros);
-            tAbrirCadastros.SetApartmentState(ApartmentState.STA);
-            tAbrirCadastros.Start();
+                Application.Exit();
         }
     }
 }

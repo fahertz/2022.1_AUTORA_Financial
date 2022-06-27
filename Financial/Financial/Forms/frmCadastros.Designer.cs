@@ -35,6 +35,7 @@
             this.gpbEntidades = new System.Windows.Forms.GroupBox();
             this.btnClassificacoes = new System.Windows.Forms.Button();
             this.btnEntidades = new System.Windows.Forms.Button();
+            this.txtLocais = new System.Windows.Forms.Button();
             this.gpbCategorizacao.SuspendLayout();
             this.gpbEntidades.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +46,7 @@
             this.gpbCategorizacao.Controls.Add(this.btnCategoria);
             this.gpbCategorizacao.Location = new System.Drawing.Point(12, 12);
             this.gpbCategorizacao.Name = "gpbCategorizacao";
-            this.gpbCategorizacao.Size = new System.Drawing.Size(249, 110);
+            this.gpbCategorizacao.Size = new System.Drawing.Size(223, 110);
             this.gpbCategorizacao.TabIndex = 0;
             this.gpbCategorizacao.TabStop = false;
             this.gpbCategorizacao.Text = "Categorização";
@@ -82,11 +83,12 @@
             // 
             // gpbEntidades
             // 
+            this.gpbEntidades.Controls.Add(this.txtLocais);
             this.gpbEntidades.Controls.Add(this.btnClassificacoes);
             this.gpbEntidades.Controls.Add(this.btnEntidades);
             this.gpbEntidades.Location = new System.Drawing.Point(12, 128);
             this.gpbEntidades.Name = "gpbEntidades";
-            this.gpbEntidades.Size = new System.Drawing.Size(249, 110);
+            this.gpbEntidades.Size = new System.Drawing.Size(223, 110);
             this.gpbEntidades.TabIndex = 2;
             this.gpbEntidades.TabStop = false;
             this.gpbEntidades.Text = "Entidades";
@@ -110,6 +112,16 @@
             this.btnEntidades.Text = "Entidades";
             this.btnEntidades.UseVisualStyleBackColor = true;
             this.btnEntidades.Click += new System.EventHandler(this.btnEntidades_Click);
+            // 
+            // txtLocais
+            // 
+            this.txtLocais.Location = new System.Drawing.Point(114, 19);
+            this.txtLocais.Name = "txtLocais";
+            this.txtLocais.Size = new System.Drawing.Size(102, 38);
+            this.txtLocais.TabIndex = 2;
+            this.txtLocais.Text = "Locais";
+            this.txtLocais.UseVisualStyleBackColor = true;
+            this.txtLocais.Click += new System.EventHandler(this.txtLocais_Click);
             // 
             // frmCadastros
             // 
@@ -138,5 +150,6 @@
         private System.Windows.Forms.GroupBox gpbEntidades;
         private System.Windows.Forms.Button btnClassificacoes;
         private System.Windows.Forms.Button btnEntidades;
+        private System.Windows.Forms.Button txtLocais;
     }
 }

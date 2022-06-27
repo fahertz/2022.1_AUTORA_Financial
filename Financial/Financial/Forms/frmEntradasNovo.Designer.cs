@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtDescDevedor = new System.Windows.Forms.TextBox();
-            this.txtCodDevedor = new System.Windows.Forms.TextBox();
+            this.txtDescEntidade = new System.Windows.Forms.TextBox();
+            this.txtCodEntidade = new System.Windows.Forms.TextBox();
             this.dtpDataBase = new System.Windows.Forms.DateTimePicker();
             this.cbxFormaPagamento = new System.Windows.Forms.ComboBox();
             this.txtObservacao = new System.Windows.Forms.TextBox();
@@ -41,7 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.lblDevedor = new System.Windows.Forms.Label();
+            this.lblEntidade = new System.Windows.Forms.Label();
             this.lblCategoria = new System.Windows.Forms.Label();
             this.lblDataBase = new System.Windows.Forms.Label();
             this.chkDiasUteis = new System.Windows.Forms.CheckBox();
@@ -49,39 +49,40 @@
             this.lblParcelas = new System.Windows.Forms.Label();
             this.lblLocalArmazenamento = new System.Windows.Forms.Label();
             this.chkBaixaAutomatica = new System.Windows.Forms.CheckBox();
-            this.btnDevedores = new System.Windows.Forms.Button();
+            this.btnEntidades = new System.Windows.Forms.Button();
             this.btnCategoria = new System.Windows.Forms.Button();
             this.btnLocal = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // txtDescDevedor
+            // txtDescEntidade
             // 
-            this.txtDescDevedor.Location = new System.Drawing.Point(62, 24);
-            this.txtDescDevedor.Name = "txtDescDevedor";
-            this.txtDescDevedor.Size = new System.Drawing.Size(368, 20);
-            this.txtDescDevedor.TabIndex = 0;
+            this.txtDescEntidade.Location = new System.Drawing.Point(62, 24);
+            this.txtDescEntidade.Name = "txtDescEntidade";
+            this.txtDescEntidade.Size = new System.Drawing.Size(368, 20);
+            this.txtDescEntidade.TabIndex = 1;
             // 
-            // txtCodDevedor
+            // txtCodEntidade
             // 
-            this.txtCodDevedor.Location = new System.Drawing.Point(12, 24);
-            this.txtCodDevedor.Name = "txtCodDevedor";
-            this.txtCodDevedor.Size = new System.Drawing.Size(44, 20);
-            this.txtCodDevedor.TabIndex = 1;
+            this.txtCodEntidade.Location = new System.Drawing.Point(12, 24);
+            this.txtCodEntidade.Name = "txtCodEntidade";
+            this.txtCodEntidade.Size = new System.Drawing.Size(44, 20);
+            this.txtCodEntidade.TabIndex = 0;
             // 
             // dtpDataBase
             // 
             this.dtpDataBase.Location = new System.Drawing.Point(12, 63);
             this.dtpDataBase.Name = "dtpDataBase";
             this.dtpDataBase.Size = new System.Drawing.Size(230, 20);
-            this.dtpDataBase.TabIndex = 2;
+            this.dtpDataBase.TabIndex = 4;
             // 
             // cbxFormaPagamento
             // 
             this.cbxFormaPagamento.FormattingEnabled = true;
+            this.cbxFormaPagamento.ItemHeight = 13;
             this.cbxFormaPagamento.Location = new System.Drawing.Point(12, 102);
             this.cbxFormaPagamento.Name = "cbxFormaPagamento";
             this.cbxFormaPagamento.Size = new System.Drawing.Size(230, 21);
-            this.cbxFormaPagamento.TabIndex = 3;
+            this.cbxFormaPagamento.TabIndex = 7;
             // 
             // txtObservacao
             // 
@@ -89,42 +90,42 @@
             this.txtObservacao.Multiline = true;
             this.txtObservacao.Name = "txtObservacao";
             this.txtObservacao.Size = new System.Drawing.Size(925, 138);
-            this.txtObservacao.TabIndex = 6;
+            this.txtObservacao.TabIndex = 11;
             // 
             // txtCodCategoria
             // 
             this.txtCodCategoria.Location = new System.Drawing.Point(506, 23);
             this.txtCodCategoria.Name = "txtCodCategoria";
             this.txtCodCategoria.Size = new System.Drawing.Size(44, 20);
-            this.txtCodCategoria.TabIndex = 8;
+            this.txtCodCategoria.TabIndex = 2;
             // 
             // txtDescCategoria
             // 
             this.txtDescCategoria.Location = new System.Drawing.Point(556, 23);
             this.txtDescCategoria.Name = "txtDescCategoria";
             this.txtDescCategoria.Size = new System.Drawing.Size(308, 20);
-            this.txtDescCategoria.TabIndex = 7;
+            this.txtDescCategoria.TabIndex = 3;
             // 
             // txtDescLocalArmazenamento
             // 
             this.txtDescLocalArmazenamento.Location = new System.Drawing.Point(62, 142);
             this.txtDescLocalArmazenamento.Name = "txtDescLocalArmazenamento";
             this.txtDescLocalArmazenamento.Size = new System.Drawing.Size(235, 20);
-            this.txtDescLocalArmazenamento.TabIndex = 9;
+            this.txtDescLocalArmazenamento.TabIndex = 10;
             // 
             // txtParcelas
             // 
             this.txtParcelas.Location = new System.Drawing.Point(248, 102);
             this.txtParcelas.Name = "txtParcelas";
             this.txtParcelas.Size = new System.Drawing.Size(52, 20);
-            this.txtParcelas.TabIndex = 10;
+            this.txtParcelas.TabIndex = 8;
             // 
             // txtCodLocalArmazenamento
             // 
             this.txtCodLocalArmazenamento.Location = new System.Drawing.Point(12, 142);
             this.txtCodLocalArmazenamento.Name = "txtCodLocalArmazenamento";
             this.txtCodLocalArmazenamento.Size = new System.Drawing.Size(44, 20);
-            this.txtCodLocalArmazenamento.TabIndex = 11;
+            this.txtCodLocalArmazenamento.TabIndex = 9;
             // 
             // label1
             // 
@@ -149,18 +150,18 @@
             this.btnCancelar.Location = new System.Drawing.Point(781, 326);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 30);
-            this.btnCancelar.TabIndex = 14;
+            this.btnCancelar.TabIndex = 12;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // lblDevedor
+            // lblEntidade
             // 
-            this.lblDevedor.AutoSize = true;
-            this.lblDevedor.Location = new System.Drawing.Point(12, 8);
-            this.lblDevedor.Name = "lblDevedor";
-            this.lblDevedor.Size = new System.Drawing.Size(48, 13);
-            this.lblDevedor.TabIndex = 15;
-            this.lblDevedor.Text = "Devedor";
+            this.lblEntidade.AutoSize = true;
+            this.lblEntidade.Location = new System.Drawing.Point(12, 8);
+            this.lblEntidade.Name = "lblEntidade";
+            this.lblEntidade.Size = new System.Drawing.Size(49, 13);
+            this.lblEntidade.TabIndex = 10;
+            this.lblEntidade.Text = "Entidade";
             // 
             // lblCategoria
             // 
@@ -186,7 +187,7 @@
             this.chkDiasUteis.Location = new System.Drawing.Point(248, 65);
             this.chkDiasUteis.Name = "chkDiasUteis";
             this.chkDiasUteis.Size = new System.Drawing.Size(109, 17);
-            this.chkDiasUteis.TabIndex = 18;
+            this.chkDiasUteis.TabIndex = 5;
             this.chkDiasUteis.Text = "Apenas dias úteis";
             this.chkDiasUteis.UseVisualStyleBackColor = true;
             // 
@@ -223,25 +224,26 @@
             this.chkBaixaAutomatica.Location = new System.Drawing.Point(363, 63);
             this.chkBaixaAutomatica.Name = "chkBaixaAutomatica";
             this.chkBaixaAutomatica.Size = new System.Drawing.Size(107, 17);
-            this.chkBaixaAutomatica.TabIndex = 22;
+            this.chkBaixaAutomatica.TabIndex = 6;
             this.chkBaixaAutomatica.Text = "Baixa automática";
             this.chkBaixaAutomatica.UseVisualStyleBackColor = true;
             // 
-            // btnDevedores
+            // btnEntidades
             // 
-            this.btnDevedores.Location = new System.Drawing.Point(870, 69);
-            this.btnDevedores.Name = "btnDevedores";
-            this.btnDevedores.Size = new System.Drawing.Size(67, 30);
-            this.btnDevedores.TabIndex = 23;
-            this.btnDevedores.Text = "Devedores";
-            this.btnDevedores.UseVisualStyleBackColor = true;
+            this.btnEntidades.Location = new System.Drawing.Point(870, 69);
+            this.btnEntidades.Name = "btnEntidades";
+            this.btnEntidades.Size = new System.Drawing.Size(67, 30);
+            this.btnEntidades.TabIndex = 14;
+            this.btnEntidades.Text = "Entidades";
+            this.btnEntidades.UseVisualStyleBackColor = true;
+            this.btnEntidades.Click += new System.EventHandler(this.btnDevedores_Click);
             // 
             // btnCategoria
             // 
             this.btnCategoria.Location = new System.Drawing.Point(870, 102);
             this.btnCategoria.Name = "btnCategoria";
             this.btnCategoria.Size = new System.Drawing.Size(67, 30);
-            this.btnCategoria.TabIndex = 24;
+            this.btnCategoria.TabIndex = 15;
             this.btnCategoria.Text = "Categoria";
             this.btnCategoria.UseVisualStyleBackColor = true;
             this.btnCategoria.Click += new System.EventHandler(this.btnCategoria_Click);
@@ -251,9 +253,10 @@
             this.btnLocal.Location = new System.Drawing.Point(870, 138);
             this.btnLocal.Name = "btnLocal";
             this.btnLocal.Size = new System.Drawing.Size(67, 30);
-            this.btnLocal.TabIndex = 25;
+            this.btnLocal.TabIndex = 16;
             this.btnLocal.Text = "Local";
             this.btnLocal.UseVisualStyleBackColor = true;
+            this.btnLocal.Click += new System.EventHandler(this.btnLocal_Click);
             // 
             // frmEntradasNovo
             // 
@@ -262,7 +265,7 @@
             this.ClientSize = new System.Drawing.Size(949, 365);
             this.Controls.Add(this.btnLocal);
             this.Controls.Add(this.btnCategoria);
-            this.Controls.Add(this.btnDevedores);
+            this.Controls.Add(this.btnEntidades);
             this.Controls.Add(this.chkBaixaAutomatica);
             this.Controls.Add(this.lblLocalArmazenamento);
             this.Controls.Add(this.lblParcelas);
@@ -270,7 +273,7 @@
             this.Controls.Add(this.chkDiasUteis);
             this.Controls.Add(this.lblDataBase);
             this.Controls.Add(this.lblCategoria);
-            this.Controls.Add(this.lblDevedor);
+            this.Controls.Add(this.lblEntidade);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.label1);
@@ -282,8 +285,8 @@
             this.Controls.Add(this.txtObservacao);
             this.Controls.Add(this.cbxFormaPagamento);
             this.Controls.Add(this.dtpDataBase);
-            this.Controls.Add(this.txtCodDevedor);
-            this.Controls.Add(this.txtDescDevedor);
+            this.Controls.Add(this.txtCodEntidade);
+            this.Controls.Add(this.txtDescEntidade);
             this.Name = "frmEntradasNovo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nova entrada";
@@ -295,8 +298,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtDescDevedor;
-        private System.Windows.Forms.TextBox txtCodDevedor;
+        private System.Windows.Forms.TextBox txtDescEntidade;
+        private System.Windows.Forms.TextBox txtCodEntidade;
         private System.Windows.Forms.DateTimePicker dtpDataBase;
         private System.Windows.Forms.ComboBox cbxFormaPagamento;
         private System.Windows.Forms.TextBox txtObservacao;
@@ -308,7 +311,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Label lblDevedor;
+        private System.Windows.Forms.Label lblEntidade;
         private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.Label lblDataBase;
         private System.Windows.Forms.CheckBox chkDiasUteis;
@@ -316,7 +319,7 @@
         private System.Windows.Forms.Label lblParcelas;
         private System.Windows.Forms.Label lblLocalArmazenamento;
         private System.Windows.Forms.CheckBox chkBaixaAutomatica;
-        private System.Windows.Forms.Button btnDevedores;
+        private System.Windows.Forms.Button btnEntidades;
         private System.Windows.Forms.Button btnCategoria;
         private System.Windows.Forms.Button btnLocal;
     }

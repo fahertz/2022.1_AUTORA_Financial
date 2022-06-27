@@ -36,6 +36,8 @@
             this.lblEntidades = new System.Windows.Forms.Label();
             this.txtEntidades = new System.Windows.Forms.TextBox();
             this.btnClassificacoes = new System.Windows.Forms.Button();
+            this.lblClassificacao = new System.Windows.Forms.Label();
+            this.cbxClassificacao = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,7 +46,7 @@
             this.btnFechar.Location = new System.Drawing.Point(708, 375);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(75, 27);
-            this.btnFechar.TabIndex = 38;
+            this.btnFechar.TabIndex = 4;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = true;
             this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
@@ -72,20 +74,20 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(708, 17);
+            this.btnEditar.Location = new System.Drawing.Point(707, 20);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 27);
-            this.btnEditar.TabIndex = 36;
+            this.btnEditar.TabIndex = 2;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(627, 17);
+            this.btnNovo.Location = new System.Drawing.Point(627, 20);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 27);
-            this.btnNovo.TabIndex = 35;
+            this.btnNovo.TabIndex = 1;
             this.btnNovo.Text = "Novo";
             this.btnNovo.UseVisualStyleBackColor = true;
             this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
@@ -103,8 +105,8 @@
             // 
             this.txtEntidades.Location = new System.Drawing.Point(7, 24);
             this.txtEntidades.Name = "txtEntidades";
-            this.txtEntidades.Size = new System.Drawing.Size(614, 20);
-            this.txtEntidades.TabIndex = 33;
+            this.txtEntidades.Size = new System.Drawing.Size(399, 20);
+            this.txtEntidades.TabIndex = 0;
             this.txtEntidades.TextChanged += new System.EventHandler(this.txtEntidades_TextChanged);
             // 
             // btnClassificacoes
@@ -112,16 +114,36 @@
             this.btnClassificacoes.Location = new System.Drawing.Point(7, 372);
             this.btnClassificacoes.Name = "btnClassificacoes";
             this.btnClassificacoes.Size = new System.Drawing.Size(123, 30);
-            this.btnClassificacoes.TabIndex = 32;
+            this.btnClassificacoes.TabIndex = 3;
             this.btnClassificacoes.Text = "Classificações";
             this.btnClassificacoes.UseVisualStyleBackColor = true;
             this.btnClassificacoes.Click += new System.EventHandler(this.btnClassificacoes_Click);
+            // 
+            // lblClassificacao
+            // 
+            this.lblClassificacao.AutoSize = true;
+            this.lblClassificacao.Location = new System.Drawing.Point(409, 9);
+            this.lblClassificacao.Name = "lblClassificacao";
+            this.lblClassificacao.Size = new System.Drawing.Size(69, 13);
+            this.lblClassificacao.TabIndex = 39;
+            this.lblClassificacao.Text = "Classificação";
+            // 
+            // cbxClassificacao
+            // 
+            this.cbxClassificacao.FormattingEnabled = true;
+            this.cbxClassificacao.Location = new System.Drawing.Point(412, 24);
+            this.cbxClassificacao.Name = "cbxClassificacao";
+            this.cbxClassificacao.Size = new System.Drawing.Size(209, 21);
+            this.cbxClassificacao.TabIndex = 40;
+            this.cbxClassificacao.SelectedIndexChanged += new System.EventHandler(this.cbxClassificacao_SelectedIndexChanged);
             // 
             // frmEntidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 407);
+            this.Controls.Add(this.cbxClassificacao);
+            this.Controls.Add(this.lblClassificacao);
             this.Controls.Add(this.btnFechar);
             this.Controls.Add(this.dgvDados);
             this.Controls.Add(this.btnEditar);
@@ -148,5 +170,7 @@
         private System.Windows.Forms.Label lblEntidades;
         private System.Windows.Forms.TextBox txtEntidades;
         private System.Windows.Forms.Button btnClassificacoes;
+        private System.Windows.Forms.Label lblClassificacao;
+        private System.Windows.Forms.ComboBox cbxClassificacao;
     }
 }

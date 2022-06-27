@@ -60,7 +60,7 @@
             this.txtDescCategoria.Location = new System.Drawing.Point(62, 25);
             this.txtDescCategoria.Name = "txtDescCategoria";
             this.txtDescCategoria.Size = new System.Drawing.Size(231, 20);
-            this.txtDescCategoria.TabIndex = 35;
+            this.txtDescCategoria.TabIndex = 0;
             // 
             // lblTipoCategoria
             // 
@@ -76,7 +76,7 @@
             this.txtCodTipoCategoria.Location = new System.Drawing.Point(15, 67);
             this.txtCodTipoCategoria.Name = "txtCodTipoCategoria";
             this.txtCodTipoCategoria.Size = new System.Drawing.Size(44, 20);
-            this.txtCodTipoCategoria.TabIndex = 33;
+            this.txtCodTipoCategoria.TabIndex = 1;
             this.txtCodTipoCategoria.TextChanged += new System.EventHandler(this.txtCodTipoCategoria_TextChanged);
             // 
             // txtDescTipoCategoria
@@ -84,14 +84,14 @@
             this.txtDescTipoCategoria.Location = new System.Drawing.Point(62, 67);
             this.txtDescTipoCategoria.Name = "txtDescTipoCategoria";
             this.txtDescTipoCategoria.Size = new System.Drawing.Size(231, 20);
-            this.txtDescTipoCategoria.TabIndex = 32;
+            this.txtDescTipoCategoria.TabIndex = 1;
             // 
             // btnSalvar
             // 
             this.btnSalvar.Location = new System.Drawing.Point(218, 93);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 27);
-            this.btnSalvar.TabIndex = 31;
+            this.btnSalvar.TabIndex = 4;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -101,7 +101,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(56, 93);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 27);
-            this.btnCancelar.TabIndex = 30;
+            this.btnCancelar.TabIndex = 2;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -111,7 +111,7 @@
             this.btnDeletar.Location = new System.Drawing.Point(137, 93);
             this.btnDeletar.Name = "btnDeletar";
             this.btnDeletar.Size = new System.Drawing.Size(75, 27);
-            this.btnDeletar.TabIndex = 38;
+            this.btnDeletar.TabIndex = 3;
             this.btnDeletar.Text = "Deletar";
             this.btnDeletar.UseVisualStyleBackColor = true;
             this.btnDeletar.Click += new System.EventHandler(this.btnDeletar_Click);

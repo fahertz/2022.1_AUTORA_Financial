@@ -43,7 +43,7 @@
             this.btnFechar.Location = new System.Drawing.Point(713, 411);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(75, 27);
-            this.btnFechar.TabIndex = 1;
+            this.btnFechar.TabIndex = 4;
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = true;
             this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
@@ -53,7 +53,7 @@
             this.btnNovo.Location = new System.Drawing.Point(12, 12);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(75, 27);
-            this.btnNovo.TabIndex = 2;
+            this.btnNovo.TabIndex = 0;
             this.btnNovo.Text = "Novo";
             this.btnNovo.UseVisualStyleBackColor = true;
             this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
@@ -63,7 +63,7 @@
             this.btnEditar.Location = new System.Drawing.Point(93, 12);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 27);
-            this.btnEditar.TabIndex = 3;
+            this.btnEditar.TabIndex = 1;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
@@ -73,7 +73,7 @@
             this.btnBaixa_cSaldo.Location = new System.Drawing.Point(174, 12);
             this.btnBaixa_cSaldo.Name = "btnBaixa_cSaldo";
             this.btnBaixa_cSaldo.Size = new System.Drawing.Size(95, 27);
-            this.btnBaixa_cSaldo.TabIndex = 4;
+            this.btnBaixa_cSaldo.TabIndex = 2;
             this.btnBaixa_cSaldo.Text = "Bx. c Saldo";
             this.btnBaixa_cSaldo.UseVisualStyleBackColor = true;
             this.btnBaixa_cSaldo.Click += new System.EventHandler(this.btnBaixar_cSaldo_Click);
@@ -83,7 +83,7 @@
             this.btnBaixa_sSaldo.Location = new System.Drawing.Point(275, 12);
             this.btnBaixa_sSaldo.Name = "btnBaixa_sSaldo";
             this.btnBaixa_sSaldo.Size = new System.Drawing.Size(95, 27);
-            this.btnBaixa_sSaldo.TabIndex = 5;
+            this.btnBaixa_sSaldo.TabIndex = 3;
             this.btnBaixa_sSaldo.Text = "Bx. sem Saldo";
             this.btnBaixa_sSaldo.UseVisualStyleBackColor = true;
             this.btnBaixa_sSaldo.Click += new System.EventHandler(this.btnBaixa_sSaldo_Click);

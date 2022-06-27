@@ -52,7 +52,7 @@
             this.txtCodTipoCategoria.Location = new System.Drawing.Point(8, 63);
             this.txtCodTipoCategoria.Name = "txtCodTipoCategoria";
             this.txtCodTipoCategoria.Size = new System.Drawing.Size(44, 20);
-            this.txtCodTipoCategoria.TabIndex = 25;
+            this.txtCodTipoCategoria.TabIndex = 2;
             this.txtCodTipoCategoria.TextChanged += new System.EventHandler(this.txtCodTipoCategoria_TextChanged);
             // 
             // txtDescTipoCategoria
@@ -60,14 +60,14 @@
             this.txtDescTipoCategoria.Location = new System.Drawing.Point(55, 63);
             this.txtDescTipoCategoria.Name = "txtDescTipoCategoria";
             this.txtDescTipoCategoria.Size = new System.Drawing.Size(231, 20);
-            this.txtDescTipoCategoria.TabIndex = 24;
+            this.txtDescTipoCategoria.TabIndex = 3;
             // 
             // btnSalvar
             // 
             this.btnSalvar.Location = new System.Drawing.Point(211, 89);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 27);
-            this.btnSalvar.TabIndex = 23;
+            this.btnSalvar.TabIndex = 5;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -77,7 +77,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(130, 89);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 27);
-            this.btnCancelar.TabIndex = 22;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -96,14 +96,14 @@
             this.txtCodCategoria.Location = new System.Drawing.Point(8, 21);
             this.txtCodCategoria.Name = "txtCodCategoria";
             this.txtCodCategoria.Size = new System.Drawing.Size(44, 20);
-            this.txtCodCategoria.TabIndex = 28;
+            this.txtCodCategoria.TabIndex = 0;
             // 
             // txtDescCategoria
             // 
             this.txtDescCategoria.Location = new System.Drawing.Point(55, 21);
             this.txtDescCategoria.Name = "txtDescCategoria";
             this.txtDescCategoria.Size = new System.Drawing.Size(231, 20);
-            this.txtDescCategoria.TabIndex = 27;
+            this.txtDescCategoria.TabIndex = 1;
             // 
             // frmCategoriaNovo
             // 

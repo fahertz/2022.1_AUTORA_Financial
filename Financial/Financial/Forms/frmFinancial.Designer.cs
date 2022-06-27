@@ -69,7 +69,7 @@
             this.btnSair.Location = new System.Drawing.Point(714, 407);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(74, 31);
-            this.btnSair.TabIndex = 3;
+            this.btnSair.TabIndex = 5;
             this.btnSair.Text = "Sair";
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.btnFechar_Click);
@@ -88,7 +88,7 @@
             this.btnCadastros.Location = new System.Drawing.Point(12, 252);
             this.btnCadastros.Name = "btnCadastros";
             this.btnCadastros.Size = new System.Drawing.Size(249, 69);
-            this.btnCadastros.TabIndex = 5;
+            this.btnCadastros.TabIndex = 3;
             this.btnCadastros.Text = "Cadastros";
             this.btnCadastros.UseVisualStyleBackColor = true;
             this.btnCadastros.Click += new System.EventHandler(this.btnCadastros_Click);

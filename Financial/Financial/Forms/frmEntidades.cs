@@ -11,6 +11,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Financial.Entidade;
+using static Financial.Classificacao;
+using static Financial.Entidade_Classificacao;
 namespace Financial.Forms
 {
     public partial class frmEntidades : Form
@@ -24,7 +26,9 @@ namespace Financial.Forms
         //Pega a raiz bin para salvar o arquivo produtos
         string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
         string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
-        string nome_Arquivo = "\\CAD_ENTIDADE.json";                                     //Nome do arquivo
+        string nome_Arquivo_Entidade = "\\CAD_ENTIDADE.json";                                     //Nome do arquivo
+        string nome_Arquivo_Classificacao_Entidade = "\\CAD_CLASSIFICACAO_ENTIDADE.json";                                     //Nome do arquivo
+        string nome_Arquivo_Classificacao = "\\CAD_CLASSIFICACAO.json";                                     //Nome do arquivo
 
         //Configuração da Grid
         void configuracao_Grid(DataGridView _dgv)
@@ -95,6 +99,96 @@ namespace Financial.Forms
             }
         }
 
+        private void carregarEntidade_Classificacao(string path)
+        {
+            if (File.Exists(path))
+            {
+                Entidades_Classificacoes.Clear();
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
+
+                try
+                {
+                    Entidades_Classificacoes.Add((Entidade_Classificacao)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Entidade_Classificacao))));
+                    reader.Close();
+                }
+                catch
+                {
+                    try
+                    {
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Entidades_Classificacoes.Add(new Entidade_Classificacao
+                            {
+                                idEntidade = Convert.ToInt32(dr["idEntidade"].ToString())
+                               ,idClassificacao = Convert.ToInt32(dr["idClassificacao"].ToString())
+                               
+                            });
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }                
+            }
+        }
+        private void carregarClassificacao(string path, ComboBox _cbx)
+        {
+            if (File.Exists(path))
+            {
+                Classificacoes.Clear();
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
+
+                try
+                {
+                    Classificacoes.Add((Classificacao)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Classificacao))));
+                    reader.Close();
+                }
+                catch
+                {
+                    try
+                    {
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Classificacoes.Add(new Classificacao
+                            {
+                                idClassificacao = Convert.ToInt32(dr["idClassificacao"].ToString())
+                                ,nomeClassificacao = dr["nomeClassificacao"].ToString()
+                            });
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+
+                    }
+                }
+                finally
+                {
+                    _cbx.Invoke((MethodInvoker)delegate
+                    {
+                        foreach (var ent in Classificacoes)
+                        {
+                            if (ent != null)
+                                _cbx.Items.Add(ent.idClassificacao + " | "+ ent.nomeClassificacao);
+                        }
+                    });
+                }
+            }
+        }
 
 
         private void frmEntidades_Load(object sender, EventArgs e)
@@ -104,7 +198,8 @@ namespace Financial.Forms
 
 
             configuracao_Grid(dgvDados);
-            carregarEntidade(wpath + folder + nome_Arquivo, dgvDados);
+            carregarEntidade(wpath + folder + nome_Arquivo_Entidade, dgvDados);
+            carregarClassificacao(wpath + folder + nome_Arquivo_Classificacao, cbxClassificacao);            
         }
 
         private void btnFechar_Click(object sender, EventArgs e)
@@ -113,16 +208,14 @@ namespace Financial.Forms
         }
 
 
-        private void abrirClassificacoes()
-        {
-            Application.Run(new frmClassificacoes());
-        }
+     
 
         private void btnClassificacoes_Click(object sender, EventArgs e)
         {
-            Thread tAbrirClassificacoes = new Thread(abrirClassificacoes);
-            tAbrirClassificacoes.SetApartmentState(ApartmentState.STA);
-            tAbrirClassificacoes.Start();
+            frmClassificacoes frmClassificacoes = new frmClassificacoes();
+            frmClassificacoes.ShowDialog();
+            cbxClassificacao.Items.Clear();
+            carregarClassificacao(wpath+folder+nome_Arquivo_Classificacao,cbxClassificacao);
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
@@ -130,19 +223,13 @@ namespace Financial.Forms
             frmEntidadesNovo form = new frmEntidadesNovo();
             form.ShowDialog();
             dgvDados.Rows.Clear();
-            carregarEntidade(wpath + folder + nome_Arquivo, dgvDados);
+            carregarEntidade(wpath + folder + nome_Arquivo_Entidade, dgvDados);
 
         }
 
         private void txtEntidades_TextChanged(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dgvDados.Rows)
-            {
-                if (row.Cells[1].Value.ToString().Contains(txtEntidades.Text) || row.Cells[0].Value.ToString().Contains(txtEntidades.Text))
-                    row.Visible = true;
-                else
-                    row.Visible = false;
-            }
+            cbxClassificacao_SelectedIndexChanged(cbxClassificacao, new EventArgs());
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -164,8 +251,48 @@ namespace Financial.Forms
                 }                                               
                 frmEditar.ShowDialog();
                 dgvDados.Rows.Clear();
-                carregarEntidade(wpath + folder + nome_Arquivo, dgvDados);
+                carregarEntidade(wpath + folder + nome_Arquivo_Entidade, dgvDados);
+                carregarEntidade_Classificacao(wpath + folder + nome_Arquivo_Classificacao_Entidade);
             }
+        }
+
+        private void cbxClassificacao_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvDados.Rows)
+            {
+                if (row.Cells[1].Value.ToString().Contains(txtEntidades.Text) || row.Cells[0].Value.ToString().Contains(txtEntidades.Text))
+                {
+                    if (cbxClassificacao.SelectedItem != null) 
+                    {
+                        string[] Classificacao_Selecionada = cbxClassificacao.SelectedItem.ToString().Split('|');
+
+
+                        var resultado = from class_Entidade in Entidades_Classificacoes
+                                        where class_Entidade.idClassificacao == Convert.ToInt32(Classificacao_Selecionada[0].ToString())
+                                        select new { class_Entidade.idEntidade };
+                        List<int> filtro = new List<int>();
+                        foreach (var item in resultado)
+                        {
+                            filtro.Add(item.idEntidade);
+                        }
+
+                        if (filtro.Contains(Convert.ToInt32(row.Cells[0].Value.ToString())) && (row.Cells[1].Value.ToString().Contains(txtEntidades.Text) || row.Cells[0].Value.ToString().Contains(txtEntidades.Text)))
+                        {
+                            row.Visible = true;
+                        }
+                        else
+                        {
+                            row.Visible = false;
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    row.Visible = false;
+                }
+            }
+            
         }
     }
 }

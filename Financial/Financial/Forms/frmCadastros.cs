@@ -92,5 +92,17 @@ namespace Financial.Forms
             tAbrirClassificacoes.SetApartmentState(ApartmentState.STA);
             tAbrirClassificacoes.Start();
         }
+
+
+        private void abrirLocais()
+        {
+            Application.Run(new frmLocais());
+        }
+        private void txtLocais_Click(object sender, EventArgs e)
+        {
+            Thread tAbrirLocais = new Thread(abrirLocais);
+            tAbrirLocais.SetApartmentState(ApartmentState.STA);
+            tAbrirLocais.Start();
+        }
     }
 }

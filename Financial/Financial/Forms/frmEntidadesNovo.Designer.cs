@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblEntidade = new System.Windows.Forms.Label();
             this.txtCodEntidade = new System.Windows.Forms.TextBox();
             this.txtDescEntidade = new System.Windows.Forms.TextBox();
@@ -61,14 +61,14 @@
             this.txtCodEntidade.Location = new System.Drawing.Point(8, 21);
             this.txtCodEntidade.Name = "txtCodEntidade";
             this.txtCodEntidade.Size = new System.Drawing.Size(44, 20);
-            this.txtCodEntidade.TabIndex = 36;
+            this.txtCodEntidade.TabIndex = 0;
             // 
             // txtDescEntidade
             // 
             this.txtDescEntidade.Location = new System.Drawing.Point(55, 21);
             this.txtDescEntidade.Name = "txtDescEntidade";
             this.txtDescEntidade.Size = new System.Drawing.Size(312, 20);
-            this.txtDescEntidade.TabIndex = 35;
+            this.txtDescEntidade.TabIndex = 1;
             // 
             // lblClassificacaoEntidade
             // 
@@ -84,7 +84,7 @@
             this.btnSalvar.Location = new System.Drawing.Point(292, 366);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 27);
-            this.btnSalvar.TabIndex = 31;
+            this.btnSalvar.TabIndex = 8;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -94,7 +94,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(211, 366);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 27);
-            this.btnCancelar.TabIndex = 30;
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -105,10 +105,10 @@
             this.dgvDados.AllowUserToDeleteRows = false;
             this.dgvDados.AllowUserToOrderColumns = true;
             this.dgvDados.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Blue;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvDados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Blue;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvDados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDados.Location = new System.Drawing.Point(8, 181);
             this.dgvDados.Name = "dgvDados";
@@ -125,7 +125,7 @@
             this.btnAdd.Location = new System.Drawing.Point(8, 365);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(26, 27);
-            this.btnAdd.TabIndex = 39;
+            this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -137,7 +137,7 @@
             this.btnRemover.Location = new System.Drawing.Point(36, 365);
             this.btnRemover.Name = "btnRemover";
             this.btnRemover.Size = new System.Drawing.Size(26, 27);
-            this.btnRemover.TabIndex = 40;
+            this.btnRemover.TabIndex = 6;
             this.btnRemover.Text = "-";
             this.btnRemover.UseVisualStyleBackColor = true;
             this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
@@ -157,7 +157,7 @@
             this.txtObservacao.Multiline = true;
             this.txtObservacao.Name = "txtObservacao";
             this.txtObservacao.Size = new System.Drawing.Size(359, 63);
-            this.txtObservacao.TabIndex = 44;
+            this.txtObservacao.TabIndex = 4;
             // 
             // lblObservacao
             // 
@@ -174,14 +174,14 @@
             this.mtxTelefone.Mask = "(99) 00000-0000";
             this.mtxTelefone.Name = "mtxTelefone";
             this.mtxTelefone.Size = new System.Drawing.Size(88, 20);
-            this.mtxTelefone.TabIndex = 45;
+            this.mtxTelefone.TabIndex = 2;
             // 
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(102, 60);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(265, 20);
-            this.txtEmail.TabIndex = 46;
+            this.txtEmail.TabIndex = 3;
             // 
             // lblEmail
             // 

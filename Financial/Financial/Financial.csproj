@@ -36,6 +36,7 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaixaDeTexto.cs" />
     <Compile Include="Categoria_Financeira.cs" />
     <Compile Include="Entidades.cs" />
     <Compile Include="Forms\frmCadastros.cs">
@@ -135,6 +137,24 @@
     <Compile Include="Forms\frmFinancial.Designer.cs">
       <DependentUpon>frmFinancial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmLocais.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLocais.Designer.cs">
+      <DependentUpon>frmLocais.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLocaisEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLocaisEditar.Designer.cs">
+      <DependentUpon>frmLocaisEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLocaisNovo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLocaisNovo.Designer.cs">
+      <DependentUpon>frmLocaisNovo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmTipoCategoria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +174,7 @@
       <DependentUpon>frmTipoCategoriaNovo.cs</DependentUpon>
     </Compile>
     <Compile Include="Formulario.cs" />
+    <Compile Include="Local.cs" />
     <Compile Include="Mensagem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -198,6 +219,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFinancial.resx">
       <DependentUpon>frmFinancial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLocais.resx">
+      <DependentUpon>frmLocais.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLocaisEditar.resx">
+      <DependentUpon>frmLocaisEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLocaisNovo.resx">
+      <DependentUpon>frmLocaisNovo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmTipoCategoria.resx">
       <DependentUpon>frmTipoCategoria.cs</DependentUpon>

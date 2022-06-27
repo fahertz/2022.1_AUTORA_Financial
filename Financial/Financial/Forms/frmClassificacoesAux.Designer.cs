@@ -41,7 +41,7 @@
             this.clbClassificacoes.Location = new System.Drawing.Point(12, 51);
             this.clbClassificacoes.Name = "clbClassificacoes";
             this.clbClassificacoes.Size = new System.Drawing.Size(323, 244);
-            this.clbClassificacoes.TabIndex = 0;
+            this.clbClassificacoes.TabIndex = 1;
             this.clbClassificacoes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbClassificacoes_ItemCheck);
             // 
             // txtClassificacao
@@ -49,7 +49,7 @@
             this.txtClassificacao.Location = new System.Drawing.Point(12, 25);
             this.txtClassificacao.Name = "txtClassificacao";
             this.txtClassificacao.Size = new System.Drawing.Size(323, 20);
-            this.txtClassificacao.TabIndex = 1;
+            this.txtClassificacao.TabIndex = 0;
             this.txtClassificacao.TextChanged += new System.EventHandler(this.txtClassificacao_TextChanged);
             // 
             // lblClassificacao
@@ -66,7 +66,7 @@
             this.btnSalvar.Location = new System.Drawing.Point(260, 301);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 27);
-            this.btnSalvar.TabIndex = 33;
+            this.btnSalvar.TabIndex = 3;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -76,7 +76,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(179, 301);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 27);
-            this.btnCancelar.TabIndex = 32;
+            this.btnCancelar.TabIndex = 2;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);

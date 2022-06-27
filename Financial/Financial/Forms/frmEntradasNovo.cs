@@ -46,6 +46,15 @@ namespace Financial.Forms
             Formulario.configuracaoPadrao(this);
         }
 
+        private void btnDevedores_Click(object sender, EventArgs e)
+        {
+            frmEntidades frmEntidades = new frmEntidades();
+            frmEntidades.ShowDialog();
+        }
 
+        private void btnLocal_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
