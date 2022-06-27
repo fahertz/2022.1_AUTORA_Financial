@@ -37,6 +37,9 @@ namespace Financial.Forms
             });
         }
 
+
+
+
         private void carregarEntidade(string path, DataGridView _dgv)
         {
             if (File.Exists(path))
@@ -160,6 +163,8 @@ namespace Financial.Forms
                     }
                 }                                               
                 frmEditar.ShowDialog();
+                dgvDados.Rows.Clear();
+                carregarEntidade(wpath + folder + nome_Arquivo, dgvDados);
             }
         }
     }
