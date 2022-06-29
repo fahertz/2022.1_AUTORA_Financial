@@ -30,14 +30,7 @@ namespace Financial.Forms
 
         Categoria categoria = new Categoria();
 
-        //Carrega o último código adicionado
-        private int carregarCodCategoria()
-        {
-            if (Categorias.Count > 0)
-                return Categorias[Categorias.Count - 1].idCategoria + 1;
-            else
-                return 1;
-        }
+      
 
         //Salvar categoria
         void salvar_Categoria(int Codigo, string Descricao, int codTpCat)
@@ -105,7 +98,7 @@ namespace Financial.Forms
 
             //Definindo o código Inicial do processo            
             int lastCode = 0;
-            Task.WaitAny(Task.Factory.StartNew(() => lastCode = carregarCodCategoria()));
+            Task.WaitAny(Task.Factory.StartNew(() => lastCode = Categoria.getLastCode()));
             txtCodCategoria.Text = lastCode.ToString();            
         }
 
