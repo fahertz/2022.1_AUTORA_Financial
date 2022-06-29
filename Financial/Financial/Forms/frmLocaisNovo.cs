@@ -24,101 +24,25 @@ namespace Financial.Forms
             InitializeComponent();
             txtValorLocal.KeyPress += CaixaDeTexto.txt_justDouble_KeyPress;
             txtValorLocal.Validating += CaixaDeTexto.txt_convertDouble_Validated;
-        }
-
-      
+        }      
 
         Mensagem mm = new Mensagem();
 
-        ////////////////Bloco para armazenar cadastros em geral
-        //Pega a raiz bin para salvar o arquivo produtos
-        string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
-        string nome_Arquivo = "\\CAD_LOCAL.json";                                           //Nome do arquivo
-
-        Local local = new Local();
-
-
-        //Carrega o último código adicionado
-        private int carregarCodLocal()
-        {
-            if (Locais.Count > 0)
-                return Locais[Locais.Count - 1].idLocal + 1;
-            else
-                return 1;
-        }
-
-        //Salvar local
-        void salvar_Local(int Codigo, string Descricao, double Valor, string Observacao)
-        {
-            //Caminho da aplicação + nome da pasta
-            string _folder = wpath + folder;
-
-            if (Descricao.Trim().Equals(String.Empty))
-            {
-                mm.Message = "O campo " + lblLocal.Text + " não pode estar vazio.";
-                mm.Tittle = "Validação";
-                mm.Buttons = MessageBoxButtons.OK;
-                mm.Icon = MessageBoxIcon.Warning;
-                mm.exibirMensagem();
-                txtNameLocal.Focus();
-                this.Close();
-
-            }
-
-            //Preenchendo os dados da classe
-            local.idLocal = Codigo;
-            local.nameLocal = Descricao;
-            local.valorLocal = Valor;
-            local.observacaoLocal = Observacao;
-
-            try
-            {
-                StreamWriter writer_Local = new StreamWriter(_folder + nome_Arquivo);
-                writer_Local.Close();
-                if (Locais.Count > 0)
-                {
-                    Locais.Add(local);
-                    File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Locais, Formatting.Indented), Encoding.UTF8);
-                }
-                else
-                    File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(local, Formatting.Indented), Encoding.UTF8);
-            }
-            catch (Exception ex)
-            {
-                mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                mm.Tittle = "Erro";
-                mm.Buttons = MessageBoxButtons.OK;
-                mm.Icon = MessageBoxIcon.Error;
-                mm.exibirMensagem();
-                this.Close();
-            }
-            finally
-            {
-                mm.Message = "Registro salvo com sucesso!";
-                mm.Tittle = "Salvar registro";
-                mm.Buttons = MessageBoxButtons.OK;
-                mm.Icon = MessageBoxIcon.Information;
-                mm.exibirMensagem();
-                this.Close();
-            }
-        }
-
-
-
-
+           
         //Load do form
         private void frmLocaisNovo_Load(object sender, EventArgs e)
         {
             //Configurações do Form
             txtIdLocal.ReadOnly = true;
 
+            txtValorLocal.Text = "0,00";
+
             //Caracteristicas do form
             Formulario.configuracaoPadrao(this);
 
             //Definindo o código Inicial do processo            
             int lastCode = 0;
-            Task.WaitAny(Task.Factory.StartNew(() => lastCode = carregarCodLocal()));
+            Task.WaitAny(Task.Factory.StartNew(() => lastCode = Local.getLastCode()));
             txtIdLocal.Text = lastCode.ToString();
         }
 
@@ -136,8 +60,28 @@ namespace Financial.Forms
                     DialogResult result = mm.exibirMensagem();
                     return;
                 }
-                
-                salvar_Local(Convert.ToInt32(txtIdLocal.Text),txtNameLocal.Text,Convert.ToDouble(txtValorLocal.Text),txtObservacao.Text);
+
+                try
+                {
+                    Local.adicionar_Local(txtIdLocal.Text, txtNameLocal.Text, txtValorLocal.Text, txtObservacao.Text);
+                }
+                catch (Exception ex)
+                {
+                    mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
+                    mm.Tittle = "Erro";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Error;
+                    mm.exibirMensagem();
+                }
+                finally
+                {
+                    mm.Message = "Registro adicionado com sucesso!";
+                    mm.Tittle = "Salvar registro";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Information;
+                    mm.exibirMensagem();
+                    this.Close();
+                }
             }
         }
 

@@ -176,6 +176,7 @@
     <Compile Include="Formulario.cs" />
     <Compile Include="Local.cs" />
     <Compile Include="Mensagem.cs" />
+    <Compile Include="MovimentoFinanceiro.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\frmCadastros.resx">

@@ -28,7 +28,7 @@ namespace Financial.Forms
         ////////////////Bloco para armazenar cadastros em geral
         //Pega a raiz bin para salvar o arquivo produtos
         string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
+        string folder = "\\" + "CADASTROS";                                                   //Nome do diretório dos cadastros
         string nome_ArquivoEntidade = "\\CAD_ENTIDADE.json";                                           //Nome do arquivo
         string nome_ArquivoEntidade_Classificacao = "\\CAD_ENTIDADE_CLASSIFICACAO.json";                            //Nome do arquivo 2
 

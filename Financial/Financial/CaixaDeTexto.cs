@@ -25,6 +25,19 @@ namespace Financial
             }
         }
 
+        public static void txt_justInt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (sender is TextBox)
+            {
+                // temporary invalid inputs like "1," are allowed
+                if ((e.KeyChar < 32) || (e.KeyChar >= '0') && (e.KeyChar <= '9'))
+                    return;
+
+                // only evident errors (like 'A' or '&') are restricted
+                e.Handled = true;
+            }
+        }
+
         public static void txt_convertDouble_Validated (object sender, CancelEventArgs e)
         {
             if (sender is TextBox)
@@ -34,12 +47,13 @@ namespace Financial
                 {
                     ss.Text = String.Format("{0:#0.00}", Convert.ToDouble(ss.Text));                                        
                 }
-                catch (Exception exp)
+                catch 
                 {
-
                     ss.Text = String.Format("{0:#0.00}", 0);
                 }
             }
         }
+
+
     }
 }

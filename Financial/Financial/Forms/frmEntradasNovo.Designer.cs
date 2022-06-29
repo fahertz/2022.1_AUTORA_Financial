@@ -38,7 +38,7 @@
             this.txtDescLocalArmazenamento = new System.Windows.Forms.TextBox();
             this.txtParcelas = new System.Windows.Forms.TextBox();
             this.txtCodLocalArmazenamento = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblObs = new System.Windows.Forms.Label();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblEntidade = new System.Windows.Forms.Label();
@@ -52,13 +52,15 @@
             this.btnEntidades = new System.Windows.Forms.Button();
             this.btnCategoria = new System.Windows.Forms.Button();
             this.btnLocal = new System.Windows.Forms.Button();
+            this.txtValor = new System.Windows.Forms.TextBox();
+            this.lblValor = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtDescEntidade
             // 
             this.txtDescEntidade.Location = new System.Drawing.Point(62, 24);
             this.txtDescEntidade.Name = "txtDescEntidade";
-            this.txtDescEntidade.Size = new System.Drawing.Size(368, 20);
+            this.txtDescEntidade.Size = new System.Drawing.Size(408, 20);
             this.txtDescEntidade.TabIndex = 1;
             // 
             // txtCodEntidade
@@ -67,6 +69,7 @@
             this.txtCodEntidade.Name = "txtCodEntidade";
             this.txtCodEntidade.Size = new System.Drawing.Size(44, 20);
             this.txtCodEntidade.TabIndex = 0;
+            this.txtCodEntidade.TextChanged += new System.EventHandler(this.txtCodEntidade_TextChanged);
             // 
             // dtpDataBase
             // 
@@ -79,7 +82,7 @@
             // 
             this.cbxFormaPagamento.FormattingEnabled = true;
             this.cbxFormaPagamento.ItemHeight = 13;
-            this.cbxFormaPagamento.Location = new System.Drawing.Point(12, 102);
+            this.cbxFormaPagamento.Location = new System.Drawing.Point(151, 102);
             this.cbxFormaPagamento.Name = "cbxFormaPagamento";
             this.cbxFormaPagamento.Size = new System.Drawing.Size(230, 21);
             this.cbxFormaPagamento.TabIndex = 7;
@@ -94,14 +97,15 @@
             // 
             // txtCodCategoria
             // 
-            this.txtCodCategoria.Location = new System.Drawing.Point(506, 23);
+            this.txtCodCategoria.Location = new System.Drawing.Point(498, 24);
             this.txtCodCategoria.Name = "txtCodCategoria";
             this.txtCodCategoria.Size = new System.Drawing.Size(44, 20);
             this.txtCodCategoria.TabIndex = 2;
+            this.txtCodCategoria.TextChanged += new System.EventHandler(this.txtCodCategoria_TextChanged);
             // 
             // txtDescCategoria
             // 
-            this.txtDescCategoria.Location = new System.Drawing.Point(556, 23);
+            this.txtDescCategoria.Location = new System.Drawing.Point(548, 24);
             this.txtDescCategoria.Name = "txtDescCategoria";
             this.txtDescCategoria.Size = new System.Drawing.Size(308, 20);
             this.txtDescCategoria.TabIndex = 3;
@@ -115,7 +119,7 @@
             // 
             // txtParcelas
             // 
-            this.txtParcelas.Location = new System.Drawing.Point(248, 102);
+            this.txtParcelas.Location = new System.Drawing.Point(93, 102);
             this.txtParcelas.Name = "txtParcelas";
             this.txtParcelas.Size = new System.Drawing.Size(52, 20);
             this.txtParcelas.TabIndex = 8;
@@ -126,15 +130,16 @@
             this.txtCodLocalArmazenamento.Name = "txtCodLocalArmazenamento";
             this.txtCodLocalArmazenamento.Size = new System.Drawing.Size(44, 20);
             this.txtCodLocalArmazenamento.TabIndex = 9;
+            this.txtCodLocalArmazenamento.TextChanged += new System.EventHandler(this.txtCodLocalArmazenamento_TextChanged);
             // 
-            // label1
+            // lblObs
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 166);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Observação";
+            this.lblObs.AutoSize = true;
+            this.lblObs.Location = new System.Drawing.Point(12, 166);
+            this.lblObs.Name = "lblObs";
+            this.lblObs.Size = new System.Drawing.Size(65, 13);
+            this.lblObs.TabIndex = 12;
+            this.lblObs.Text = "Observação";
             // 
             // btnSalvar
             // 
@@ -144,6 +149,7 @@
             this.btnSalvar.TabIndex = 13;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // btnCancelar
             // 
@@ -166,7 +172,7 @@
             // lblCategoria
             // 
             this.lblCategoria.AutoSize = true;
-            this.lblCategoria.Location = new System.Drawing.Point(503, 8);
+            this.lblCategoria.Location = new System.Drawing.Point(495, 9);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Size = new System.Drawing.Size(52, 13);
             this.lblCategoria.TabIndex = 16;
@@ -194,7 +200,7 @@
             // lblFormaPagamento
             // 
             this.lblFormaPagamento.AutoSize = true;
-            this.lblFormaPagamento.Location = new System.Drawing.Point(9, 86);
+            this.lblFormaPagamento.Location = new System.Drawing.Point(148, 86);
             this.lblFormaPagamento.Name = "lblFormaPagamento";
             this.lblFormaPagamento.Size = new System.Drawing.Size(108, 13);
             this.lblFormaPagamento.TabIndex = 19;
@@ -203,7 +209,7 @@
             // lblParcelas
             // 
             this.lblParcelas.AutoSize = true;
-            this.lblParcelas.Location = new System.Drawing.Point(249, 86);
+            this.lblParcelas.Location = new System.Drawing.Point(94, 86);
             this.lblParcelas.Name = "lblParcelas";
             this.lblParcelas.Size = new System.Drawing.Size(48, 13);
             this.lblParcelas.TabIndex = 20;
@@ -236,7 +242,7 @@
             this.btnEntidades.TabIndex = 14;
             this.btnEntidades.Text = "Entidades";
             this.btnEntidades.UseVisualStyleBackColor = true;
-            this.btnEntidades.Click += new System.EventHandler(this.btnDevedores_Click);
+            this.btnEntidades.Click += new System.EventHandler(this.btnEntidades_Click);
             // 
             // btnCategoria
             // 
@@ -258,11 +264,29 @@
             this.btnLocal.UseVisualStyleBackColor = true;
             this.btnLocal.Click += new System.EventHandler(this.btnLocal_Click);
             // 
+            // txtValor
+            // 
+            this.txtValor.Location = new System.Drawing.Point(12, 102);
+            this.txtValor.Name = "txtValor";
+            this.txtValor.Size = new System.Drawing.Size(78, 20);
+            this.txtValor.TabIndex = 22;
+            // 
+            // lblValor
+            // 
+            this.lblValor.AutoSize = true;
+            this.lblValor.Location = new System.Drawing.Point(12, 86);
+            this.lblValor.Name = "lblValor";
+            this.lblValor.Size = new System.Drawing.Size(31, 13);
+            this.lblValor.TabIndex = 23;
+            this.lblValor.Text = "Valor";
+            // 
             // frmEntradasNovo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(949, 365);
+            this.Controls.Add(this.lblValor);
+            this.Controls.Add(this.txtValor);
             this.Controls.Add(this.btnLocal);
             this.Controls.Add(this.btnCategoria);
             this.Controls.Add(this.btnEntidades);
@@ -276,7 +300,7 @@
             this.Controls.Add(this.lblEntidade);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblObs);
             this.Controls.Add(this.txtCodLocalArmazenamento);
             this.Controls.Add(this.txtParcelas);
             this.Controls.Add(this.txtDescLocalArmazenamento);
@@ -308,7 +332,7 @@
         private System.Windows.Forms.TextBox txtDescLocalArmazenamento;
         private System.Windows.Forms.TextBox txtParcelas;
         private System.Windows.Forms.TextBox txtCodLocalArmazenamento;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblObs;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblEntidade;
@@ -322,5 +346,7 @@
         private System.Windows.Forms.Button btnEntidades;
         private System.Windows.Forms.Button btnCategoria;
         private System.Windows.Forms.Button btnLocal;
+        private System.Windows.Forms.TextBox txtValor;
+        private System.Windows.Forms.Label lblValor;
     }
 }

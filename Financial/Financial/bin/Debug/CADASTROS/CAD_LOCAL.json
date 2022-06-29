@@ -1,6 +1,14 @@
-﻿{
-  "idLocal": 1,
-  "nameLocal": "NU BANK",
-  "valorLocal": 0.0,
-  "observacaoLocal": "123"
-}
+﻿[
+  {
+    "idLocal": 1,
+    "nameLocal": "Nu Bank",
+    "valorLocal": 0.0,
+    "observacaoLocal": ""
+  },
+  {
+    "idLocal": 2,
+    "nameLocal": "Bradesc",
+    "valorLocal": 260.568,
+    "observacaoLocal": "1"
+  }
+]
