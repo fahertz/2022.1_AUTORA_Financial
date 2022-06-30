@@ -13,6 +13,8 @@ using static Financial.Entidade;
 using static Financial.CaixaDeTexto;
 using static Financial.Mensagem;
 using static Financial.Categoria_Financeira;
+using static Financial.Categoria_Financeira.Categoria;
+using static Financial.Categoria_Financeira.Tipo_Categoria;
 using static Financial.Local;
 
 namespace Financial.Forms

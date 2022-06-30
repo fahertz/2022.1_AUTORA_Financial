@@ -16,6 +16,8 @@ using static Financial.Classificacao;
 using static Financial.Entidade;
 using static Financial.Entidade_Classificacao;
 using static Financial.Local;
+using static Financial.Categoria_Financeira.Tipo_Categoria;
+using static Financial.Categoria_Financeira.Categoria;
 
 
 namespace Financial
