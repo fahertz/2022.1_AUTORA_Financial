@@ -188,7 +188,9 @@ namespace Financial.Forms
                 try
                 {
                     Entidade.deletar(txtCodEntidade.Text);
+
                     //Entidade_Classificacao.deletar(txtCodEntidade.Text);
+                    Entidade_Classificacao.editar(txtCodEntidade.Text, dgvDados);
                 }
                 catch (Exception ex)
                 {

@@ -106,7 +106,7 @@ namespace Financial
             }
             else
             {
-                File.Delete(folder + nome_Arquivo);
+                File.Delete(wpath + folder + nome_Arquivo);
             }
         }
 

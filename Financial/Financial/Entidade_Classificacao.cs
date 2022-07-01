@@ -69,11 +69,11 @@ namespace Financial
             if (_obj is DataGridView)
             {
                 DataGridView _dgv = (DataGridView)_obj;
-                deletar(Codigo_Entidade);
+               Entidade_Classificacao.deletar(Codigo_Entidade);
 
                 foreach (DataGridViewRow _row in _dgv.Rows)
                 {
-                    adicionar(Codigo_Entidade,_row.Cells[0].Value);
+                    Entidade_Classificacao.adicionar(Codigo_Entidade,_row.Cells[0].Value);
                 }
             }
 
@@ -83,49 +83,30 @@ namespace Financial
         
 
 
-        public static int deletar(dynamic Codigo_Entidade, dynamic Codigo_Classificacao = null)
+        public static int deletar(dynamic Codigo_Entidade)
         {
-            if (Codigo_Classificacao is null) 
-            {
-                foreach (var item in Entidades_Classificacoes)
-                {
-                    if (item.idEntidade == Convert.ToInt32(Codigo_Entidade) && item.idClassificacao == Convert.ToInt32(Codigo_Classificacao))
-                    {
-                        Entidades_Classificacoes.Remove(item);
-                    }
-                }
 
-                if (Entidades_Classificacoes.Count > 0)
+            List <Entidade_Classificacao> remover = new List <Entidade_Classificacao>();
+            foreach (var item in Entidades_Classificacoes)
+            {
+                if (item.idEntidade == Convert.ToInt32(Codigo_Entidade))
                 {
-                    salvar();
-                    return 1;
+                    remover.Add(item);
                 }
-                else
-                {
-                    File.Delete(folder + nome_Arquivo);
-                    return 1;
-                }
+            }
+
+            foreach (var item in remover)
+                Entidades_Classificacoes.Remove(item);
+
+            if (Entidades_Classificacoes.Count > 0)
+            {
+                salvar();
+                return 1;
             }
             else
             {
-                foreach (var item in Entidades_Classificacoes)
-                {
-                    if (item.idEntidade == Convert.ToInt32(Codigo_Entidade))
-                    {
-                        Entidades_Classificacoes.Remove(item);
-                    }
-                }
-
-                if (Entidades_Classificacoes.Count > 0)
-                {
-                    salvar();
-                    return 1;
-                }
-                else
-                {
-                    File.Delete(folder + nome_Arquivo);
-                    return 1;
-                }
+                File.Delete(wpath + folder + nome_Arquivo);
+                return 1;
             }
 
         }
