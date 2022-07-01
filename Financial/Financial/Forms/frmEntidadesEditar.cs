@@ -188,7 +188,7 @@ namespace Financial.Forms
                 try
                 {
                     Entidade.deletar(txtCodEntidade.Text);
-                    Entidade_Classificacao.deletar(txtCodEntidade.Text);
+                    //Entidade_Classificacao.deletar(txtCodEntidade.Text);
                 }
                 catch (Exception ex)
                 {
@@ -201,12 +201,10 @@ namespace Financial.Forms
                 }
                 finally
                 {
-
-
-                    mm.Message = "Você deseja cancelar a operação?";
-                    mm.Tittle = "Cancelar a operação";
-                    mm.Buttons = MessageBoxButtons.YesNo;
-                    mm.Icon = MessageBoxIcon.Warning;
+                    mm.Message = "Registro removido com sucesso!";
+                    mm.Tittle = "Excluir registro";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Information;
                     mm.exibirMensagem();
                     this.Close();
                 }

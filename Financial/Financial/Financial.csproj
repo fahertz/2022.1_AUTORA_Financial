@@ -53,7 +53,7 @@
     <Compile Include="CaixaDeTexto.cs" />
     <Compile Include="Categoria_Financeira.cs" />
     <Compile Include="Classificacao.cs" />
-    <Compile Include="Entidades.cs" />
+    <Compile Include="Entidade.cs" />
     <Compile Include="Entidade_Classificacao.cs" />
     <Compile Include="Forms\frmCadastros.cs">
       <SubType>Form</SubType>
