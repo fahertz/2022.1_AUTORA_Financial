@@ -20,12 +20,7 @@ namespace Financial.Forms
         }
 
         static Mensagem mm = new Mensagem();
-
-        
-
-        
-
-        
+                        
 
         private void frmClassificacoesNovo_Load(object sender, EventArgs e)
         {            

@@ -25,26 +25,6 @@ namespace Financial.Forms
 
         Mensagem mm = new Mensagem();
 
-        ////////////////Bloco para armazenar cadastros em geral
-        //Pega a raiz bin para salvar o arquivo produtos
-        string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        string folder = "\\" + "CADASTROS";                                                   //Nome do diretório dos cadastros
-        string nome_ArquivoEntidade = "\\CAD_ENTIDADE.json";                                           //Nome do arquivo
-        string nome_ArquivoEntidade_Classificacao = "\\CAD_ENTIDADE_CLASSIFICACAO.json";                            //Nome do arquivo 2
-
-        Entidade entidade = new Entidade();
-        Entidade_Classificacao ent_class = new Entidade_Classificacao();
-
-
-        //Carrega o último código adicionado
-        private int carregarCodEntidade()
-        {
-            if (Entidades.Count > 0)
-                return Entidades[Entidades.Count - 1].idEntidade + 1;
-            else
-                return 1;
-        }
-
         private void configurar_Grid(DataGridView _dgv)
         {
             _dgv.Rows.Clear();
@@ -54,9 +34,26 @@ namespace Financial.Forms
         }
 
 
-        private void salvar_Entidade(int idEntidade, string nomeEntidade, [Optional] DataGridView _dgvClassificacoes, [Optional] string telefoneEntidade, [Optional] string emailEntidade, [Optional] string obsEntidade)
-        {
+      
 
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            if (dgvDados.Rows.Count > 0 || txtDescEntidade.Text.Trim().Equals(String.Empty) || mtxTelefone.MaskFull || mtxTelefone.Text.Trim().Equals(String.Empty) || txtEmail.Text.ToString().Trim().Equals(String.Empty)
+                || txtObservacao.Text.ToString().Trim().Equals(String.Empty))
+            {
+                mm.Message = "Você deseja cancelar a operação?";
+                mm.Tittle = "Cancelar a operação";
+                mm.Buttons = MessageBoxButtons.YesNo;
+                mm.Icon = MessageBoxIcon.Warning;
+                DialogResult result = mm.exibirMensagem();
+                if (result == DialogResult.Yes)
+                    this.Close();
+            }
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
             //Flag usada para controalr as validações
             int insert = 0;
             if (dgvDados.Rows.Count == 0)
@@ -102,30 +99,15 @@ namespace Financial.Forms
 
             if (insert == 1)
             {
-                //Caminho da aplicação + nome da pasta
-                string _folder = wpath + folder;
-
                 //Inserção entidade
                 try
                 {
-                    //Preenchendo os dados da classe
-                    entidade.idEntidade = idEntidade;
-                    entidade.nomeEntidade = nomeEntidade;
-                    entidade.telefoneEntidade = telefoneEntidade;
-                    entidade.emailEntidade = emailEntidade;
-                    entidade.obsEntidade = obsEntidade;
-
-                    StreamWriter writerEntidade = new StreamWriter(_folder + nome_ArquivoEntidade);
-                    writerEntidade.Close();
-
-
-                    if (Entidades.Count > 0)
+                    Entidade.adicionar(txtCodEntidade.Text, txtDescEntidade.Text, mtxTelefone.Text, txtEmail.Text, txtObservacao.Text);
+                    
+                    foreach(DataGridViewRow row in dgvDados.Rows)
                     {
-                        Entidades.Add(entidade);
-                        File.WriteAllText(_folder + nome_ArquivoEntidade, JsonConvert.SerializeObject(Entidades, Formatting.Indented), Encoding.UTF8);
+                        Entidade_Classificacao.adicionar(txtCodEntidade.Text, row.Cells[0].Value);
                     }
-                    else
-                        File.WriteAllText(_folder + nome_ArquivoEntidade, JsonConvert.SerializeObject(entidade, Formatting.Indented), Encoding.UTF8);
                 }
                 catch (Exception ex)
                 {
@@ -136,73 +118,18 @@ namespace Financial.Forms
                     mm.exibirMensagem();
                     this.Close();
                 }
-
-                //Inserção da Entidade_Classificacao
-                try
+                finally
                 {
-                    List<Entidade_Classificacao> transicaoEntidades_Classificacao = new List<Entidade_Classificacao>();
-                    //Preenchendo os dados da classe
-                    ent_class.idEntidade = idEntidade;
-                    foreach (DataGridViewRow row in dgvDados.Rows)
-                    {
-                        ent_class.idClassificacao = Convert.ToInt32(row.Cells[0].Value.ToString());
-                        transicaoEntidades_Classificacao.Add((Entidade_Classificacao)ent_class.Clone());
-                    }
-                    StreamWriter writer = new StreamWriter(_folder + nome_ArquivoEntidade_Classificacao);
-                    writer.Close();
-
-                    foreach (var item in transicaoEntidades_Classificacao)
-                    {
-                        Entidades_Classificacoes.Add(item);
-
-                    }
-                    File.WriteAllText(_folder + nome_ArquivoEntidade_Classificacao, JsonConvert.SerializeObject(Entidades_Classificacoes, Formatting.Indented), Encoding.UTF8);
-
-                }
-                catch (Exception ex)
-                {
-                    mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                    mm.Tittle = "Erro";
+                    //Mensagem de entidade inserida com sucesso!
+                    mm.Message = "Entidade " + txtDescEntidade.Text + " inserida com sucesso!";
+                    mm.Tittle = "Informação";
                     mm.Buttons = MessageBoxButtons.OK;
-                    mm.Icon = MessageBoxIcon.Error;
+                    mm.Icon = MessageBoxIcon.Information;
                     mm.exibirMensagem();
                     this.Close();
+
                 }
-
-
-
-                //Mensagem de entidade inserida com sucesso!
-                mm.Message = "Entidade " + txtDescEntidade.Text + " inserida com sucesso!";
-                mm.Tittle = "Informação";
-                mm.Buttons = MessageBoxButtons.OK;
-                mm.Icon = MessageBoxIcon.Information;
-                mm.exibirMensagem();
-                this.Close();
-
             }
-
-        }
-
-
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            if (dgvDados.Rows.Count > 0 || txtDescEntidade.Text.Trim().Equals(String.Empty) || mtxTelefone.MaskFull || mtxTelefone.Text.Trim().Equals(String.Empty) || txtEmail.Text.ToString().Trim().Equals(String.Empty)
-                || txtObservacao.Text.ToString().Trim().Equals(String.Empty))
-            {
-                mm.Message = "Você deseja cancelar a operação?";
-                mm.Tittle = "Cancelar a operação";
-                mm.Buttons = MessageBoxButtons.YesNo;
-                mm.Icon = MessageBoxIcon.Warning;
-                DialogResult result = mm.exibirMensagem();
-                if (result == DialogResult.Yes)
-                    this.Close();
-            }
-        }
-
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            salvar_Entidade(Convert.ToInt32(txtCodEntidade.Text),txtDescEntidade.Text,dgvDados,mtxTelefone.Text,txtEmail.Text,txtObservacao.Text);            
         }
 
         private void frmEntidadesNovo_Load(object sender, EventArgs e)
@@ -220,7 +147,7 @@ namespace Financial.Forms
 
             //Definindo o código Inicial do processo            
             int lastCode = 0;
-            Task.WaitAny(Task.Factory.StartNew(() => lastCode = carregarCodEntidade()));
+            Task.WaitAny(Task.Factory.StartNew(() => lastCode = Entidade.retornarUltimoCodigo()));
             txtCodEntidade.Text = lastCode.ToString();
 
         }

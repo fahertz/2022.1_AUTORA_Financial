@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -121,31 +122,111 @@ namespace Financial
             });
         }
 
-        public static void carregar(DataGridView _dgv)
+        public static void carregar(Object obj, [Optional] dynamic CodigoEntidade)
         {
-            _dgv.Columns.Clear();
-            _dgv.Rows.Clear();
-            configurarGrid(_dgv);
-            var query = from classificacoes in Classificacoes
-                        select new
-                        {
-                            classificacoes.idClassificacao
-                            ,
-                            classificacoes.nomeClassificacao
-                        };
 
+            dynamic query = null;
 
-            foreach (var item in query)
+            if (obj is DataGridView) 
             {
-                _dgv.Invoke((MethodInvoker)delegate
+                DataGridView _dgv = (DataGridView)obj;
+                _dgv.Columns.Clear();
+                _dgv.Rows.Clear();
+                configurarGrid(_dgv);                
+                if (Convert.ToInt32(CodigoEntidade) != null)
                 {
-                    _dgv.Rows.Add(item.idClassificacao, item.nomeClassificacao);
-                });
+                    query = from classificacao in Classificacoes
+                            join entidade_classificacao in Entidades_Classificacoes
+                            on new
+                            {
+                                classificacao.idClassificacao
+                            }
+                            equals new
+                            {
+                                entidade_classificacao.idClassificacao
+                            }
+                            where Convert.ToInt32(CodigoEntidade) == entidade_classificacao.idEntidade
+                            select new
+                            {
+                                classificacao.idClassificacao
+                                ,
+                                classificacao.nomeClassificacao
+                            };
+                }
+                else
+                {
+                     query = from classificacoes in Classificacoes
+                                select new
+                                {
+                                    classificacoes.idClassificacao
+                                    ,
+                                    classificacoes.nomeClassificacao
+                                };
+                }
+
+                foreach (var item in query)
+                {
+                    _dgv.Invoke((MethodInvoker)delegate
+                    {
+                        _dgv.Rows.Add(item.idClassificacao, item.nomeClassificacao);
+                    });
+                }
             }
 
-        }
-        }
+            else if (obj is ComboBox)
+            {
+                ComboBox _cbx = (ComboBox)obj;
+                _cbx.Items.Clear();
+                _cbx.Invoke((MethodInvoker)delegate
+                {
+                    foreach (var ent in Classificacoes)
+                    {
+                        if (ent != null)
+                            _cbx.Items.Add(ent.idClassificacao + " | " + ent.nomeClassificacao);
+                    }
+                });
+            }
+            else if (obj is List<int>)
+            {
+                List<int> _list = (List<int>)obj;
+                _list.Clear();
+                if (Convert.ToInt32(CodigoEntidade) != null) 
+                {
+                   
 
+                    query = from classificacao in Classificacoes
+                            join entidade_classificacao in Entidades_Classificacoes
+                            on new
+                            {
+                                classificacao.idClassificacao
+                            }
+                            equals new
+                            {
+                                entidade_classificacao.idClassificacao
+                            }
+                            where Convert.ToInt32(CodigoEntidade) == entidade_classificacao.idEntidade
+                            select new
+                            {
+                                classificacao.idClassificacao
+                                ,
+                                classificacao.nomeClassificacao
+                            };
+
+
+
+                    foreach (var ent in Classificacoes)
+                    {
+                        _list.Add(ent.idClassificacao);
+                    }
+                }
+                else
+                {
+                    foreach (var ent in Classificacoes)
+                        _list.Add((int)ent.idClassificacao);
+                }
+                
+            }
+        }
 
     }
 }

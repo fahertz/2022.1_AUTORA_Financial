@@ -3,5 +3,10 @@
     "idCategoria": 1,
     "descCategoria": "Nova cat",
     "idTipo_Categoria": 1
+  },
+  {
+    "idCategoria": 2,
+    "descCategoria": "Nova cat 2",
+    "idTipo_Categoria": 1
   }
 ]

@@ -22,173 +22,7 @@ namespace Financial.Forms
             InitializeComponent();
         }
 
-        ////////////////Bloco para armazenar cadastros em geral
-        //Pega a raiz bin para salvar o arquivo produtos
-        string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
-        string nome_Arquivo_Entidade = "\\CAD_ENTIDADE.json";                                     //Nome do arquivo
-        string nome_Arquivo_Classificacao_Entidade = "\\CAD_CLASSIFICACAO_ENTIDADE.json";                                     //Nome do arquivo
-        string nome_Arquivo_Classificacao = "\\CAD_CLASSIFICACAO.json";                                     //Nome do arquivo
-
-        //Configuração da Grid
-        void configuracao_Grid(DataGridView _dgv)
-        {
-            _dgv.Invoke((MethodInvoker)delegate
-            {
-                _dgv.Columns.Add("Cod_Entidade", "Cod. Entidade");
-                _dgv.Columns.Add("Des_Entidade", "Entidade");
-                
-            });
-        }
-
-
-
-
-        private void carregarEntidade(string path, DataGridView _dgv)
-        {
-            if (File.Exists(path))
-            {
-                Entidades.Clear();
-                StreamReader reader = new StreamReader(path);
-                string linhasDoArquivo = reader.ReadToEnd();
-
-                try
-                {
-                    Entidades.Add((Entidade)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Entidade))));
-                    reader.Close();
-                }
-                catch
-                {
-                    try
-                    {
-                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
-
-                        DataRow[] oDataRow = dt.Select();
-                        reader.Close();
-
-                        foreach (DataRow dr in oDataRow)
-                        {
-                            Entidades.Add(new Entidade
-                            {
-                                idEntidade = Convert.ToInt32(dr["idEntidade"].ToString())
-                               ,nomeEntidade = dr["nomeEntidade"].ToString()
-                               ,telefoneEntidade = dr["telefoneEntidade"].ToString()
-                               ,emailEntidade = dr["emailEntidade"].ToString()
-                               ,obsEntidade = dr["obsEntidade"].ToString()
-                            });
-                        }
-
-                    }
-                    catch
-                    {
-                        throw;
-
-                    }
-                }
-                finally
-                {
-                    _dgv.Invoke((MethodInvoker)delegate
-                    {
-                        foreach (var ent in Entidades)
-                        {                                     
-                            if (ent != null)
-                                _dgv.Rows.Add(ent.idEntidade, ent.nomeEntidade);
-                        }
-                    });
-                }
-            }
-        }
-
-        private void carregarEntidade_Classificacao(string path)
-        {
-            if (File.Exists(path))
-            {
-                Entidades_Classificacoes.Clear();
-                StreamReader reader = new StreamReader(path);
-                string linhasDoArquivo = reader.ReadToEnd();
-
-                try
-                {
-                    Entidades_Classificacoes.Add((Entidade_Classificacao)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Entidade_Classificacao))));
-                    reader.Close();
-                }
-                catch
-                {
-                    try
-                    {
-                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
-                        DataRow[] oDataRow = dt.Select();
-                        reader.Close();
-
-                        foreach (DataRow dr in oDataRow)
-                        {
-                            Entidades_Classificacoes.Add(new Entidade_Classificacao
-                            {
-                                idEntidade = Convert.ToInt32(dr["idEntidade"].ToString())
-                               ,idClassificacao = Convert.ToInt32(dr["idClassificacao"].ToString())
-                               
-                            });
-                        }
-
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                }                
-            }
-        }
-        private void carregarClassificacao(string path, ComboBox _cbx)
-        {
-            if (File.Exists(path))
-            {
-                Classificacoes.Clear();
-                StreamReader reader = new StreamReader(path);
-                string linhasDoArquivo = reader.ReadToEnd();
-
-                try
-                {
-                    Classificacoes.Add((Classificacao)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(Classificacao))));
-                    reader.Close();
-                }
-                catch
-                {
-                    try
-                    {
-                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
-
-                        DataRow[] oDataRow = dt.Select();
-                        reader.Close();
-
-                        foreach (DataRow dr in oDataRow)
-                        {
-                            Classificacoes.Add(new Classificacao
-                            {
-                                idClassificacao = Convert.ToInt32(dr["idClassificacao"].ToString())
-                                ,nomeClassificacao = dr["nomeClassificacao"].ToString()
-                            });
-                        }
-
-                    }
-                    catch
-                    {
-                        throw;
-
-                    }
-                }
-                finally
-                {
-                    _cbx.Invoke((MethodInvoker)delegate
-                    {
-                        foreach (var ent in Classificacoes)
-                        {
-                            if (ent != null)
-                                _cbx.Items.Add(ent.idClassificacao + " | "+ ent.nomeClassificacao);
-                        }
-                    });
-                }
-            }
-        }
+        
 
 
         private void frmEntidades_Load(object sender, EventArgs e)
@@ -197,9 +31,9 @@ namespace Financial.Forms
             Formulario.configuracaoPadrao(this);
 
 
-            configuracao_Grid(dgvDados);
-            carregarEntidade(wpath + folder + nome_Arquivo_Entidade, dgvDados);
-            carregarClassificacao(wpath + folder + nome_Arquivo_Classificacao, cbxClassificacao);            
+
+            Entidade.carregar(dgvDados);
+            Classificacao.carregar(cbxClassificacao);
         }
 
         private void btnFechar_Click(object sender, EventArgs e)
@@ -213,17 +47,15 @@ namespace Financial.Forms
         private void btnClassificacoes_Click(object sender, EventArgs e)
         {
             frmClassificacoes frmClassificacoes = new frmClassificacoes();
-            frmClassificacoes.ShowDialog();
-            cbxClassificacao.Items.Clear();
-            carregarClassificacao(wpath+folder+nome_Arquivo_Classificacao,cbxClassificacao);
+            frmClassificacoes.ShowDialog();            
+            Classificacao.carregar(cbxClassificacao);
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
             frmEntidadesNovo form = new frmEntidadesNovo();
             form.ShowDialog();
-            dgvDados.Rows.Clear();
-            carregarEntidade(wpath + folder + nome_Arquivo_Entidade, dgvDados);
+            Entidade.carregar(dgvDados);
 
         }
 
@@ -249,10 +81,8 @@ namespace Financial.Forms
                         frmEditar.obsEntidade = item.obsEntidade;
                     }
                 }                                               
-                frmEditar.ShowDialog();
-                dgvDados.Rows.Clear();
-                carregarEntidade(wpath + folder + nome_Arquivo_Entidade, dgvDados);
-                carregarEntidade_Classificacao(wpath + folder + nome_Arquivo_Classificacao_Entidade);
+                frmEditar.ShowDialog();                
+                Entidade.carregar(dgvDados);             
             }
         }
 

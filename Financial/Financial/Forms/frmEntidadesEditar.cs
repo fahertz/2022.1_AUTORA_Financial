@@ -25,35 +25,71 @@ namespace Financial.Forms
 
         Mensagem mm = new Mensagem();
 
-        ////////////////Bloco para armazenar cadastros em geral
-        //Pega a raiz bin para salvar o arquivo produtos
-        string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
-        string nome_ArquivoEntidade = "\\CAD_ENTIDADE.json";                                           //Nome do arquivo
-        string nome_ArquivoEntidade_Classificacao = "\\CAD_ENTIDADE_CLASSIFICACAO.json";                            //Nome do arquivo 2
-
-        Entidade entidade = new Entidade();
-        Entidade_Classificacao ent_class = new Entidade_Classificacao();
-
         public int codEntidade { get; set; }
         public string nomeEntidade { get; set; }
         public string telefoneEntidade { get; set; }
         public string emailEntidade { get; set; }
         public string obsEntidade { get; set; }
 
-        List<int> lCod_Classificacao = new List<int>();
-        
-        private void configurar_Grid(DataGridView _dgv)
+        List<int> listClassificacoes = new List<int>();                   
+
+        private void frmEntidadesEditar_Load(object sender, EventArgs e)
         {
-            _dgv.Rows.Clear();
-            _dgv.Columns.Clear();
-            _dgv.Columns.Add("idClassificacao", "Cod. Classificação");
-            _dgv.Columns.Add("descClassificacao", "Classificação");
+            //Configurações da Tela
+            txtCodEntidade.ReadOnly = true;
+            Formulario.configuracaoPadrao(this);
+
+
+            //Dados herdados
+            txtCodEntidade.Text = codEntidade.ToString();
+            txtDescEntidade.Text = nomeEntidade;
+            mtxTelefone.Text = telefoneEntidade;
+            txtEmail.Text = emailEntidade;
+            txtObservacao.Text = obsEntidade;
+
+            //herdar dados de classificação
+            Classificacao.carregar(dgvDados, codEntidade);
+            
+            
+            Classificacao.carregar(listClassificacoes, codEntidade);
+            
+             
+            
+
         }
 
-        private void salvar_Entidade(int idEntidade, string nomeEntidade, [Optional] DataGridView _dgvClassificacoes, [Optional] string telefoneEntidade, [Optional] string emailEntidade, [Optional] string obsEntidade)
-        {
 
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            int flg_Divergente = 0;
+            foreach (DataGridViewRow row in dgvDados.Rows)
+            {
+                if (!listClassificacoes.Contains(Convert.ToInt32(row.Cells[0].Value.ToString())))
+                {
+                    flg_Divergente = 1;
+                }
+
+            }
+
+
+
+            if (txtDescEntidade.Text.Equals(nomeEntidade) && mtxTelefone.Text.Equals(telefoneEntidade) && txtEmail.Text.Equals(emailEntidade) && txtObservacao.Text.Equals(obsEntidade) && listClassificacoes.Count == dgvDados.Rows.Count && flg_Divergente == 0)
+            {
+                this.Close();
+            }
+            else
+            {
+                mm.Message = "Você deseja cancelar a operação?";
+                mm.Tittle = "Cancelar a operação";
+                mm.Buttons = MessageBoxButtons.YesNo;
+                mm.Icon = MessageBoxIcon.Warning;
+                DialogResult result = mm.exibirMensagem();
+                if (result == DialogResult.Yes)
+                    this.Close();
+            }
+        }
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
             //Flag usada para controalr as validações
             int insert = 0;
             if (dgvDados.Rows.Count == 0)
@@ -99,61 +135,20 @@ namespace Financial.Forms
 
             if (insert == 1)
             {
-                //Caminho da aplicação + nome da pasta
-                string _folder = wpath + folder;
 
                 //Inserção entidade
                 try
                 {
-                    //Preenchendo os dados da classe
-                    entidade.idEntidade = idEntidade;
-                    entidade.nomeEntidade = nomeEntidade;
-                    entidade.telefoneEntidade = telefoneEntidade;
-                    entidade.emailEntidade = emailEntidade;
-                    entidade.obsEntidade = obsEntidade;
-
-                    StreamWriter writerEntidade = new StreamWriter(_folder + nome_ArquivoEntidade);
-                    writerEntidade.Close();
-
-
-                    if (Entidades.Count > 0)
+                    Entidade.editar(txtCodEntidade.Text, txtDescEntidade.Text, mtxTelefone.Text, txtEmail.Text, txtObservacao.Text);
+                                        
+                    Entidade_Classificacao.deletar(txtCodEntidade.Text);
+                    foreach (DataGridViewRow _row in dgvDados.Rows)
                     {
-                        Entidades.Add(entidade);
-                        File.WriteAllText(_folder + nome_ArquivoEntidade, JsonConvert.SerializeObject(Entidades, Formatting.Indented), Encoding.UTF8);
+                        Entidade_Classificacao.adicionar(txtCodEntidade.Text, _row.Cells[0].Value);
                     }
-                    else
-                        File.WriteAllText(_folder + nome_ArquivoEntidade, JsonConvert.SerializeObject(entidade, Formatting.Indented), Encoding.UTF8);
-                }
-                catch (Exception ex)
-                {
-                    mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                    mm.Tittle = "Erro";
-                    mm.Buttons = MessageBoxButtons.OK;
-                    mm.Icon = MessageBoxIcon.Error;
-                    mm.exibirMensagem();
-                    this.Close();
-                }
+                    
+                    
 
-                //Inserção da Entidade_Classificacao
-                try
-                {
-                    List<Entidade_Classificacao> transicaoEntidades_Classificacao = new List<Entidade_Classificacao>();
-                    //Preenchendo os dados da classe
-                    ent_class.idEntidade = idEntidade;
-                    foreach (DataGridViewRow row in dgvDados.Rows)
-                    {
-                        ent_class.idClassificacao = Convert.ToInt32(row.Cells[0].Value.ToString());
-                        transicaoEntidades_Classificacao.Add((Entidade_Classificacao)ent_class.Clone());
-                    }
-                    StreamWriter writer = new StreamWriter(_folder + nome_ArquivoEntidade_Classificacao);
-                    writer.Close();
-
-                    foreach (var item in transicaoEntidades_Classificacao)
-                    {
-                        Entidades_Classificacoes.Add(item);
-
-                    }
-                    File.WriteAllText(_folder + nome_ArquivoEntidade_Classificacao, JsonConvert.SerializeObject(Entidades_Classificacoes, Formatting.Indented), Encoding.UTF8);
 
                 }
                 catch (Exception ex)
@@ -165,177 +160,19 @@ namespace Financial.Forms
                     mm.exibirMensagem();
                     this.Close();
                 }
-
-
-
-                //Mensagem de entidade inserida com sucesso!
-                mm.Message = "Entidade " + txtDescEntidade.Text + " inserida com sucesso!";
-                mm.Tittle = "Informação";
-                mm.Buttons = MessageBoxButtons.OK;
-                mm.Icon = MessageBoxIcon.Information;
-                mm.exibirMensagem();
-                this.Close();
-
-            }
-
-        }
-
-        void deletar_Entidade(int codigo)
-        {
-            string _folder = wpath + folder;
-            for (int x=0; x<Entidades.Count;x++)
-            {
-                if (codigo == Entidades[x].idEntidade)
+                finally
                 {
-                    Entidades.Remove(Entidades[x]);
-                    break;
-                }
-            }
-
-            try
-            {
-                StreamWriter writer_Entidade = new StreamWriter(_folder + nome_ArquivoEntidade);
-                writer_Entidade.Close();
-                if (Entidades.Count > 0)
-                {
-                    File.WriteAllText(_folder + nome_ArquivoEntidade, JsonConvert.SerializeObject(Entidades, Formatting.Indented), Encoding.UTF8);
-                }
-            }
-            catch (Exception ex)
-            {
-                mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                mm.Tittle = "Erro";
-                mm.Buttons = MessageBoxButtons.OK;
-                mm.Icon = MessageBoxIcon.Error;
-                mm.exibirMensagem();
-                this.Close();
-            }
-            finally
-            {
-                if (Entidades.Count == 0)
-                    File.Delete(_folder + nome_ArquivoEntidade);                                
-            }
-
-        }
-
-        void deletar_Entidade_Classificacao(int codEntidade,List<int> codClassificacao)
-        {
-            string _folder = wpath + folder;
-            for (int x = 0; x < Entidades_Classificacoes.Count; x++)
-            {
-                foreach (var item in codClassificacao) 
-                {
-                    if (codEntidade == Entidades_Classificacoes[x].idEntidade && item == Entidades_Classificacoes[x].idClassificacao)
-                    {
-                        Entidades_Classificacoes.Remove(Entidades_Classificacoes[x]);
-                        break;
-                    }
-                }
-            }
-
-            try
-            {
-                StreamWriter writer_Entidades_Classificacao = new StreamWriter(_folder + nome_ArquivoEntidade_Classificacao);
-                writer_Entidades_Classificacao.Close();
-                if (Entidades_Classificacoes.Count > 0)
-                {
-                    File.WriteAllText(_folder + nome_ArquivoEntidade_Classificacao, JsonConvert.SerializeObject(Entidades_Classificacoes, Formatting.Indented), Encoding.UTF8);
-                }
-            }
-            catch (Exception ex)
-            {
-                mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                mm.Tittle = "Erro";
-                mm.Buttons = MessageBoxButtons.OK;
-                mm.Icon = MessageBoxIcon.Error;
-                mm.exibirMensagem();
-                this.Close();
-            }
-            finally
-            {
-                if (Entidades_Classificacoes.Count == 0)
-                    File.Delete(_folder + nome_ArquivoEntidade_Classificacao);
-                mm.Message = "Registro deletado com sucesso!";
-                mm.Tittle = "Deletar registro";
-                mm.Buttons = MessageBoxButtons.OK;
-                mm.Icon = MessageBoxIcon.Information;
-                mm.exibirMensagem();
-                this.Close();
-            }
-        }
-
-        
-
-        private void frmEntidadesEditar_Load(object sender, EventArgs e)
-        {
-            //Configurações da Tela
-            txtCodEntidade.ReadOnly = true;
-            Formulario.configuracaoPadrao(this);
-
-
-            //Dados herdados
-            txtCodEntidade.Text = codEntidade.ToString();
-            txtDescEntidade.Text = nomeEntidade;
-            mtxTelefone.Text = telefoneEntidade;
-            txtEmail.Text = emailEntidade;
-            txtObservacao.Text = obsEntidade;
-
-            //herdar dados de classificação
-            foreach (var item in Entidades_Classificacoes)
-            {
-                if (item.idEntidade == codEntidade)
-                lCod_Classificacao.Add(item.idClassificacao);
-            }
-
-            configurar_Grid(dgvDados);
-
-
-            foreach (var classificacao in Classificacoes) 
-            {
-                foreach (var cod_Class_Entidade in lCod_Classificacao)
-                {
-                    if (classificacao.idClassificacao == cod_Class_Entidade)
-                        dgvDados.Rows.Add(classificacao.idClassificacao,classificacao.nomeClassificacao);
-                }
-                
-            }
-             
-
-        }
-
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            int flg_Divergente = 0;
-            foreach (DataGridViewRow row in dgvDados.Rows)
-            {
-                if (!lCod_Classificacao.Contains(Convert.ToInt32(row.Cells[0].Value.ToString())))
-                {
-                    flg_Divergente = 1;
-                }
-
-            }
-
-
-
-            if (txtDescEntidade.Text.Equals(nomeEntidade) && mtxTelefone.Text.Equals(telefoneEntidade) && txtEmail.Text.Equals(emailEntidade) && txtObservacao.Text.Equals(obsEntidade) && lCod_Classificacao.Count == dgvDados.Rows.Count && flg_Divergente == 0)
-            {
-                this.Close();
-            }
-            else
-            {
-                mm.Message = "Você deseja cancelar a operação?";
-                mm.Tittle = "Cancelar a operação";
-                mm.Buttons = MessageBoxButtons.YesNo;
-                mm.Icon = MessageBoxIcon.Warning;
-                DialogResult result = mm.exibirMensagem();
-                if (result == DialogResult.Yes)
+                    //Mensagem de entidade inserida com sucesso!
+                    mm.Message = "Entidade alterada com sucesso!";
+                    mm.Tittle = "Informação";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Information;
+                    mm.exibirMensagem();
                     this.Close();
+                }
+
             }
-        }
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            salvar_Entidade(Convert.ToInt32(txtCodEntidade.Text), txtDescEntidade.Text, dgvDados, mtxTelefone.Text, txtEmail.Text, txtObservacao.Text);
+
         }
         private void btnDeletar_Click(object sender, EventArgs e)
         {
@@ -347,9 +184,32 @@ namespace Financial.Forms
             DialogResult result = mm.exibirMensagem();
             if (result == DialogResult.Yes)
             {
-                deletar_Entidade(codEntidade);
-                deletar_Entidade_Classificacao(codEntidade, lCod_Classificacao);
-                this.Close();
+
+                try
+                {
+                    Entidade.deletar(txtCodEntidade.Text);
+                    Entidade_Classificacao.deletar(txtCodEntidade.Text);
+                }
+                catch (Exception ex)
+                {
+                    mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
+                    mm.Tittle = "Erro";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Error;
+                    mm.exibirMensagem();
+                    this.Close();
+                }
+                finally
+                {
+
+
+                    mm.Message = "Você deseja cancelar a operação?";
+                    mm.Tittle = "Cancelar a operação";
+                    mm.Buttons = MessageBoxButtons.YesNo;
+                    mm.Icon = MessageBoxIcon.Warning;
+                    mm.exibirMensagem();
+                    this.Close();
+                }
             }
         }
         private void btnAdd_Click(object sender, EventArgs e)
