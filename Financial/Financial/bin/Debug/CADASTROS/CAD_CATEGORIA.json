@@ -1,12 +1,22 @@
 ﻿[
   {
     "idCategoria": 1,
-    "descCategoria": "Nova cat",
-    "idTipo_Categoria": 1
+    "descCategoria": "Cursos",
+    "idTipo_Categoria": 2
   },
   {
     "idCategoria": 2,
-    "descCategoria": "Nova cat 2",
+    "descCategoria": "Alimentação extra",
+    "idTipo_Categoria": 3
+  },
+  {
+    "idCategoria": 3,
+    "descCategoria": "Academia",
+    "idTipo_Categoria": 1
+  },
+  {
+    "idCategoria": 4,
+    "descCategoria": "Suplementos",
     "idTipo_Categoria": 1
   }
 ]

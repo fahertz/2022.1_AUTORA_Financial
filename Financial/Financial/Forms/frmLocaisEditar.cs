@@ -1,15 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
-using static Financial.Local;
 
 namespace Financial.Forms
 {
@@ -43,7 +33,38 @@ namespace Financial.Forms
             txtObservacao.Text = obsLocal;
             txtValorLocal.Text = String.Format("{0:#0.00}", Convert.ToDouble(txtValorLocal.Text));            
         }
-
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            mm.Message = "Você deseja salvar a operação?";
+            mm.Tittle = "Salvar a operação";
+            mm.Buttons = MessageBoxButtons.YesNo;
+            mm.Icon = MessageBoxIcon.Question;
+            DialogResult result = mm.exibirMensagem();
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    Local.editar(txtIdLocal.Text, txtNameLocal.Text, txtValorLocal.Text, txtObservacao.Text);
+                }
+                catch (Exception ex)
+                {
+                    mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
+                    mm.Tittle = "Erro";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Error;
+                    mm.exibirMensagem();
+                }
+                finally
+                {
+                    mm.Message = "Registro alterado com sucesso!";
+                    mm.Tittle = "Editar registro";
+                    mm.Buttons = MessageBoxButtons.OK;
+                    mm.Icon = MessageBoxIcon.Information;
+                    mm.exibirMensagem();
+                    this.Close();
+                }
+            }
+        }
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             mm.Message = "Você deseja deletar o registro?";
@@ -55,7 +76,7 @@ namespace Financial.Forms
             {
                 try
                 {
-                    Local.deletar_Local(txtIdLocal.Text);
+                    Local.deletar(txtIdLocal.Text);
                 }
                 catch (Exception ex)
                 {
@@ -76,40 +97,6 @@ namespace Financial.Forms
                 }                
             }
         }
-
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            mm.Message = "Você deseja salvar a operação?";
-            mm.Tittle = "Salvar a operação";
-            mm.Buttons = MessageBoxButtons.YesNo;
-            mm.Icon = MessageBoxIcon.Question;
-            DialogResult result = mm.exibirMensagem();
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    Local.editar_Local(txtIdLocal.Text, txtNameLocal.Text, txtValorLocal.Text, txtObservacao.Text);
-                }
-                catch (Exception ex)
-                {
-                    mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
-                    mm.Tittle = "Erro";
-                    mm.Buttons = MessageBoxButtons.OK;
-                    mm.Icon = MessageBoxIcon.Error;
-                    mm.exibirMensagem();
-                }
-                finally
-                {
-                    mm.Message = "Registro alterado com sucesso!";
-                    mm.Tittle = "Editar registro";
-                    mm.Buttons = MessageBoxButtons.OK;
-                    mm.Icon = MessageBoxIcon.Information;
-                    mm.exibirMensagem();
-                    this.Close();                    
-                }
-            }
-        }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             if (txtNameLocal.Text.Equals(nomeLocal) && txtObservacao.Text.Equals(obsLocal) && txtValorLocal.Text.Equals(valorLocal))
@@ -121,7 +108,7 @@ namespace Financial.Forms
                 mm.Message = "Você deseja cancelar a operação?";
                 mm.Tittle = "Cancelar a operação";
                 mm.Buttons = MessageBoxButtons.YesNo;
-                mm.Icon = MessageBoxIcon.Warning;
+                mm.Icon = MessageBoxIcon.Question;
                 DialogResult result = mm.exibirMensagem();
                 if (result == DialogResult.Yes)
                     this.Close();

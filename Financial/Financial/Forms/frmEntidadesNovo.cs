@@ -147,7 +147,7 @@ namespace Financial.Forms
 
             //Definindo o código Inicial do processo            
             int lastCode = 0;
-            Task.WaitAny(Task.Factory.StartNew(() => lastCode = Entidade.retornarUltimoCodigo()));
+            Task.WaitAny(Task.Factory.StartNew(() => lastCode = Entidade.obterUltimoCodigo()));
             txtCodEntidade.Text = lastCode.ToString();
 
         }

@@ -30,7 +30,7 @@ namespace Financial.Forms
 
             //Definindo o código Inicial do processo            
             int lastCode = 0;
-            Task.WaitAny(Task.Factory.StartNew(() => lastCode = Classificacao.retornarUltimoCodigo()));
+            Task.WaitAny(Task.Factory.StartNew(() => lastCode = Classificacao.obterUltimoCodigo()));
             txtCodClassificacao.Text = lastCode.ToString();
         }
 

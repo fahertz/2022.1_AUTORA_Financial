@@ -1,10 +1,14 @@
 ﻿[
   {
     "idTipo_Categoria": 1,
-    "descTipo_Categoria": "Alimentação"
+    "descTipo_Categoria": "Saúde"
   },
   {
     "idTipo_Categoria": 2,
-    "descTipo_Categoria": "Saúde"
+    "descTipo_Categoria": "Educação"
+  },
+  {
+    "idTipo_Categoria": 3,
+    "descTipo_Categoria": "Alimentação"
   }
 ]

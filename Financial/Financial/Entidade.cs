@@ -15,24 +15,24 @@ namespace Financial
     {
 
         static Mensagem mm = new Mensagem();
-        ////////////////Bloco para armazenar cadastros em geral
-        //Pega a raiz bin para salvar o arquivo produtos
-        static string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        static string folder = "\\" + "CADASTROS";                                                   //Nome do diretório dos cadastros
-        static string nome_Arquivo = "\\CAD_ENTIDADE.json";                                           //Nome do arquivo
+       
+        //Instância privada
+        private static string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
+        private static string folder = "\\" + "CADASTROS";                                                   //Nome do diretório dos cadastros
+        private static string nome_Arquivo = "\\CAD_ENTIDADE.json";                                           //Nome do arquivo
         
-
-
-
+        //Instância pública
         public int idEntidade { get; set; }
         public string nomeEntidade { get; set; }
         public string telefoneEntidade { get; set; }
         public string emailEntidade { get; set; }
         public string obsEntidade { get; set; }
 
+        //Lista de dados estáticos
         public static List<Entidade> Entidades = new List<Entidade>();
 
-        public static int retornarUltimoCodigo()
+        //Métodos de dados estáticos
+        public static int obterUltimoCodigo()
         {
             if (Entidades.Count > 0)
                 return Entidades[Entidades.Count - 1].idEntidade + 1;
@@ -40,18 +40,15 @@ namespace Financial
                 return 1;
         }
 
+        //Métodos de Manipulação
         private static void salvar()
         {            
-            //Caminho da aplicação + nome da pasta
-            string _folder = wpath + folder;
             try
             {
-                StreamWriter writer_Entidade = new StreamWriter(_folder + nome_Arquivo);
+                StreamWriter writer_Entidade = new StreamWriter(wpath + folder + nome_Arquivo);
                 writer_Entidade.Close();
                 if (Entidades.Count > 0)
-                {
-                    File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Entidades, Formatting.Indented), Encoding.UTF8);
-                }
+                    File.WriteAllText(wpath + folder + nome_Arquivo, JsonConvert.SerializeObject(Entidades, Formatting.Indented), Encoding.UTF8);                
             }
             catch (Exception ex)
             {
@@ -62,7 +59,6 @@ namespace Financial
                 mm.exibirMensagem();
             }
         }
-
         public static void adicionar(dynamic Codigo, dynamic Descricao,dynamic Telefone, dynamic Email, dynamic Obs)
         {
             Entidades.Add(new Entidade { idEntidade = Convert.ToInt32(Codigo) 
@@ -73,7 +69,6 @@ namespace Financial
             });
             salvar();
         }
-
         public static void editar(dynamic Codigo, dynamic Descricao, dynamic Telefone, dynamic Email, dynamic Obs)
         {
             foreach (var item in Entidades)
@@ -89,7 +84,6 @@ namespace Financial
             }
             salvar();
         }
-
         public static void deletar(dynamic Codigo)
         {
             foreach (var item in Entidades)
@@ -111,7 +105,7 @@ namespace Financial
         }
 
 
-        //Configuração da Grid
+        //Métodos de visualização
         private static void configurarGrid(DataGridView _dgv)
         {
             _dgv.Invoke((MethodInvoker)delegate
@@ -121,30 +115,30 @@ namespace Financial
                 
             });
         }
-
-        public static void carregar(DataGridView _dgv)
+        public static void carregar(Object _obj)
         {
-            _dgv.Columns.Clear();
-            _dgv.Rows.Clear();
-            configurarGrid(_dgv);
-            var query = from entidade in Entidades                      
-                        select new
-                        {
-                             entidade.idEntidade
-                            ,entidade.nomeEntidade
-                            ,entidade.telefoneEntidade
-                            ,entidade.emailEntidade                            
-                            ,entidade.obsEntidade
-                            
-                        };
-
-
-            foreach (var item in query)
+            if (_obj is DataGridView)
             {
-                _dgv.Invoke((MethodInvoker)delegate
+                DataGridView _dgv = (DataGridView)_obj;
+                _dgv.Columns.Clear();
+                _dgv.Rows.Clear();
+                configurarGrid(_dgv);
+                var query = from entidade in Entidades
+                            select new
+                            {
+                                 entidade.idEntidade
+                                ,entidade.nomeEntidade
+                                ,entidade.telefoneEntidade
+                                ,entidade.emailEntidade
+                                ,entidade.obsEntidade
+                            };
+                foreach (var item in query)
                 {
-                    _dgv.Rows.Add(item.idEntidade, item.nomeEntidade);
-                });
+                    _dgv.Invoke((MethodInvoker)delegate
+                    {
+                        _dgv.Rows.Add(item.idEntidade, item.nomeEntidade);
+                    });
+                }
             }
 
         }

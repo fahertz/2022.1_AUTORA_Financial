@@ -17,7 +17,6 @@ namespace Financial.Forms
 {
     public partial class frmLocaisNovo : Form
     {
-
         
         public frmLocaisNovo()
         {
@@ -27,7 +26,6 @@ namespace Financial.Forms
         }      
 
         Mensagem mm = new Mensagem();
-
            
         //Load do form
         private void frmLocaisNovo_Load(object sender, EventArgs e)
@@ -42,7 +40,7 @@ namespace Financial.Forms
 
             //Definindo o código Inicial do processo            
             int lastCode = 0;
-            Task.WaitAny(Task.Factory.StartNew(() => lastCode = Local.getLastCode()));
+            Task.WaitAny(Task.Factory.StartNew(() => lastCode = Local.obterUltimoCodigo()));
             txtIdLocal.Text = lastCode.ToString();
         }
 
@@ -63,7 +61,7 @@ namespace Financial.Forms
 
                 try
                 {
-                    Local.adicionar_Local(txtIdLocal.Text, txtNameLocal.Text, txtValorLocal.Text, txtObservacao.Text);
+                    Local.adicionar(txtIdLocal.Text, txtNameLocal.Text, txtValorLocal.Text, txtObservacao.Text);
                 }
                 catch (Exception ex)
                 {

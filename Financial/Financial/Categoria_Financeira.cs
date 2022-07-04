@@ -17,20 +17,22 @@ namespace Financial
     {
 
         static Mensagem mm = new Mensagem();
-        ////////////////Bloco para armazenar cadastros em geral
-        //Pega a raiz bin para salvar o arquivo produtos
+        
+        //Caminhos de uso
         static string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
         static string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
         public static string nome_Arquivo { get; set; }
 
+
         public class Tipo_Categoria : Categoria_Financeira
         {
+            //Instância pública
             public int idTipo_Categoria { get; set; }
             public string descTipo_Categoria { get; set; }
-
             public static List<Tipo_Categoria> Tipos_Categoria = new List<Tipo_Categoria>();
 
-            public static int retornarUltimoCodigo()
+            //Métodos de resgate
+            public static int obterUltimoCodigo()
             {
                 if (Tipos_Categoria.Count > 0)
                     return Tipos_Categoria[Tipos_Categoria.Count - 1].idTipo_Categoria + 1;
@@ -38,21 +40,18 @@ namespace Financial
                     return 1;
             }
 
+            //Métodos de Manipulação
             private static void salvar()
             {
                 //Nome do arquivo
-                nome_Arquivo = "\\CAD_TIPO_CATEGORIA.json";
-
-                //Caminho da aplicação + nome da pasta
-                string _folder = wpath + folder;
+                nome_Arquivo = "\\CAD_TIPO_CATEGORIA.json";            
+                
                 try
                 {
-                    StreamWriter writer_TipoCategoria = new StreamWriter(_folder + nome_Arquivo);
+                    StreamWriter writer_TipoCategoria = new StreamWriter(wpath + folder + nome_Arquivo);
                     writer_TipoCategoria.Close();
                     if (Tipos_Categoria.Count > 0)
-                    {
-                        File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Tipos_Categoria, Formatting.Indented), Encoding.UTF8);
-                    }
+                        File.WriteAllText(wpath + folder + nome_Arquivo, JsonConvert.SerializeObject(Tipos_Categoria, Formatting.Indented), Encoding.UTF8);                    
                 }
                 catch (Exception ex)
                 {
@@ -63,13 +62,11 @@ namespace Financial
                     mm.exibirMensagem();
                 }
             }
-
             public static void adicionar(dynamic Codigo, dynamic Descricao)
             {
                 Tipos_Categoria.Add(new Tipo_Categoria { idTipo_Categoria = Convert.ToInt32(Codigo), descTipo_Categoria = Descricao});
                 salvar();
             }
-
             public static void editar(dynamic Codigo, dynamic Descricao)
             {
                 foreach (var item in Tipos_Categoria)
@@ -82,10 +79,8 @@ namespace Financial
                 }
                 salvar();
             }
-
             public static int deletar(dynamic Codigo)
             {
-
                 foreach (var item in Categorias)
                 {                  
                     if (item.idTipo_Categoria == Convert.ToInt32(Codigo))
@@ -113,7 +108,7 @@ namespace Financial
                 }
             }
 
-            //Configuração da Grid
+            //Métodos de visualização
             private static void configurarGrid(DataGridView _dgv)
             {
                 _dgv.Invoke((MethodInvoker)delegate
@@ -122,7 +117,6 @@ namespace Financial
                     _dgv.Columns.Add("Des_Categoria", "Tipo Categoria");
                 });
             }
-
             public static void carregar(DataGridView _dgv)
             {
                 _dgv.Columns.Clear();
@@ -145,19 +139,21 @@ namespace Financial
                 }
 
             }
-
-
         }
 
         public class Categoria : Categoria_Financeira
         {         
-             public int idCategoria { get; set; }
-             public string descCategoria { get; set; }
-             public int idTipo_Categoria { get; set; }
 
+            //Instância pública
+            public int idCategoria { get; set; }
+            public string descCategoria { get; set; }
+            public int idTipo_Categoria { get; set; }
+
+            //Lista de dados estáticos
             public static List<Categoria> Categorias = new List<Categoria>();
-
-            public static int retornarUltimoCodigo()
+            
+            //Métodos de resgate
+            public static int obterUltimoCodigo()
             {
                 if (Categorias.Count > 0)
                     return Categorias[Categorias.Count - 1].idCategoria + 1;
@@ -165,6 +161,7 @@ namespace Financial
                     return 1;
             }
 
+            //Métodos de Manipulação
             private static void salvar()
             {
                 //Nome do arquivo
@@ -190,13 +187,11 @@ namespace Financial
                     mm.exibirMensagem();                    
                 }
             }
-
             public static void adicionar(dynamic Codigo, dynamic Descricao, dynamic codTpCat)
             {
                 Categorias.Add(new Categoria { idCategoria = Convert.ToInt32(Codigo), descCategoria = Descricao, idTipo_Categoria = Convert.ToInt32(codTpCat) });
                 salvar();
             }
-
             public static void editar(dynamic Codigo, dynamic Descricao, dynamic codTpCat)
             {                
                 foreach (var item in Categorias)
@@ -210,7 +205,6 @@ namespace Financial
                 }
                 salvar();                
             }
-
             public static void deletar(dynamic Codigo)
             {
                 foreach (var item in Categorias)
@@ -231,8 +225,7 @@ namespace Financial
                 }                
             }
 
-
-            //Configuração da Grid
+            //Métodos de visualização
             private static void configurarGrid(DataGridView _dgv)
             {
                 _dgv.Invoke((MethodInvoker)delegate
@@ -243,50 +236,47 @@ namespace Financial
                     _dgv.Columns.Add("Des_Categoria", "Tipo Categoria");
                 });
             }
-
-            public static void carregar(DataGridView _dgv)
+            public static void carregar(Object _obj)
             {
-                _dgv.Columns.Clear();
-                _dgv.Rows.Clear();
-                configurarGrid(_dgv);
-                var query = from categoria in Categorias
-                            join tipo_categoria in Tipos_Categoria
-                            on new
-                            {
-                                categoria.idTipo_Categoria
-                            }
-                            equals new
-                            {
-                                tipo_categoria.idTipo_Categoria
-                            }
-                            select new
-                            {
-                                categoria.idCategoria
-                                ,
-                                categoria.descCategoria
-                                ,
-                                categoria.idTipo_Categoria
-                                ,
-                                tipo_categoria.descTipo_Categoria
-                            };
+
+                if (_obj is DataGridView)
+                {
+                    DataGridView _dgv = (DataGridView)_obj;
+
+                    _dgv.Columns.Clear();
+                    _dgv.Rows.Clear();
+
+                    configurarGrid(_dgv);
+                    var query_Categoria = 
+                                from categoria in Categorias
+                                join tipo_categoria in Tipos_Categoria
+                                on new
+                                {
+                                    categoria.idTipo_Categoria
+                                }
+                                equals new
+                                {
+                                    tipo_categoria.idTipo_Categoria
+                                }
+                                select new
+                                {
+                                     categoria.idCategoria
+                                    ,categoria.descCategoria
+                                    ,categoria.idTipo_Categoria
+                                    ,tipo_categoria.descTipo_Categoria
+                                };
 
 
-                foreach (var item in query)
-                {                    
-                    _dgv.Invoke((MethodInvoker)delegate 
-                    { 
-                        _dgv.Rows.Add(item.idCategoria, item.descCategoria, item.idTipo_Categoria, item.descTipo_Categoria); 
-                    });
+                    foreach (var item in query_Categoria)
+                    {
+                        _dgv.Invoke((MethodInvoker)delegate
+                        {
+                            _dgv.Rows.Add(item.idCategoria, item.descCategoria, item.idTipo_Categoria, item.descTipo_Categoria);
+                        });
+                    }
+
                 }
-
             }
         }
-
-        
-
-
-
-        
-
     }
 }

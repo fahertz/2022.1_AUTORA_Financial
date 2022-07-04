@@ -14,24 +14,23 @@ namespace Financial
     public class Classificacao
     {
 
-        //Instância
-        //Classe para emissão de mensagens de forma simplificada
+  
         static Mensagem mm = new Mensagem();
 
-        ////Armazenamento utilizado pela tela        
-        //Pega a raiz bin para salvar o arquivo produtos
-        static string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        static string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
-        static string nome_Arquivo = "\\CAD_CLASSIFICACAO.json";                                     //Nome do arquivo
+        //Instância privada
+        public static string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
+        public static string folder = "\\" + "CADASTROS";                                                    //Nome do diretório dos cadastros
+        public static string nome_Arquivo = "\\CAD_CLASSIFICACAO.json";                                     //Nome do arquivo
 
-
+        //Instância pública
         public int idClassificacao { get; set; }
         public string nomeClassificacao { get; set; }
 
+        //Lista de dados estáticos
         public static List<Classificacao> Classificacoes = new List<Classificacao>();
 
-
-        public static int retornarUltimoCodigo()
+        //Métodos de resgate
+        public static int obterUltimoCodigo()
         {
             if (Classificacoes.Count > 0)
                 return Classificacoes[Classificacoes.Count - 1].idClassificacao + 1;
@@ -39,19 +38,15 @@ namespace Financial
                 return 1;
         }
 
+        //Métodos de Manipulação
         private static void salvar()
         {
-            
-            //Caminho da aplicação + nome da pasta
-            string _folder = wpath + folder;
             try
             {
-                StreamWriter writer_TipoCategoria = new StreamWriter(_folder + nome_Arquivo);
+                StreamWriter writer_TipoCategoria = new StreamWriter(wpath +folder + nome_Arquivo);
                 writer_TipoCategoria.Close();
-                if (Classificacoes.Count > 0)
-                {
-                    File.WriteAllText(_folder + nome_Arquivo, JsonConvert.SerializeObject(Classificacoes, Formatting.Indented), Encoding.UTF8);
-                }
+                if (Classificacoes.Count > 0)                
+                    File.WriteAllText(wpath + folder + nome_Arquivo, JsonConvert.SerializeObject(Classificacoes, Formatting.Indented), Encoding.UTF8);                
             }
             catch (Exception ex)
             {
@@ -62,13 +57,11 @@ namespace Financial
                 mm.exibirMensagem();
             }
         }
-
         public static void adicionar(dynamic Codigo, dynamic Descricao)
         {
             Classificacoes.Add(new Classificacao { idClassificacao = Convert.ToInt32(Codigo), nomeClassificacao = Descricao });
             salvar();
         }
-
         public static void editar(dynamic Codigo, dynamic Descricao)
         {
             foreach (var item in Classificacoes)
@@ -81,7 +74,6 @@ namespace Financial
             }
             salvar();
         }
-
         public static int deletar(dynamic Codigo)
         {
 
@@ -112,7 +104,7 @@ namespace Financial
             }
         }
 
-        //Configuração da Grid
+        //Métodos de visualização
         private static void configurarGrid(DataGridView _dgv)
         {
             _dgv.Invoke((MethodInvoker)delegate
@@ -121,19 +113,20 @@ namespace Financial
                 _dgv.Columns.Add("Des_Classificacao", "Classificação");
             });
         }
-
-        public static void carregar(Object obj, [Optional] dynamic CodigoEntidade)
+        public static void carregar(Object _obj, dynamic CodigoEntidade = null)
         {
 
             dynamic query = null;
 
-            if (obj is DataGridView) 
+            if (_obj is DataGridView) 
             {
-                DataGridView _dgv = (DataGridView)obj;
+                DataGridView _dgv = (DataGridView)_obj;
                 _dgv.Columns.Clear();
                 _dgv.Rows.Clear();
-                configurarGrid(_dgv);                
-                if (Convert.ToInt32(CodigoEntidade) != null)
+                configurarGrid(_dgv);          
+                
+
+                if (CodigoEntidade != null)
                 {
                     query = from classificacao in Classificacoes
                             join entidade_classificacao in Entidades_Classificacoes
@@ -159,8 +152,7 @@ namespace Financial
                                 select new
                                 {
                                     classificacoes.idClassificacao
-                                    ,
-                                    classificacoes.nomeClassificacao
+                                    ,classificacoes.nomeClassificacao
                                 };
                 }
 
@@ -173,9 +165,9 @@ namespace Financial
                 }
             }
 
-            else if (obj is ComboBox)
+            else if (_obj is ComboBox)
             {
-                ComboBox _cbx = (ComboBox)obj;
+                ComboBox _cbx = (ComboBox)_obj;
                 _cbx.Items.Clear();
                 _cbx.Invoke((MethodInvoker)delegate
                 {
@@ -186,9 +178,9 @@ namespace Financial
                     }
                 });
             }
-            else if (obj is List<int>)
+            else if (_obj is List<int>)
             {
-                List<int> _list = (List<int>)obj;
+                List<int> _list = (List<int>)_obj;
                 _list.Clear();
                 if (Convert.ToInt32(CodigoEntidade) != null) 
                 {
