@@ -18,6 +18,7 @@ using static Financial.Entidade_Classificacao;
 using static Financial.Local;
 using static Financial.Categoria_Financeira.Tipo_Categoria;
 using static Financial.Categoria_Financeira.Categoria;
+using static Financial.EntradaFinanceira;
 
 
 namespace Financial
@@ -303,7 +304,46 @@ namespace Financial
 
         private void carregar_Entrada(string path)
         {
+            if (File.Exists(path))
+            {
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
 
+                try
+                {
+
+                    Entradas_Financeiras.Add((EntradaFinanceira)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(EntradaFinanceira))));
+                    reader.Close();
+
+                }
+                catch
+                {
+                    try
+                    {
+
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Entradas_Financeiras.Add(new EntradaFinanceira
+                            {
+                                tipoMovimento = dr["tipoMovimento"].ToString()
+                               ,idOperacao = Convert.ToInt32(dr["idOperacao"].ToString())
+                            });
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+
+                    }
+                }
+
+            }
         }
         //Load do form
         private void frmFinancial_Load(object sender, EventArgs e)

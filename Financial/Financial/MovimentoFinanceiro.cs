@@ -144,9 +144,16 @@ namespace Financial
                 _dgv.Rows.Clear();
                 _dgv.Columns.Clear();
                 _dgv.Columns.Add("Id","Id");
+                _dgv.Columns.Add("2", "2");
 
                 var select = from item in Entradas_Financeiras
-                             select new { item.idOperacao };
+                             select new { item.tipoMovimento, item.idOperacao };
+
+
+                foreach (var item in select)
+                {
+                    _dgv.Rows.Add(item.tipoMovimento,item.idOperacao);
+                }
 
 
             }    
