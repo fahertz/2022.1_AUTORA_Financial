@@ -1,0 +1,28 @@
+﻿[
+  {
+    "tipoMovimento": "Entrada",
+    "idOperacao": 1,
+    "idEntidade": 1,
+    "idLocal": 1,
+    "idCategoria": 1,
+    "numParcelas": 1,
+    "valorTransacao": 2500.0,
+    "formaMovimento": "PIX",
+    "obsMovimento": "A Entidade {1 | Rafael F}, para a Categoria {1 | Nova cat} irá pagar R$ 5000,00 a partir da segunda-feira, 4 de julho de 2022 em 2x no PIX. O local movimentado será o {1 | Nu Bank}.",
+    "dataMovimento": "2022-07-04T17:52:05.0839377-03:00",
+    "statusMovimento": "A"
+  },
+  {
+    "tipoMovimento": "Entrada",
+    "idOperacao": 2,
+    "idEntidade": 1,
+    "idLocal": 1,
+    "idCategoria": 1,
+    "numParcelas": 2,
+    "valorTransacao": 2500.0,
+    "formaMovimento": "PIX",
+    "obsMovimento": "A Entidade {1 | Rafael F}, para a Categoria {1 | Nova cat} irá pagar R$ 5000,00 a partir da segunda-feira, 4 de julho de 2022 em 2x no PIX. O local movimentado será o {1 | Nu Bank}.",
+    "dataMovimento": "2022-08-03T17:52:05.0839377-03:00",
+    "statusMovimento": "A"
+  }
+]

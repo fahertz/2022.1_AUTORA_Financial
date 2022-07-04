@@ -60,7 +60,7 @@ namespace Financial
                 mm.Buttons = MessageBoxButtons.OK;
                 mm.Icon = MessageBoxIcon.Error;
                 mm.exibirMensagem();
-            }
+            }          
         }
 
         public static void adicionar(dynamic Codigo, dynamic Descricao,dynamic Telefone, dynamic Email, dynamic Obs)

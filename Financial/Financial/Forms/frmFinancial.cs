@@ -301,17 +301,23 @@ namespace Financial
             }
         }
 
+        private void carregar_Entrada(string path)
+        {
+
+        }
         //Load do form
         private void frmFinancial_Load(object sender, EventArgs e)
         {
             Formulario.configuracaoPadrao(this);
             Task.Factory.StartNew(() => criarPastas(wpath + "\\CADASTROS"));
+            Task.Factory.StartNew(() => criarPastas(wpath + "\\OPERACOES"));
             Task.Factory.StartNew(() => carregar_TipoCategoria(wpath + "\\CADASTROS" + "\\CAD_TIPO_CATEGORIA.json"));
             Task.Factory.StartNew(() => carregar_Categoria(wpath + "\\CADASTROS" + "\\CAD_CATEGORIA.json"));
             Task.Factory.StartNew(() => carregar_Classificacao(wpath + "\\CADASTROS" + "\\CAD_CLASSIFICACAO.json"));
             Task.Factory.StartNew(() => carregar_Entidade(wpath + "\\CADASTROS" + "\\CAD_ENTIDADE.json"));
             Task.Factory.StartNew(() => carregar_Entidade_Classificacao(wpath + "\\CADASTROS" + "\\CAD_ENTIDADE_CLASSIFICACAO.json"));
             Task.Factory.StartNew(() => carregar_Local(wpath + "\\CADASTROS" + "\\CAD_LOCAL.json"));
+            Task.Factory.StartNew(() => carregar_Entrada(wpath + "\\OPERACOES" + "\\OPE_ENTRADA.json"));
         }
 
 

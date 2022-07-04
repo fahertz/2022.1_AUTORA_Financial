@@ -29,20 +29,29 @@ namespace Financial.Forms
             txtCodCategoria.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtCodLocalArmazenamento.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtParcelas.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
-
             txtValor.KeyPress += CaixaDeTexto.txt_justDouble_KeyPress;
+            txtValor.Validating += CaixaDeTexto.txt_convertDouble_Validated;
+
+
+
+            txtDescEntidade.TextChanged += txtObservacaoTexto_TextChanged;
+            txtDescCategoria.TextChanged += txtObservacaoTexto_TextChanged;
+            txtValor.TextChanged += txtObservacaoTexto_TextChanged;
+            txtParcelas.TextChanged += txtObservacaoTexto_TextChanged;
+            txtDescLocalArmazenamento.TextChanged += txtObservacaoTexto_TextChanged;
+
+            cbxFormaPagamento.TextChanged += txtObservacaoTexto_TextChanged;
+            dtpDataBase.TextChanged += txtObservacaoTexto_TextChanged;
         }
 
 
         Mensagem mm = new Mensagem();
 
-        ////////////////Bloco para armazenar cadastros em geral
-        //Pega a raiz bin para salvar o arquivo produtos
-        string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        string folder_Operacoes = "\\" + "OPERACOES";                                                    //Nome do diretório das operações        
-        string nome_Arquivo_Entradas = "\\OPE_ENTRADA.json";                                           //Nome do arquivo de entradas
+        EntradaFinanceira entradaFinanceira = new EntradaFinanceira();        
+
+
         
-        MovimentoFinanceiro entradaFinanceira = new MovimentoFinanceiro();        
+
 
 
         //Abrir categoria
@@ -64,16 +73,16 @@ namespace Financial.Forms
         {
             //Carregar formas de pagamento
             cbxFormaPagamento.Items.Add("PIX");
-            cbxFormaPagamento.Items.Add("Cartão Crédito");
-            cbxFormaPagamento.Items.Add("Cartão Débito");
+            cbxFormaPagamento.Items.Add("Cartão de Crédito");
+            cbxFormaPagamento.Items.Add("Cartão de Débito");
             cbxFormaPagamento.Items.Add("Dinheiro");
-
+            cbxFormaPagamento.Text = "PIX";
 
             //Carregar bloqueios iniciais
             txtDescEntidade.ReadOnly = true;            
             txtDescCategoria.ReadOnly = true;
             txtDescLocalArmazenamento.ReadOnly = true;
-
+            
 
 
             Formulario.configuracaoPadrao(this);
@@ -94,9 +103,62 @@ namespace Financial.Forms
 
 
         //Salvar entrada
-        private void salvar_Entrada(int idEntidade, int idLocal, int idCategoria, int numParcelas, double valorTransacao, string formaPagamento, string obsMovimento, DateTime dataMovimento, char statusMovimento)
+        private void salvar_Entrada(dynamic idEntidade, dynamic idLocal, dynamic idCategoria, dynamic numParcelas, dynamic valorTransacao, string formaPagamento, string obsMovimento, DateTime dataMovimento, char statusMovimento)
         {
+            entradaFinanceira.idOperacao = MovimentoFinanceiro.obterUltimoCodigo(entradaFinanceira);
 
+            MessageBox.Show(entradaFinanceira.idOperacao.ToString());
+            entradaFinanceira.idEntidade = Convert.ToInt32(idEntidade);
+            entradaFinanceira.idLocal = Convert.ToInt32(idLocal);
+            entradaFinanceira.idCategoria = Convert.ToInt32(idCategoria);            
+            entradaFinanceira.valorTransacao = Convert.ToDouble(valorTransacao) / Convert.ToDouble(numParcelas);
+            entradaFinanceira.formaMovimento = formaPagamento;
+            entradaFinanceira.obsMovimento = obsMovimento;
+            entradaFinanceira.dataMovimento = dataMovimento;
+            entradaFinanceira.tipoMovimento = "Entrada";
+            entradaFinanceira.statusMovimento = statusMovimento;
+
+            for (int x=0; x<Convert.ToInt32(numParcelas);x++)
+            {
+                entradaFinanceira.numParcelas = Convert.ToInt32(x+1);
+                entradaFinanceira.idOperacao = entradaFinanceira.idOperacao + 1;
+
+
+
+
+
+
+                if (chkDiasUteis.Checked) 
+                {
+                    if (dtpDataBase.Value.AddDays(x * 30).DayOfWeek.ToString() == "Sunday")
+                    {
+                        entradaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30).AddDays(1);
+                    }
+                    else if (dtpDataBase.Value.AddDays(x * 30).DayOfWeek.ToString() == "Saturday")
+                    {
+                        entradaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30).AddDays(2);
+                    }
+                    else                             
+                    {                        
+                        entradaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30);
+                    }
+                }
+                else
+                {
+                    entradaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30);
+                }
+
+                if (chkBaixaAutomatica.Checked)
+                {
+                    EntradaFinanceira.adicionar((EntradaFinanceira)entradaFinanceira.Clone());
+                    Local.incremetar_Saldo(idLocal,valorTransacao);
+                }
+                else
+                {
+                    EntradaFinanceira.adicionar((EntradaFinanceira)entradaFinanceira.Clone());
+                }
+
+            }
         }
 
         //Filtros
@@ -184,10 +246,68 @@ namespace Financial.Forms
         {
             txtDescLocalArmazenamento.Text = filtrarDescLocal(txtCodLocalArmazenamento.Text);
         }
+        
+        
+
+
+
+
+
+
+
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            Local.incremetar_Saldo(txtCodLocalArmazenamento.Text,txtValor.Text);
+            
+            try
+            {
+                salvar_Entrada(txtCodEntidade.Text, txtCodLocalArmazenamento.Text, txtCodCategoria.Text, txtParcelas.Text, txtValor.Text, cbxFormaPagamento.SelectedItem.ToString(), txtObservacao.Text, Convert.ToDateTime(dtpDataBase.Value.ToShortDateString()), 'A');
+            }
+            catch (Exception ex)
+            {
+                mm.Message = "Erro de leitura: " + ex.Message.ToString() + ", por favor acione o suporte.";
+                mm.Tittle = "Erro";
+                mm.Buttons = MessageBoxButtons.OK;
+                mm.Icon = MessageBoxIcon.Error;
+                mm.exibirMensagem();
+            }
+            finally
+            {                
+                mm.Message = "Entrada inserida com sucesso!";
+                mm.Tittle = "Informação";
+                mm.Buttons = MessageBoxButtons.OK;
+                mm.Icon = MessageBoxIcon.Information;
+                mm.exibirMensagem();
+                this.Close();
+            }
+        }
+
+        
+        //txt Descrição Entidade
+        private void txtObservacaoTexto_TextChanged(object sender, EventArgs e)
+        {
+                txtObservacao.Text = "A Entidade {" + txtCodEntidade.Text + " | " + txtDescEntidade.Text + "}" +
+                    ", para a Categoria {" + txtCodCategoria.Text + " | " + txtDescCategoria.Text + "} irá pagar R$ " + txtValor.Text + " a partir da "
+                    + dtpDataBase.Value.ToLongDateString()+" em " + txtParcelas.Text + "x no " + cbxFormaPagamento.SelectedItem?.ToString() 
+                    + ". O local movimentado será o {" + txtCodLocalArmazenamento.Text + " | " + txtDescLocalArmazenamento.Text + "}.";
+            
+        }
+
+        private void chkBaixaAutomatica_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox)
+            {
+                CheckBox _chk = (CheckBox)sender;
+                if (_chk.Checked)
+                {
+                    txtParcelas.Text = "1";
+                    txtParcelas.ReadOnly = true;
+                }
+                else
+                {
+                    txtParcelas.ReadOnly = false;
+                }                
+            }
         }
     }
 }

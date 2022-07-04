@@ -67,6 +67,7 @@ namespace Financial.Forms
         private void frmEntradas_Load(object sender, EventArgs e)
         {
             Formulario.configuracaoPadrao(this);
+            EntradaFinanceira.carregar(dgvDados);
         }
     }
 }
