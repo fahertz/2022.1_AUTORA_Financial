@@ -62,6 +62,7 @@
             this.txtDescEntidade.Name = "txtDescEntidade";
             this.txtDescEntidade.Size = new System.Drawing.Size(408, 20);
             this.txtDescEntidade.TabIndex = 1;
+            this.txtDescEntidade.TabStop = false;
             // 
             // txtCodEntidade
             // 
@@ -76,7 +77,7 @@
             this.dtpDataBase.Location = new System.Drawing.Point(12, 63);
             this.dtpDataBase.Name = "dtpDataBase";
             this.dtpDataBase.Size = new System.Drawing.Size(230, 20);
-            this.dtpDataBase.TabIndex = 4;
+            this.dtpDataBase.TabIndex = 3;
             // 
             // cbxFormaPagamento
             // 
@@ -100,7 +101,7 @@
             this.txtCodCategoria.Location = new System.Drawing.Point(498, 24);
             this.txtCodCategoria.Name = "txtCodCategoria";
             this.txtCodCategoria.Size = new System.Drawing.Size(44, 20);
-            this.txtCodCategoria.TabIndex = 2;
+            this.txtCodCategoria.TabIndex = 1;
             this.txtCodCategoria.TextChanged += new System.EventHandler(this.txtCodCategoria_TextChanged);
             // 
             // txtDescCategoria
@@ -109,6 +110,7 @@
             this.txtDescCategoria.Name = "txtDescCategoria";
             this.txtDescCategoria.Size = new System.Drawing.Size(308, 20);
             this.txtDescCategoria.TabIndex = 3;
+            this.txtDescCategoria.TabStop = false;
             // 
             // txtDescLocalArmazenamento
             // 
@@ -116,20 +118,21 @@
             this.txtDescLocalArmazenamento.Name = "txtDescLocalArmazenamento";
             this.txtDescLocalArmazenamento.Size = new System.Drawing.Size(235, 20);
             this.txtDescLocalArmazenamento.TabIndex = 10;
+            this.txtDescLocalArmazenamento.TabStop = false;
             // 
             // txtParcelas
             // 
             this.txtParcelas.Location = new System.Drawing.Point(93, 102);
             this.txtParcelas.Name = "txtParcelas";
             this.txtParcelas.Size = new System.Drawing.Size(52, 20);
-            this.txtParcelas.TabIndex = 8;
+            this.txtParcelas.TabIndex = 5;
             // 
             // txtCodLocalArmazenamento
             // 
             this.txtCodLocalArmazenamento.Location = new System.Drawing.Point(12, 142);
             this.txtCodLocalArmazenamento.Name = "txtCodLocalArmazenamento";
             this.txtCodLocalArmazenamento.Size = new System.Drawing.Size(44, 20);
-            this.txtCodLocalArmazenamento.TabIndex = 9;
+            this.txtCodLocalArmazenamento.TabIndex = 8;
             this.txtCodLocalArmazenamento.TextChanged += new System.EventHandler(this.txtCodLocalArmazenamento_TextChanged);
             // 
             // lblObs
@@ -193,7 +196,7 @@
             this.chkDiasUteis.Location = new System.Drawing.Point(248, 65);
             this.chkDiasUteis.Name = "chkDiasUteis";
             this.chkDiasUteis.Size = new System.Drawing.Size(109, 17);
-            this.chkDiasUteis.TabIndex = 5;
+            this.chkDiasUteis.TabIndex = 10;
             this.chkDiasUteis.Text = "Apenas dias úteis";
             this.chkDiasUteis.UseVisualStyleBackColor = true;
             // 
@@ -230,9 +233,10 @@
             this.chkBaixaAutomatica.Location = new System.Drawing.Point(363, 63);
             this.chkBaixaAutomatica.Name = "chkBaixaAutomatica";
             this.chkBaixaAutomatica.Size = new System.Drawing.Size(107, 17);
-            this.chkBaixaAutomatica.TabIndex = 6;
+            this.chkBaixaAutomatica.TabIndex = 11;
             this.chkBaixaAutomatica.Text = "Baixa automática";
             this.chkBaixaAutomatica.UseVisualStyleBackColor = true;
+            this.chkBaixaAutomatica.CheckedChanged += new System.EventHandler(this.chkBaixaAutomatica_CheckedChanged);
             // 
             // btnEntidades
             // 
@@ -269,7 +273,7 @@
             this.txtValor.Location = new System.Drawing.Point(12, 102);
             this.txtValor.Name = "txtValor";
             this.txtValor.Size = new System.Drawing.Size(78, 20);
-            this.txtValor.TabIndex = 22;
+            this.txtValor.TabIndex = 4;
             // 
             // lblValor
             // 
