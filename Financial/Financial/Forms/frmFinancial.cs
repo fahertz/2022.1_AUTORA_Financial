@@ -329,9 +329,19 @@ namespace Financial
                         foreach (DataRow dr in oDataRow)
                         {
                             Entradas_Financeiras.Add(new EntradaFinanceira
-                            {
-                                tipoMovimento = dr["tipoMovimento"].ToString()
-                               ,idOperacao = Convert.ToInt32(dr["idOperacao"].ToString())
+                            {                                
+                                idOperacao = Convert.ToInt32(dr["idOperacao"].ToString()),                               
+                                idEntidade = Convert.ToInt32(dr["idEntidade"].ToString()),
+                                idLocal = Convert.ToInt32(dr["idLocal"].ToString()),
+                                idCategoria = Convert.ToInt32(dr["idCategoria"].ToString()),
+                                numParcela = Convert.ToInt32(dr["numParcela"].ToString()),
+                                valorTransacao = Convert.ToDouble(dr["valorTransacao"].ToString()),
+                                formaMovimento = dr["formaMovimento"].ToString(),
+                                obsMovimento = dr["obsMovimento"].ToString(),
+                                tipoMovimento = dr["tipoMovimento"].ToString(),
+                                dataMovimento = Convert.ToDateTime(dr["dataMovimento"].ToString()),
+                                statusMovimento = Convert.ToChar(dr["statusMovimento"].ToString())
+
                             });
                         }
 

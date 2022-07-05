@@ -44,16 +44,16 @@
             this.lblEntidade = new System.Windows.Forms.Label();
             this.lblCategoria = new System.Windows.Forms.Label();
             this.lblDataBase = new System.Windows.Forms.Label();
-            this.chkDiasUteis = new System.Windows.Forms.CheckBox();
             this.lblFormaPagamento = new System.Windows.Forms.Label();
             this.lblParcelas = new System.Windows.Forms.Label();
             this.lblLocalArmazenamento = new System.Windows.Forms.Label();
-            this.chkBaixaAutomatica = new System.Windows.Forms.CheckBox();
             this.btnEntidades = new System.Windows.Forms.Button();
             this.btnCategoria = new System.Windows.Forms.Button();
             this.btnLocal = new System.Windows.Forms.Button();
             this.txtValor = new System.Windows.Forms.TextBox();
             this.lblValor = new System.Windows.Forms.Label();
+            this.chkDiasUteis = new System.Windows.Forms.CheckBox();
+            this.chkBaixaAutomatica = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtDescEntidade
@@ -162,6 +162,7 @@
             this.btnCancelar.TabIndex = 12;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // lblEntidade
             // 
@@ -190,16 +191,6 @@
             this.lblDataBase.TabIndex = 17;
             this.lblDataBase.Text = "Data Base";
             // 
-            // chkDiasUteis
-            // 
-            this.chkDiasUteis.AutoSize = true;
-            this.chkDiasUteis.Location = new System.Drawing.Point(248, 65);
-            this.chkDiasUteis.Name = "chkDiasUteis";
-            this.chkDiasUteis.Size = new System.Drawing.Size(109, 17);
-            this.chkDiasUteis.TabIndex = 10;
-            this.chkDiasUteis.Text = "Apenas dias úteis";
-            this.chkDiasUteis.UseVisualStyleBackColor = true;
-            // 
             // lblFormaPagamento
             // 
             this.lblFormaPagamento.AutoSize = true;
@@ -226,17 +217,6 @@
             this.lblLocalArmazenamento.Size = new System.Drawing.Size(111, 13);
             this.lblLocalArmazenamento.TabIndex = 21;
             this.lblLocalArmazenamento.Text = "Local armazenamento";
-            // 
-            // chkBaixaAutomatica
-            // 
-            this.chkBaixaAutomatica.AutoSize = true;
-            this.chkBaixaAutomatica.Location = new System.Drawing.Point(363, 63);
-            this.chkBaixaAutomatica.Name = "chkBaixaAutomatica";
-            this.chkBaixaAutomatica.Size = new System.Drawing.Size(107, 17);
-            this.chkBaixaAutomatica.TabIndex = 11;
-            this.chkBaixaAutomatica.Text = "Baixa automática";
-            this.chkBaixaAutomatica.UseVisualStyleBackColor = true;
-            this.chkBaixaAutomatica.CheckedChanged += new System.EventHandler(this.chkBaixaAutomatica_CheckedChanged);
             // 
             // btnEntidades
             // 
@@ -283,6 +263,27 @@
             this.lblValor.Size = new System.Drawing.Size(31, 13);
             this.lblValor.TabIndex = 23;
             this.lblValor.Text = "Valor";
+            // 
+            // chkDiasUteis
+            // 
+            this.chkDiasUteis.AutoSize = true;
+            this.chkDiasUteis.Location = new System.Drawing.Point(248, 65);
+            this.chkDiasUteis.Name = "chkDiasUteis";
+            this.chkDiasUteis.Size = new System.Drawing.Size(109, 17);
+            this.chkDiasUteis.TabIndex = 10;
+            this.chkDiasUteis.Text = "Apenas dias úteis";
+            this.chkDiasUteis.UseVisualStyleBackColor = true;
+            // 
+            // chkBaixaAutomatica
+            // 
+            this.chkBaixaAutomatica.AutoSize = true;
+            this.chkBaixaAutomatica.Location = new System.Drawing.Point(363, 63);
+            this.chkBaixaAutomatica.Name = "chkBaixaAutomatica";
+            this.chkBaixaAutomatica.Size = new System.Drawing.Size(107, 17);
+            this.chkBaixaAutomatica.TabIndex = 11;
+            this.chkBaixaAutomatica.Text = "Baixa automática";
+            this.chkBaixaAutomatica.UseVisualStyleBackColor = true;
+            this.chkBaixaAutomatica.CheckedChanged += new System.EventHandler(this.chkBaixaAutomatica_CheckedChanged);
             // 
             // frmEntradasNovo
             // 
@@ -342,15 +343,15 @@
         private System.Windows.Forms.Label lblEntidade;
         private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.Label lblDataBase;
-        private System.Windows.Forms.CheckBox chkDiasUteis;
         private System.Windows.Forms.Label lblFormaPagamento;
         private System.Windows.Forms.Label lblParcelas;
         private System.Windows.Forms.Label lblLocalArmazenamento;
-        private System.Windows.Forms.CheckBox chkBaixaAutomatica;
         private System.Windows.Forms.Button btnEntidades;
         private System.Windows.Forms.Button btnCategoria;
         private System.Windows.Forms.Button btnLocal;
         private System.Windows.Forms.TextBox txtValor;
         private System.Windows.Forms.Label lblValor;
+        private System.Windows.Forms.CheckBox chkDiasUteis;
+        private System.Windows.Forms.CheckBox chkBaixaAutomatica;
     }
 }

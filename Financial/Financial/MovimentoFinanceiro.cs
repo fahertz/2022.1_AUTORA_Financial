@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Financial.EntradaFinanceira;
+using static Financial.Entidade;
+using static Financial.Categoria_Financeira.Categoria;
+
 namespace Financial
 {
 
@@ -18,39 +21,52 @@ namespace Financial
 
         public static Mensagem mm = new Mensagem();
 
-        ////////////////Bloco para armazenar cadastros em geral
-        //Pega a raiz bin para salvar o arquivo produtos
-        public static string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        public static string folder_Operacoes = "\\" + "OPERACOES";                                                    //Nome do diretório das operações        
-        //public string nome_Arquivo_Entradas = "\\OPE_ENTRADA.json";                                           //Nome do arquivo de entradas        
+        
 
+        //Instância pública
+        public static string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); 
+        public static string folder_Operacoes = "\\" + "OPERACOES";                                          
+        
 
+        //Instância Privada
+
+        //Id da operação
         public int idOperacao { get; set; }
+        
+        //Relações
         public int idEntidade { get; set; }
         public int idLocal { get; set; }
         public int idCategoria { get; set; }
-        public int numParcelas { get; set; }
+
+        //Parcelas
+        public int numParcela { get; set; }
+        
+        //Valores
         public double valorTransacao { get; set; }
+
+        //Strings
         public string formaMovimento { get; set; }
         public string obsMovimento { get; set; }        
         public DateTime dataMovimento { get; set; }
 
-        
-        
+        // Entrada - Saida
+        public string tipoMovimento { get; set; }
+                
         //Aberto - A / Fechado - F
         public char statusMovimento { get; set; }
 
         public virtual object Clone()
         {
             return new MovimentoFinanceiro() { 
-                                                idOperacao = this.idOperacao
+                                               idOperacao = this.idOperacao
                                              , idEntidade = this.idEntidade
                                              , idLocal = this.idLocal
                                              , idCategoria = this.idCategoria
-                                             , numParcelas = this.numParcelas
+                                             , numParcela = this.numParcela
                                              , valorTransacao = this.valorTransacao
                                              , formaMovimento = this.formaMovimento
                                              , obsMovimento = this.obsMovimento
+                                             , tipoMovimento = this.tipoMovimento
                                              , dataMovimento = this.dataMovimento   
                                              , statusMovimento = this.statusMovimento
             };
@@ -60,17 +76,17 @@ namespace Financial
         public static int obterUltimoCodigo(object _obj)
         {
 
-            if (_obj is EntradaFinanceira) 
+            if (_obj is EntradaFinanceira)
             {
                 if (Entradas_Financeiras.Count > 0)
-                    return Entradas_Financeiras[Entradas_Financeiras.Count - 1].idLocal;
+                {
+                    
+                    return Entradas_Financeiras[Entradas_Financeiras.Count - 1].idOperacao;
+                }
                 else
                     return 0;
             }
-            else
-            {
-                return 0;
-            }
+            else return 0;
         }
 
 
@@ -79,28 +95,27 @@ namespace Financial
     public class EntradaFinanceira : MovimentoFinanceiro
     {
         //Nome do arquivo
-        private static string nome_Arquivo = "\\OPE_ENTRADA.json";
+        public static string nome_Arquivo = "\\OPE_ENTRADA.json";
 
-        // Entrada - Saida
-        public string tipoMovimento { get; set; }
-        
-        public override object Clone()
+
+        public virtual object Clone()
         {
             return new EntradaFinanceira()
             {
-                  idOperacao = this.idOperacao
-                , idEntidade = this.idEntidade               
-                , idLocal = this.idLocal               
-                , idCategoria = this.idCategoria               
-                , numParcelas = this.numParcelas               
-                , valorTransacao = this.valorTransacao               
-                , formaMovimento = this.formaMovimento               
-                , obsMovimento = this.obsMovimento               
-                , dataMovimento = this.dataMovimento              
-                , tipoMovimento = this.tipoMovimento
-                , statusMovimento = this.statusMovimento
+                idOperacao = this.idOperacao,
+                idEntidade = this.idEntidade,
+                idLocal = this.idLocal,
+                idCategoria = this.idCategoria,
+                numParcela = this.numParcela,
+                valorTransacao = this.valorTransacao,
+                formaMovimento = this.formaMovimento,
+                obsMovimento = this.obsMovimento,
+                tipoMovimento = this.tipoMovimento,
+                dataMovimento = this.dataMovimento,
+                statusMovimento = this.statusMovimento
             };
         }
+
 
         public static void salvar()
         {                     
@@ -131,6 +146,48 @@ namespace Financial
             salvar();
         }
 
+        public static void editar(EntradaFinanceira entrada)
+        {
+            foreach (var editar in Entradas_Financeiras)
+            {
+                if (editar.idOperacao == entrada.idOperacao)
+                {
+                editar.idEntidade = entrada.idEntidade;
+                editar.idLocal         = entrada.idLocal        ;
+                editar.idCategoria     = entrada.idCategoria    ;
+                editar.numParcela      = entrada.numParcela     ;
+                editar.valorTransacao  = entrada.valorTransacao ;
+                editar.formaMovimento  = entrada.formaMovimento ;
+                editar.obsMovimento    = entrada.obsMovimento   ;
+                editar.tipoMovimento   = entrada.tipoMovimento  ;
+                editar.dataMovimento   = entrada.dataMovimento  ;
+                editar.statusMovimento = entrada.statusMovimento;
+                }
+            }
+            salvar();
+        }
+
+        public static void deletar(int idOperacao)
+        {
+            foreach (var excluir in Entradas_Financeiras)
+            {
+                if (excluir.idOperacao == idOperacao) 
+                {
+                    Entradas_Financeiras.Remove(excluir);
+                    break;
+                }
+            }
+            if (Entradas_Financeiras.Count > 0)
+            {
+                salvar();
+            }
+            else
+            {
+                File.Delete(wpath + folder_Operacoes + nome_Arquivo);
+            }
+        }
+
+        
 
 
 
@@ -143,31 +200,36 @@ namespace Financial
                 DataGridView _dgv = (DataGridView)_obj;
                 _dgv.Rows.Clear();
                 _dgv.Columns.Clear();
-                _dgv.Columns.Add("Id","Id");
-                _dgv.Columns.Add("2", "2");
+                _dgv.Columns.Add("idOperacao", "ID");
+                _dgv.Columns.Add("descEntidade", "Entidade");
+                _dgv.Columns.Add("descCategoria", "Categoria");
+                _dgv.Columns.Add("dataMovimento", "Data");
+                _dgv.Columns.Add("valorTransacao", "Valor");
+                _dgv.Columns.Add("status", "Status");
 
-                var select = from item in Entradas_Financeiras
-                             select new { item.tipoMovimento, item.idOperacao };
+
+                var select = from entradas in Entradas_Financeiras
+                             join entidade in Entidades
+                             on entradas.idEntidade equals entidade.idEntidade
+                             join categoria in Categorias
+                             on entradas.idCategoria equals categoria.idCategoria                                                         
+                             select new { entradas.idOperacao, entidade.nomeEntidade, categoria.descCategoria, entradas.dataMovimento, entradas.valorTransacao, entradas.statusMovimento};
+
+                
 
 
-                foreach (var item in select)
+
+                if (Entradas_Financeiras.Count > 0)
                 {
-                    _dgv.Rows.Add(item.tipoMovimento,item.idOperacao);
+                    foreach (var item in select)
+                    {
+                        _dgv.Rows.Add(item.idOperacao, item.nomeEntidade, item.descCategoria, item.dataMovimento.ToShortDateString(), item.valorTransacao.ToString("C"),item.statusMovimento);
+                    }
                 }
 
 
             }    
         }
-
-
-
-
-
-
-
-
-
-
         public static List<EntradaFinanceira> Entradas_Financeiras = new List<EntradaFinanceira>();
     }
     public class SaidaFinanceira : MovimentoFinanceiro
@@ -181,7 +243,7 @@ namespace Financial
                  idEntidade = this.idEntidade                                             
                , idLocal = this.idLocal                                             
                , idCategoria = this.idCategoria                                             
-               , numParcelas = this.numParcelas                                             
+               , numParcela = this.numParcela                                             
                , valorTransacao = this.valorTransacao                                             
                , formaMovimento = this.formaMovimento                
                , obsMovimento = this.obsMovimento

@@ -121,6 +121,12 @@
     <Compile Include="Forms\frmEntidadesNovo.Designer.cs">
       <DependentUpon>frmEntidadesNovo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmEntradasEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEntradasEditar.Designer.cs">
+      <DependentUpon>frmEntradasEditar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmEntradas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEntidadesNovo.resx">
       <DependentUpon>frmEntidadesNovo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEntradasEditar.resx">
+      <DependentUpon>frmEntradasEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEntradas.resx">
       <DependentUpon>frmEntradas.cs</DependentUpon>

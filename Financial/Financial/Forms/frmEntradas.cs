@@ -20,41 +20,85 @@ namespace Financial.Forms
         }
 
 
-        private void abrirNovo()
+
+
+
+        //Load form
+        private void frmEntradas_Load(object sender, EventArgs e)
         {
-            Application.Run(new frmEntradasNovo());
+            Formulario.configuracaoPadrao(this);
+            EntradaFinanceira.carregar(dgvDados);
+
+            //Configuração padrão dos componentes
+            dtpInicial.Value = DateTime.Now.AddDays(-30);
+            dtpFinal.Value = DateTime.Now.AddDays(30*6);
+
+            chkAberto.Checked = true;
+            chkFechado.Checked = true;
         }
 
+       
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            Thread tAbrirNovo = new Thread(abrirNovo);
-            tAbrirNovo.SetApartmentState(ApartmentState.STA);
-            tAbrirNovo.Start();
+            frmEntradasNovo frmNovo = new frmEntradasNovo();
+            frmNovo.ShowDialog();
+            EntradaFinanceira.carregar(dgvDados);
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-
+            frmEntradasEditar frmEditar = new frmEntradasEditar();
+            frmEditar.idOperacao = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value);
+            frmEditar.ShowDialog();
+            EntradaFinanceira.carregar(dgvDados);
         }
+  
 
-        private void btnBaixar_cSaldo_Click(object sender, EventArgs e)
+        private void filtrar_Dados()
         {
-
+            foreach (DataGridViewRow row in dgvDados.Rows)
+            {
+                if (
+                        (row.Cells[0].Value.ToString().Contains(txtFiltro.Text)
+                        || row.Cells[1].Value.ToString().Contains(txtFiltro.Text)
+                        || row.Cells[2].Value.ToString().Contains(txtFiltro.Text)
+                        )
+                      &&                    
+                        (
+                        chkAberto.Checked && chkAberto.Text.Substring(0, 1).Trim() == (row.Cells[5].Value.ToString().Trim())
+                        || chkFechado.Checked && chkFechado.Text.Substring(0, 1).Trim() == (row.Cells[5].Value.ToString().Trim())
+                        )
+                    )                                              
+                {
+                    row.Visible = true;                                        
+                }
+                else
+                {
+                    row.Visible = false;
+                }
+            }
         }
 
-        private void btnBaixa_sSaldo_Click(object sender, EventArgs e)
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
         {
-
+            filtrar_Dados();
         }
 
+        private void dtpInicial_ValueChanged(object sender, EventArgs e)
+        {
+            filtrar_Dados();
+        }
 
+        private void chkFechado_CheckedChanged(object sender, EventArgs e)
+        {
+            filtrar_Dados();
+        }
 
-
-
-
-
-
-
+        private void chkAberto_CheckedChanged(object sender, EventArgs e)
+        {
+            filtrar_Dados();
+        }
 
 
 
@@ -64,10 +108,5 @@ namespace Financial.Forms
             this.Close();
         }
 
-        private void frmEntradas_Load(object sender, EventArgs e)
-        {
-            Formulario.configuracaoPadrao(this);
-            EntradaFinanceira.carregar(dgvDados);
-        }
     }
 }

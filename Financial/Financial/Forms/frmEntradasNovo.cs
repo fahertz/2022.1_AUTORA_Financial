@@ -103,24 +103,22 @@ namespace Financial.Forms
 
 
         //Salvar entrada
-        private void salvar_Entrada(dynamic idEntidade, dynamic idLocal, dynamic idCategoria, dynamic numParcelas, dynamic valorTransacao, string formaPagamento, string obsMovimento, DateTime dataMovimento, char statusMovimento)
+        private void salvar_Entrada(dynamic idEntidade, dynamic idLocal, dynamic idCategoria, dynamic numParcela, dynamic valorTransacao, string formaPagamento, string obsMovimento, DateTime dataMovimento, char statusMovimento)
         {
-            entradaFinanceira.idOperacao = MovimentoFinanceiro.obterUltimoCodigo(entradaFinanceira);
-
-            MessageBox.Show(entradaFinanceira.idOperacao.ToString());
+            entradaFinanceira.idOperacao = MovimentoFinanceiro.obterUltimoCodigo(entradaFinanceira.Clone());                        
             entradaFinanceira.idEntidade = Convert.ToInt32(idEntidade);
             entradaFinanceira.idLocal = Convert.ToInt32(idLocal);
             entradaFinanceira.idCategoria = Convert.ToInt32(idCategoria);            
-            entradaFinanceira.valorTransacao = Convert.ToDouble(valorTransacao) / Convert.ToDouble(numParcelas);
+            entradaFinanceira.valorTransacao = Convert.ToDouble(valorTransacao) / Convert.ToDouble(numParcela);
             entradaFinanceira.formaMovimento = formaPagamento;
             entradaFinanceira.obsMovimento = obsMovimento;
             entradaFinanceira.dataMovimento = dataMovimento;
             entradaFinanceira.tipoMovimento = "Entrada";
             entradaFinanceira.statusMovimento = statusMovimento;
 
-            for (int x=0; x<Convert.ToInt32(numParcelas);x++)
+            for (int x=0; x<Convert.ToInt32(numParcela);x++)
             {
-                entradaFinanceira.numParcelas = Convert.ToInt32(x+1);
+                entradaFinanceira.numParcela = Convert.ToInt32(x+1);
                 entradaFinanceira.idOperacao = entradaFinanceira.idOperacao + 1;
 
 
@@ -260,8 +258,16 @@ namespace Financial.Forms
         {
             
             try
+                
             {
-                salvar_Entrada(txtCodEntidade.Text, txtCodLocalArmazenamento.Text, txtCodCategoria.Text, txtParcelas.Text, txtValor.Text, cbxFormaPagamento.SelectedItem.ToString(), txtObservacao.Text, Convert.ToDateTime(dtpDataBase.Value.ToShortDateString()), 'A');
+                if (!chkBaixaAutomatica.Checked)
+                {
+                    salvar_Entrada(txtCodEntidade.Text, txtCodLocalArmazenamento.Text, txtCodCategoria.Text, txtParcelas.Text, txtValor.Text, cbxFormaPagamento.SelectedItem.ToString(), txtObservacao.Text, Convert.ToDateTime(dtpDataBase.Value.ToShortDateString()), 'A');
+                }
+                else
+                {
+                    salvar_Entrada(txtCodEntidade.Text, txtCodLocalArmazenamento.Text, txtCodCategoria.Text, txtParcelas.Text, txtValor.Text, cbxFormaPagamento.SelectedItem.ToString(), txtObservacao.Text, Convert.ToDateTime(dtpDataBase.Value.ToShortDateString()), 'F');
+                }
             }
             catch (Exception ex)
             {
@@ -308,6 +314,11 @@ namespace Financial.Forms
                     txtParcelas.ReadOnly = false;
                 }                
             }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

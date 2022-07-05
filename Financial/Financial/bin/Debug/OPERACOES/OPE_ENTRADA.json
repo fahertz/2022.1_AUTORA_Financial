@@ -1,28 +1,28 @@
 ﻿[
   {
-    "tipoMovimento": "Entrada",
     "idOperacao": 1,
     "idEntidade": 1,
     "idLocal": 1,
-    "idCategoria": 1,
-    "numParcelas": 1,
-    "valorTransacao": 2500.0,
+    "idCategoria": 2,
+    "numParcela": 1,
+    "valorTransacao": 250.0,
     "formaMovimento": "PIX",
-    "obsMovimento": "A Entidade {1 | Rafael F}, para a Categoria {1 | Nova cat} irá pagar R$ 5000,00 a partir da segunda-feira, 4 de julho de 2022 em 2x no PIX. O local movimentado será o {1 | Nu Bank}.",
-    "dataMovimento": "2022-07-04T17:52:05.0839377-03:00",
-    "statusMovimento": "A"
+    "obsMovimento": "A Entidade {1 | Uni Hospitalar}, para a Categoria {2 | Alimentação extra} irá pagar R$ 500,00 a partir da terça-feira, 5 de julho de 2022 em 2x no PIX. O local movimentado será o {1 | Nu Bank}.",
+    "dataMovimento": "2022-07-05T17:32:42.6703404-03:00",
+    "tipoMovimento": "Entrada",
+    "statusMovimento": "F"
   },
   {
-    "tipoMovimento": "Entrada",
     "idOperacao": 2,
     "idEntidade": 1,
     "idLocal": 1,
-    "idCategoria": 1,
-    "numParcelas": 2,
-    "valorTransacao": 2500.0,
+    "idCategoria": 2,
+    "numParcela": 2,
+    "valorTransacao": 250.0,
     "formaMovimento": "PIX",
-    "obsMovimento": "A Entidade {1 | Rafael F}, para a Categoria {1 | Nova cat} irá pagar R$ 5000,00 a partir da segunda-feira, 4 de julho de 2022 em 2x no PIX. O local movimentado será o {1 | Nu Bank}.",
-    "dataMovimento": "2022-08-03T17:52:05.0839377-03:00",
-    "statusMovimento": "A"
+    "obsMovimento": "A Entidade {1 | Uni Hospitalar}, para a Categoria {2 | Alimentação extra} irá pagar R$ 500,00 a partir da terça-feira, 5 de julho de 2022 em 2x no PIX. O local movimentado será o {1 | Nu Bank}.",
+    "dataMovimento": "2022-08-04T17:32:42.6703404-03:00",
+    "tipoMovimento": "Entrada",
+    "statusMovimento": "F"
   }
 ]
