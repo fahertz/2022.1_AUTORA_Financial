@@ -108,5 +108,12 @@ namespace Financial.Forms
             this.Close();
         }
 
+        private void dgvDados_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (dgvDados.CurrentRow.Cells != null)
+            {
+                btnEditar_Click(this, new EventArgs());
+            }
+        }
     }
 }

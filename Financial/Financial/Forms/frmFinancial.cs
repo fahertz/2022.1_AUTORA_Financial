@@ -19,6 +19,7 @@ using static Financial.Local;
 using static Financial.Categoria_Financeira.Tipo_Categoria;
 using static Financial.Categoria_Financeira.Categoria;
 using static Financial.EntradaFinanceira;
+using static Financial.SaidaFinanceira;
 
 
 namespace Financial
@@ -355,6 +356,60 @@ namespace Financial
 
             }
         }
+
+        private void carregar_Saida(string path)
+        {
+            if (File.Exists(path))
+            {
+                StreamReader reader = new StreamReader(path);
+                string linhasDoArquivo = reader.ReadToEnd();
+
+                try
+                {
+
+                    Saidas_Financeiras.Add((SaidaFinanceira)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(SaidaFinanceira))));
+                    reader.Close();
+
+                }
+                catch
+                {
+                    try
+                    {
+
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(linhasDoArquivo, (typeof(DataTable)));
+
+                        DataRow[] oDataRow = dt.Select();
+                        reader.Close();
+
+                        foreach (DataRow dr in oDataRow)
+                        {
+                            Saidas_Financeiras.Add(new SaidaFinanceira
+                            {
+                                idOperacao = Convert.ToInt32(dr["idOperacao"].ToString()),
+                                idEntidade = Convert.ToInt32(dr["idEntidade"].ToString()),
+                                idLocal = Convert.ToInt32(dr["idLocal"].ToString()),
+                                idCategoria = Convert.ToInt32(dr["idCategoria"].ToString()),
+                                numParcela = Convert.ToInt32(dr["numParcela"].ToString()),
+                                valorTransacao = Convert.ToDouble(dr["valorTransacao"].ToString()),
+                                formaMovimento = dr["formaMovimento"].ToString(),
+                                obsMovimento = dr["obsMovimento"].ToString(),
+                                tipoMovimento = dr["tipoMovimento"].ToString(),
+                                dataMovimento = Convert.ToDateTime(dr["dataMovimento"].ToString()),
+                                statusMovimento = Convert.ToChar(dr["statusMovimento"].ToString())
+
+                            });
+                        }
+
+                    }
+                    catch
+                    {
+                        throw;
+
+                    }
+                }
+
+            }
+        }
         //Load do form
         private void frmFinancial_Load(object sender, EventArgs e)
         {
@@ -368,6 +423,7 @@ namespace Financial
             Task.Factory.StartNew(() => carregar_Entidade_Classificacao(wpath + "\\CADASTROS" + "\\CAD_ENTIDADE_CLASSIFICACAO.json"));
             Task.Factory.StartNew(() => carregar_Local(wpath + "\\CADASTROS" + "\\CAD_LOCAL.json"));
             Task.Factory.StartNew(() => carregar_Entrada(wpath + "\\OPERACOES" + "\\OPE_ENTRADA.json"));
+            Task.Factory.StartNew(() => carregar_Saida(wpath + "\\OPERACOES" + "\\OPE_SAIDA.json"));
         }
 
 

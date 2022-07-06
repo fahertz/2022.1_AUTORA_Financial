@@ -109,6 +109,9 @@ namespace Financial.Forms
             txtCodLocalArmazenamento.ReadOnly = true;
             txtObservacao.ReadOnly = true;
 
+            //Carregar
+            lblID.Text = lblID.Text + idOperacao.ToString();
+
 
         }
 
