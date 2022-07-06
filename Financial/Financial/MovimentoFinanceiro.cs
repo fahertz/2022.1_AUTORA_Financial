@@ -90,6 +90,9 @@ namespace Financial
                 {
                     return Saidas_Financeiras[Saidas_Financeiras.Count - 1].idOperacao;
                 }
+                else                
+                    return 0;
+                
             }
             else 
                 return 0;
@@ -103,7 +106,7 @@ namespace Financial
     {
         //Nome do arquivo
         public static string nome_Arquivo = "\\OPE_ENTRADA.json";
-
+        public DateTime dataBaixa { get; set; }
 
         public override object Clone()
         {
@@ -119,7 +122,9 @@ namespace Financial
                 obsMovimento = this.obsMovimento,
                 tipoMovimento = this.tipoMovimento,
                 dataMovimento = this.dataMovimento,
-                statusMovimento = this.statusMovimento
+                dataBaixa = this.dataBaixa,
+                statusMovimento = this.statusMovimento,
+                
             };
         }
 
@@ -168,7 +173,9 @@ namespace Financial
                 editar.obsMovimento    = entrada.obsMovimento   ;
                 editar.tipoMovimento   = entrada.tipoMovimento  ;
                 editar.dataMovimento   = entrada.dataMovimento  ;
-                editar.statusMovimento = entrada.statusMovimento;
+                editar.dataBaixa = entrada.dataBaixa;
+                 editar.statusMovimento = entrada.statusMovimento;
+                    editar.obsMovimento = entrada.obsMovimento ;
                 }
             }
             salvar();
@@ -244,6 +251,7 @@ namespace Financial
         //Nome do arquivo
         public static string nome_Arquivo = "\\OPE_SAIDA.json";
 
+        public DateTime dataBaixa { get; set; }
 
         public override object Clone()
         {
@@ -259,7 +267,9 @@ namespace Financial
                 obsMovimento = this.obsMovimento,
                 tipoMovimento = this.tipoMovimento,
                 dataMovimento = this.dataMovimento,
+                dataBaixa = this.dataBaixa,
                 statusMovimento = this.statusMovimento
+                
             };
         }
 
@@ -308,7 +318,9 @@ namespace Financial
                     editar.obsMovimento = saida.obsMovimento;
                     editar.tipoMovimento = saida.tipoMovimento;
                     editar.dataMovimento = saida.dataMovimento;
+                    editar.dataBaixa = saida.dataBaixa;
                     editar.statusMovimento = saida.statusMovimento;
+                    editar.obsMovimento = saida.obsMovimento;
                 }
             }
             salvar();

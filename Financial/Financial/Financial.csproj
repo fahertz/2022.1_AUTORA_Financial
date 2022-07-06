@@ -133,6 +133,12 @@
     <Compile Include="Forms\frmEntradas.Designer.cs">
       <DependentUpon>frmEntradas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmEntradasEditarObs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEntradasEditarObs.Designer.cs">
+      <DependentUpon>frmEntradasEditarObs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmEntradasNovo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,30 @@
     </Compile>
     <Compile Include="Forms\frmLocaisNovo.Designer.cs">
       <DependentUpon>frmLocaisNovo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSaidas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSaidas.Designer.cs">
+      <DependentUpon>frmSaidas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSaidasEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSaidasEditar.Designer.cs">
+      <DependentUpon>frmSaidasEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSaidasEditarObs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSaidasEditarObs.Designer.cs">
+      <DependentUpon>frmSaidasEditarObs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSaidasNovo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSaidasNovo.Designer.cs">
+      <DependentUpon>frmSaidasNovo.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmTipoCategoria.cs">
       <SubType>Form</SubType>
@@ -226,6 +256,9 @@
     <EmbeddedResource Include="Forms\frmEntradas.resx">
       <DependentUpon>frmEntradas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEntradasEditarObs.resx">
+      <DependentUpon>frmEntradasEditarObs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEntradasNovo.resx">
       <DependentUpon>frmEntradasNovo.cs</DependentUpon>
     </EmbeddedResource>
@@ -240,6 +273,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLocaisNovo.resx">
       <DependentUpon>frmLocaisNovo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSaidas.resx">
+      <DependentUpon>frmSaidas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSaidasEditar.resx">
+      <DependentUpon>frmSaidasEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSaidasNovo.resx">
+      <DependentUpon>frmSaidasNovo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmTipoCategoria.resx">
       <DependentUpon>frmTipoCategoria.cs</DependentUpon>

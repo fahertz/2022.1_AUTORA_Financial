@@ -8,44 +8,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System.Threading;
-
 namespace Financial.Forms
 {
-    public partial class frmEntradas : Form
+    public partial class frmSaidas : Form
     {
-        public frmEntradas()
+        public frmSaidas()
         {
             InitializeComponent();
         }
 
-        //Load form
-        private void frmEntradas_Load(object sender, EventArgs e)
+        private void frmSaidas_Load(object sender, EventArgs e)
         {
             Formulario.configuracaoPadrao(this);
-            EntradaFinanceira.carregar(dgvDados);
+
+            SaidaFinanceira.carregar(dgvDados);
 
             //Configuração padrão dos componentes
             dtpInicial.Value = DateTime.Now.AddDays(-30);
-            dtpFinal.Value = DateTime.Now.AddDays(30*6);
+            dtpFinal.Value = DateTime.Now.AddDays(30 * 6);
 
             chkAberto.Checked = true;
             chkFechado.Checked = true;
         }
-       
+
         //Botoões e configurações
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            frmEntradasNovo frmNovo = new frmEntradasNovo();
+            frmSaidasNovo frmNovo = new frmSaidasNovo();
             frmNovo.ShowDialog();
-            EntradaFinanceira.carregar(dgvDados);
+            SaidaFinanceira.carregar(dgvDados);
         }
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            frmEntradasEditar frmEditar = new frmEntradasEditar();
-            frmEditar.idOperacao = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value);
+            frmSaidasEditar frmEditar = new frmSaidasEditar();
+            //frmEditar.idOperacao = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value);
             frmEditar.ShowDialog();
-            EntradaFinanceira.carregar(dgvDados);
+            SaidaFinanceira.carregar(dgvDados);
         }
         private void filtrar_Dados()
         {
@@ -104,7 +102,5 @@ namespace Financial.Forms
                 btnEditar_Click(this, new EventArgs());
             }
         }
-
-     
     }
 }

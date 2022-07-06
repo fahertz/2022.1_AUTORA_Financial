@@ -5,26 +5,22 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Financial.Entidade;
-using static Financial.CaixaDeTexto;
-using static Financial.Mensagem;
-using static Financial.Categoria_Financeira;
-using static Financial.Categoria_Financeira.Categoria;
-using static Financial.Categoria_Financeira.Tipo_Categoria;
 using static Financial.Local;
+using static Financial.Categoria_Financeira.Categoria;
+using static Financial.Entidade;
+
 
 namespace Financial.Forms
 {
-    public partial class frmEntradasNovo : Form
+    public partial class frmSaidasNovo : Form
     {
-        
-        public frmEntradasNovo()
+        public frmSaidasNovo()
         {
             InitializeComponent();
+
             txtCodEntidade.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtCodCategoria.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtCodLocalArmazenamento.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
@@ -41,13 +37,14 @@ namespace Financial.Forms
             cbxFormaPagamento.TextChanged += txtObservacaoTexto_TextChanged;
             dtpDataBase.TextChanged += txtObservacaoTexto_TextChanged;
         }
-        
-        //Instância Local
+
+
+        //Instância local
         Mensagem mm = new Mensagem();
-        EntradaFinanceira entradaFinanceira = new EntradaFinanceira();
+        SaidaFinanceira saidaFinanceira = new SaidaFinanceira();
 
         //Load do form
-        private void frmEntradasNovo_Load(object sender, EventArgs e)
+        private void frmSaidasNovo_Load(object sender, EventArgs e)
         {
             Formulario.configuracaoPadrao(this);
 
@@ -63,18 +60,19 @@ namespace Financial.Forms
             txtDescCategoria.ReadOnly = true;
             txtDescLocalArmazenamento.ReadOnly = true;
         }
-        
+
+
         //Botões e suas configurações
         private void abrirCategoria()
         {
-            Application.Run(new frmCategoria());            
+            Application.Run(new frmCategoria());
         }
         private void btnCategoria_Click(object sender, EventArgs e)
         {
             Thread tAbrirCategoria = new Thread(abrirCategoria);
             tAbrirCategoria.SetApartmentState(ApartmentState.STA);
             tAbrirCategoria.Start();
-        }      
+        }
         private void abrirEntidades()
         {
             Application.Run(new frmEntidades());
@@ -95,63 +93,64 @@ namespace Financial.Forms
             tAbrirLocais.SetApartmentState(ApartmentState.STA);
             tAbrirLocais.Start();
         }
-        private void salvar_Entrada(dynamic idEntidade, dynamic idLocal
-                                   ,dynamic idCategoria, dynamic numParcela
-                                   ,dynamic valorTransacao, string formaPagamento
-                                   ,string obsMovimento
-                                   ,DateTime dataMovimento                                   
-                                   ,char statusMovimento)
+        private void salvar_Saida(dynamic idEntidade, dynamic idLocal
+                                 , dynamic idCategoria, dynamic numParcela
+                                 , dynamic valorTransacao, string formaPagamento
+                                 , string obsMovimento
+                                 , DateTime dataMovimento
+                                 , char statusMovimento)
         {
-            entradaFinanceira.idOperacao = MovimentoFinanceiro.obterUltimoCodigo(entradaFinanceira.Clone());
-            entradaFinanceira.idEntidade = Convert.ToInt32(idEntidade);
-            entradaFinanceira.idLocal = Convert.ToInt32(idLocal);
-            entradaFinanceira.idCategoria = Convert.ToInt32(idCategoria);
-            entradaFinanceira.valorTransacao = Convert.ToDouble(valorTransacao) / Convert.ToDouble(numParcela);
-            entradaFinanceira.formaMovimento = formaPagamento;
-            entradaFinanceira.obsMovimento = obsMovimento;
-            entradaFinanceira.dataMovimento = dataMovimento;
-            
-            entradaFinanceira.tipoMovimento = "Entrada";
-            entradaFinanceira.statusMovimento = statusMovimento;
+            saidaFinanceira.idOperacao = MovimentoFinanceiro.obterUltimoCodigo(saidaFinanceira.Clone());
+            saidaFinanceira.idEntidade = Convert.ToInt32(idEntidade);
+            saidaFinanceira.idLocal = Convert.ToInt32(idLocal);
+            saidaFinanceira.idCategoria = Convert.ToInt32(idCategoria);
+            saidaFinanceira.valorTransacao = Convert.ToDouble(valorTransacao) / Convert.ToDouble(numParcela);
+            saidaFinanceira.formaMovimento = formaPagamento;
+            saidaFinanceira.obsMovimento = obsMovimento;
+            saidaFinanceira.dataMovimento = dataMovimento;
+
+            saidaFinanceira.tipoMovimento = "Saida";
+            saidaFinanceira.statusMovimento = statusMovimento;
 
             for (int x = 0; x < Convert.ToInt32(numParcela); x++)
             {
-                entradaFinanceira.numParcela = Convert.ToInt32(x + 1);
-                entradaFinanceira.idOperacao = entradaFinanceira.idOperacao + 1;
+                saidaFinanceira.numParcela = Convert.ToInt32(x + 1);
+                saidaFinanceira.idOperacao = saidaFinanceira.idOperacao + 1;
 
                 if (chkDiasUteis.Checked)
                 {
                     if (dtpDataBase.Value.AddDays(x * 30).DayOfWeek.ToString() == "Sunday")
                     {
-                        entradaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30).AddDays(1);
+                        saidaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30).AddDays(1);
                     }
                     else if (dtpDataBase.Value.AddDays(x * 30).DayOfWeek.ToString() == "Saturday")
                     {
-                        entradaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30).AddDays(2);
+                        saidaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30).AddDays(2);
                     }
                     else
                     {
-                        entradaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30);
+                        saidaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30);
                     }
                 }
                 else
                 {
-                    entradaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30);
+                    saidaFinanceira.dataMovimento = dtpDataBase.Value.AddDays(x * 30);
                 }
 
                 if (chkBaixaAutomatica.Checked)
                 {
-                    entradaFinanceira.dataBaixa = DateTime.Now;
-                    EntradaFinanceira.adicionar((EntradaFinanceira)entradaFinanceira.Clone());
-                    Local.incremetar_Saldo(idLocal, valorTransacao);
+                    saidaFinanceira.dataBaixa = DateTime.Now;
+                    SaidaFinanceira.adicionar((SaidaFinanceira)saidaFinanceira.Clone());
+                    Local.decrementar_Saldo(idLocal, valorTransacao);
                 }
                 else
-                {        
-                    EntradaFinanceira.adicionar((EntradaFinanceira)entradaFinanceira.Clone());
+                {
+                    SaidaFinanceira.adicionar((SaidaFinanceira)saidaFinanceira.Clone());
                 }
 
             }
         }
+
         private void btnSalvar_Click(object sender, EventArgs e)
         {
 
@@ -160,11 +159,11 @@ namespace Financial.Forms
             {
                 if (!chkBaixaAutomatica.Checked)
                 {
-                    salvar_Entrada(txtCodEntidade.Text, txtCodLocalArmazenamento.Text, txtCodCategoria.Text, txtParcelas.Text, txtValor.Text, cbxFormaPagamento.SelectedItem.ToString(), txtObservacao.Text, Convert.ToDateTime(dtpDataBase.Value.ToShortDateString()), 'A');
+                    salvar_Saida(txtCodEntidade.Text, txtCodLocalArmazenamento.Text, txtCodCategoria.Text, txtParcelas.Text, txtValor.Text, cbxFormaPagamento.SelectedItem.ToString(), txtObservacao.Text, Convert.ToDateTime(dtpDataBase.Value.ToShortDateString()), 'A');
                 }
                 else
                 {
-                    salvar_Entrada(txtCodEntidade.Text, txtCodLocalArmazenamento.Text, txtCodCategoria.Text, txtParcelas.Text, txtValor.Text, cbxFormaPagamento.SelectedItem.ToString(), txtObservacao.Text, Convert.ToDateTime(dtpDataBase.Value.ToShortDateString()), 'F');
+                    salvar_Saida(txtCodEntidade.Text, txtCodLocalArmazenamento.Text, txtCodCategoria.Text, txtParcelas.Text, txtValor.Text, cbxFormaPagamento.SelectedItem.ToString(), txtObservacao.Text, Convert.ToDateTime(dtpDataBase.Value.ToShortDateString()), 'F');
                 }
             }
             catch (Exception ex)
@@ -177,7 +176,7 @@ namespace Financial.Forms
             }
             finally
             {
-                mm.Message = "Entrada inserida com sucesso!";
+                mm.Message = "Sa inserida com sucesso!";
                 mm.Tittle = "Informação";
                 mm.Buttons = MessageBoxButtons.OK;
                 mm.Icon = MessageBoxIcon.Information;
@@ -198,10 +197,9 @@ namespace Financial.Forms
                 this.Close();
             }
         }
-
         //Texts boxes 
         private string filtrarDescEntidade(dynamic _codEntidade)
-        {            
+        {
             try
             {
                 _codEntidade = Convert.ToInt32(_codEntidade);
@@ -209,7 +207,7 @@ namespace Financial.Forms
                 {
                     if (entidade.idEntidade == _codEntidade)
                     {
-                        return entidade.nomeEntidade;                        
+                        return entidade.nomeEntidade;
                     }
                 }
             }
@@ -220,7 +218,7 @@ namespace Financial.Forms
             return null;
 
         }
-        private string filtrarDescClassificacao (dynamic _codCategoria)
+        private string filtrarDescClassificacao(dynamic _codCategoria)
         {
             try
             {
@@ -265,8 +263,8 @@ namespace Financial.Forms
 
         }
         private void txtCodEntidade_TextChanged(object sender, EventArgs e)
-        {                     
-            txtDescEntidade.Text = filtrarDescEntidade(txtCodEntidade.Text);                                
+        {
+            txtDescEntidade.Text = filtrarDescEntidade(txtCodEntidade.Text);
         }
         private void txtCodCategoria_TextChanged(object sender, EventArgs e)
         {
@@ -280,12 +278,12 @@ namespace Financial.Forms
         //Função genérica para preencher a observação
         private void txtObservacaoTexto_TextChanged(object sender, EventArgs e)
         {
-            txtObservacao.Text = "A Entidade {" + txtCodEntidade.Text + " | " + txtDescEntidade.Text + "}" +
-                ", para a Categoria {" + txtCodCategoria.Text + " | " + txtDescCategoria.Text + "} irá pagar R$ " + txtValor.Text + " a partir da "
+            txtObservacao.Text = "Será pago a Entidade {" + txtCodEntidade.Text + " | " + txtDescEntidade.Text + "}" +
+                ", para a Categoria {" + txtCodCategoria.Text + " | " + txtDescCategoria.Text + "}, o valor de R$ " + txtValor.Text + " a partir da "
                 + dtpDataBase.Value.ToLongDateString() + " em " + txtParcelas.Text + "x no " + cbxFormaPagamento.SelectedItem?.ToString()
                 + ". O local movimentado será o {" + txtCodLocalArmazenamento.Text + " | " + txtDescLocalArmazenamento.Text + "}.";
         }
-        
+
         //Checked boxes
         private void chkBaixaAutomatica_CheckedChanged(object sender, EventArgs e)
         {
@@ -300,10 +298,9 @@ namespace Financial.Forms
                 else
                 {
                     txtParcelas.ReadOnly = false;
-                }                
+                }
             }
         }
 
-        
     }
 }

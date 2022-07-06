@@ -1,0 +1,16 @@
+﻿[
+  {
+    "dataBaixa": "0001-01-01T00:00:00",
+    "idOperacao": 1,
+    "idEntidade": 1,
+    "idLocal": 1,
+    "idCategoria": 1,
+    "numParcela": 1,
+    "valorTransacao": 10.0,
+    "formaMovimento": "PIX",
+    "obsMovimento": "Será pago a Entidade {1 | Uni Hospitalar}, para a Categoria {1 | Cursos}, o valor de R$ 10,00 a partir da quarta-feira, 6 de julho de 2022 em 1x no PIX. O local movimentado será o {1 | Nu Bank}.",
+    "dataMovimento": "2022-07-06T17:49:48.0239427-03:00",
+    "tipoMovimento": "Saida",
+    "statusMovimento": "A"
+  }
+]

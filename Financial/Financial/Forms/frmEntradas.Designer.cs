@@ -49,7 +49,7 @@
             // btnFechar
             // 
             this.btnFechar.Location = new System.Drawing.Point(951, 506);
-            this.btnFechar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFechar.Margin = new System.Windows.Forms.Padding(4);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(100, 33);
             this.btnFechar.TabIndex = 4;
@@ -60,7 +60,7 @@
             // btnNovo
             // 
             this.btnNovo.Location = new System.Drawing.Point(951, 11);
-            this.btnNovo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNovo.Margin = new System.Windows.Forms.Padding(4);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(100, 33);
             this.btnNovo.TabIndex = 0;
@@ -71,7 +71,7 @@
             // btnEditar
             // 
             this.btnEditar.Location = new System.Drawing.Point(951, 54);
-            this.btnEditar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEditar.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(100, 33);
             this.btnEditar.TabIndex = 1;
@@ -91,7 +91,7 @@
             this.dgvDados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDados.Location = new System.Drawing.Point(16, 146);
-            this.dgvDados.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvDados.Margin = new System.Windows.Forms.Padding(4);
             this.dgvDados.Name = "dgvDados";
             this.dgvDados.ReadOnly = true;
             this.dgvDados.RowHeadersVisible = false;
@@ -105,7 +105,7 @@
             // txtFiltro
             // 
             this.txtFiltro.Location = new System.Drawing.Point(16, 31);
-            this.txtFiltro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFiltro.Margin = new System.Windows.Forms.Padding(4);
             this.txtFiltro.Name = "txtFiltro";
             this.txtFiltro.Size = new System.Drawing.Size(372, 22);
             this.txtFiltro.TabIndex = 24;
@@ -126,9 +126,9 @@
             this.gpbStatus.Controls.Add(this.chkFechado);
             this.gpbStatus.Controls.Add(this.chkAberto);
             this.gpbStatus.Location = new System.Drawing.Point(16, 63);
-            this.gpbStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpbStatus.Margin = new System.Windows.Forms.Padding(4);
             this.gpbStatus.Name = "gpbStatus";
-            this.gpbStatus.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpbStatus.Padding = new System.Windows.Forms.Padding(4);
             this.gpbStatus.Size = new System.Drawing.Size(139, 76);
             this.gpbStatus.TabIndex = 26;
             this.gpbStatus.TabStop = false;
@@ -138,7 +138,7 @@
             // 
             this.chkFechado.AutoSize = true;
             this.chkFechado.Location = new System.Drawing.Point(8, 48);
-            this.chkFechado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkFechado.Margin = new System.Windows.Forms.Padding(4);
             this.chkFechado.Name = "chkFechado";
             this.chkFechado.Size = new System.Drawing.Size(83, 20);
             this.chkFechado.TabIndex = 1;
@@ -150,7 +150,7 @@
             // 
             this.chkAberto.AutoSize = true;
             this.chkAberto.Location = new System.Drawing.Point(8, 20);
-            this.chkAberto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkAberto.Margin = new System.Windows.Forms.Padding(4);
             this.chkAberto.Name = "chkAberto";
             this.chkAberto.Size = new System.Drawing.Size(69, 20);
             this.chkAberto.TabIndex = 0;
@@ -162,7 +162,7 @@
             // 
             this.dtpInicial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpInicial.Location = new System.Drawing.Point(163, 82);
-            this.dtpInicial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpInicial.Margin = new System.Windows.Forms.Padding(4);
             this.dtpInicial.Name = "dtpInicial";
             this.dtpInicial.Size = new System.Drawing.Size(108, 22);
             this.dtpInicial.TabIndex = 27;
@@ -192,10 +192,11 @@
             // 
             this.dtpFinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFinal.Location = new System.Drawing.Point(280, 82);
-            this.dtpFinal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpFinal.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFinal.Name = "dtpFinal";
             this.dtpFinal.Size = new System.Drawing.Size(108, 22);
             this.dtpFinal.TabIndex = 29;
+            this.dtpFinal.ValueChanged += new System.EventHandler(this.dtpFinal_ValueChanged);
             // 
             // frmEntradas
             // 
@@ -213,7 +214,7 @@
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnNovo);
             this.Controls.Add(this.btnFechar);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmEntradas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Entradas";

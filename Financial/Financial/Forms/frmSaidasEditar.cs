@@ -6,21 +6,24 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using static Financial.EntradaFinanceira;
+using static Financial.SaidaFinanceira;
 using static Financial.Entidade;
 using static Financial.Categoria_Financeira.Categoria;
 using static Financial.Local;
+using System.Windows.Forms;
 using System.Threading;
 
 namespace Financial.Forms
 {
-    public partial class frmEntradasEditar : Form
+    public partial class frmSaidasEditar : Form
     {
-        public frmEntradasEditar()
+        public frmSaidasEditar()
         {
             InitializeComponent();
-            
+        }
+
+        private void frmSaidasEditar_Load(object sender, EventArgs e)
+        {
             txtCodEntidade.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtCodCategoria.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtCodLocalArmazenamento.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
@@ -30,28 +33,28 @@ namespace Financial.Forms
         }
 
         //Instância local
-        Mensagem mm = new Mensagem();        
-        EntradaFinanceira entrada = new EntradaFinanceira();
+        Mensagem mm = new Mensagem();
+        SaidaFinanceira saida = new SaidaFinanceira();
 
         //Instância pública
         public int idOperacao { get; set; }
 
         //Load do form
-        private void carregar_Entrada(int idOperacao)
+        private void carregar_Saida(int idOperacao)
         {
-            var select_Entrada_Campos = from entradas in Entradas_Financeiras
+            var select_Saida_Campos = from saidas in Saidas_Financeiras
                                         join entidade in Entidades
-                                        on entradas.idEntidade equals entidade.idEntidade
+                                        on saidas.idEntidade equals entidade.idEntidade
                                         join categoria in Categorias
-                                        on entradas.idCategoria equals categoria.idCategoria
+                                        on saidas.idCategoria equals categoria.idCategoria
                                         join local in Locais
-                                        on entradas.idLocal equals local.idLocal
+                                        on saidas.idLocal equals local.idLocal
 
 
-                                        where entradas.idOperacao == idOperacao
+                                        where saidas.idOperacao == idOperacao
                                         select new
                                         {
-                                            entradas.idOperacao
+                                            saidas.idOperacao
                                                     ,
                                             entidade.idEntidade
                                                     ,
@@ -61,50 +64,50 @@ namespace Financial.Forms
                                                     ,
                                             categoria.descCategoria
                                                     ,
-                                            entradas.dataMovimento
+                                            saidas.dataMovimento
                                                     ,
-                                            entradas.valorTransacao
+                                            saidas.valorTransacao
                                                     ,
-                                            entradas.numParcela
+                                            saidas.numParcela
                                                     ,
-                                            entradas.formaMovimento
+                                            saidas.formaMovimento
                                                     ,
-                                            entradas.idLocal
+                                            saidas.idLocal
                                                     ,
                                             local.nameLocal
                                                     ,
-                                            entradas.obsMovimento
+                                            saidas.obsMovimento
                                                     ,
-                                            entradas.statusMovimento
+                                            saidas.statusMovimento
                                                     ,
-                                            entradas.dataBaixa
+                                            saidas.dataBaixa
                                         };
-            var select_Entrada_Anterior = from entradas in Entradas_Financeiras
-                                          where entradas.idOperacao == idOperacao
-                                          select entradas;
+            var select_Saida_Anterior = from saidas in Saidas_Financeiras
+                                          where saidas.idOperacao == idOperacao
+                                          select saidas;
 
-            foreach (var entrada_anterior in select_Entrada_Anterior)
+            foreach (var saida_anterior in select_Saida_Anterior)
             {
-                entrada = entrada_anterior;
+                saida = saida_anterior;
             }
 
 
-            foreach (var entrada in select_Entrada_Campos)
+            foreach (var saida in select_Saida_Campos)
             {
-                txtCodEntidade.Text = entrada.idEntidade.ToString();
-                txtDescEntidade.Text = entrada.nomeEntidade;
-                txtCodCategoria.Text = entrada.idCategoria.ToString();
-                txtDescCategoria.Text = entrada.descCategoria;
-                dtpDataBase.Value = entrada.dataMovimento;
-                txtValor.Text = entrada.valorTransacao.ToString("C");
-                txtParcelas.Text = entrada.numParcela.ToString();
-                cbxFormaPagamento.Text = entrada.formaMovimento;
-                txtCodLocalArmazenamento.Text = entrada.idLocal.ToString();
-                txtDescLocalArmazenamento.Text = entrada.nameLocal;
-                txtObservacao.Text = entrada.obsMovimento;
-                if (entrada.statusMovimento == 'A')
+                txtCodEntidade.Text = saida.idEntidade.ToString();
+                txtDescEntidade.Text = saida.nomeEntidade;
+                txtCodCategoria.Text = saida.idCategoria.ToString();
+                txtDescCategoria.Text = saida.descCategoria;
+                dtpDataBase.Value = saida.dataMovimento;
+                txtValor.Text = saida.valorTransacao.ToString("C");
+                txtParcelas.Text = saida.numParcela.ToString();
+                cbxFormaPagamento.Text = saida.formaMovimento;
+                txtCodLocalArmazenamento.Text = saida.idLocal.ToString();
+                txtDescLocalArmazenamento.Text = saida.nameLocal;
+                txtObservacao.Text = saida.obsMovimento;
+                if (saida.statusMovimento == 'A')
                 {
-                    lblStatus.Text = "Status: " + entrada.statusMovimento;
+                    lblStatus.Text = "Status: " + saida.statusMovimento;
                     lblStatus.ForeColor = Color.OrangeRed;
                 }
                 else
@@ -120,14 +123,14 @@ namespace Financial.Forms
                     btnDeletar.Enabled = false;
                     btnBaixarcSaldo.Enabled = false;
                     btnBaixarsSaldo.Enabled = false;
-                    lblStatus.Text = "Status: " + entrada.statusMovimento + " | " + entrada.dataBaixa.ToShortDateString();
+                    lblStatus.Text = "Status: " + saida.statusMovimento + " | " + saida.dataBaixa.ToShortDateString();
                 }
             }
         }
-        private void frmEntradaNovo_Load(object sender, EventArgs e)
+        private void frmSaidaNovo_Load(object sender, EventArgs e)
         {
             Formulario.configuracaoPadrao(this);
-            carregar_Entrada(idOperacao);
+            carregar_Saida(idOperacao);
 
             //Bloqueios
             txtDescEntidade.ReadOnly = true;
@@ -142,7 +145,7 @@ namespace Financial.Forms
         }
 
         //Botões e suas configurações
-                                      
+
         private void abrirEntidades()
         {
             Application.Run(new frmEntidades());
@@ -166,7 +169,7 @@ namespace Financial.Forms
         private void abrirLocal()
         {
             Application.Run(new frmLocais());
-        }        
+        }
         private void btnLocal_Click(object sender, EventArgs e)
         {
             Thread tAbrirLocal = new Thread(abrirLocal);
@@ -177,12 +180,12 @@ namespace Financial.Forms
         {
 
             if (
-                   entrada.idEntidade.ToString().Equals(txtCodEntidade.Text)
-                && entrada.idLocal.ToString().Equals(txtCodLocalArmazenamento.Text)
-                && entrada.idCategoria.ToString().Equals(txtCodCategoria.Text)
-                && entrada.numParcela.ToString().Equals(txtParcelas.Text)
-                && entrada.valorTransacao.ToString().Equals(txtValor.Text)
-                && entrada.formaMovimento.ToString().Equals(cbxFormaPagamento.SelectedItem.ToString())                 
+                   saida.idEntidade.ToString().Equals(txtCodEntidade.Text)
+                && saida.idLocal.ToString().Equals(txtCodLocalArmazenamento.Text)
+                && saida.idCategoria.ToString().Equals(txtCodCategoria.Text)
+                && saida.numParcela.ToString().Equals(txtParcelas.Text)
+                && saida.valorTransacao.ToString().Equals(txtValor.Text)
+                && saida.formaMovimento.ToString().Equals(cbxFormaPagamento.SelectedItem.ToString())
                 )
             {
                 this.Close();
@@ -212,10 +215,10 @@ namespace Financial.Forms
             {
                 try
                 {
-                    entrada.statusMovimento = 'F';
-                    entrada.dataBaixa = DateTime.Now;                    
-                    EntradaFinanceira.editar(entrada);
-                    Local.incremetar_Saldo(entrada.idLocal, entrada.valorTransacao);
+                    saida.statusMovimento = 'F';
+                    saida.dataBaixa = DateTime.Now;
+                    SaidaFinanceira.editar(saida);
+                    Local.incremetar_Saldo(saida.idLocal, saida.valorTransacao);
                 }
                 catch
                 {
@@ -245,7 +248,7 @@ namespace Financial.Forms
             {
                 try
                 {
-                    EntradaFinanceira.editar(entrada);
+                    SaidaFinanceira.editar(saida);
                 }
                 catch
                 {
@@ -274,7 +277,7 @@ namespace Financial.Forms
             {
                 try
                 {
-                    EntradaFinanceira.deletar(entrada.idOperacao);
+                    SaidaFinanceira.deletar(saida.idOperacao);
                 }
                 catch
                 {
@@ -301,17 +304,17 @@ namespace Financial.Forms
 
             if (result == DialogResult.Yes)
             {
-                frmEntradasEditarObs frmObs = new frmEntradasEditarObs();
+                frmSaidasEditarObs frmObs = new frmSaidasEditarObs();
                 frmObs.ShowDialog();
                 if (frmObs.flg_Obs == 1)
                 {
                     try
-                    {                                            
+                    {
                         txtObservacao.Text = frmObs.txtObservacao.Text;
-                        entrada.statusMovimento = 'F';
-                        entrada.dataBaixa = DateTime.Now;
-                        entrada.obsMovimento = txtObservacao.Text;
-                        EntradaFinanceira.editar(entrada);
+                        saida.statusMovimento = 'F';
+                        saida.dataBaixa = DateTime.Now;
+                        saida.obsMovimento = txtObservacao.Text;
+                        SaidaFinanceira.editar(saida);
                     }
                     catch
                     {

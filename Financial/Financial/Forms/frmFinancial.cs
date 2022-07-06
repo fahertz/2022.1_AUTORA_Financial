@@ -38,13 +38,10 @@ namespace Financial
 
         ////////////////Bloco para armazenar cadastros em geral
         //Pega a raiz bin para salvar o arquivo produtos
-        string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação
-        
-
-
+        string wpath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).ToString(); //Pega o caminho BIN da aplicação        
 
         //Criar pastas necessárias
-        void criarPastas(string Folder)
+        private void criarPastas(string Folder)
         {
             //Cria a pasta se ela não existir            
             if (!Directory.Exists(Folder))
@@ -302,7 +299,6 @@ namespace Financial
 
             }
         }
-
         private void carregar_Entrada(string path)
         {
             if (File.Exists(path))
@@ -341,7 +337,9 @@ namespace Financial
                                 obsMovimento = dr["obsMovimento"].ToString(),
                                 tipoMovimento = dr["tipoMovimento"].ToString(),
                                 dataMovimento = Convert.ToDateTime(dr["dataMovimento"].ToString()),
+                                dataBaixa = Convert.ToDateTime(dr["dataBaixa"].ToString()),
                                 statusMovimento = Convert.ToChar(dr["statusMovimento"].ToString())
+
 
                             });
                         }
@@ -356,7 +354,6 @@ namespace Financial
 
             }
         }
-
         private void carregar_Saida(string path)
         {
             if (File.Exists(path))
@@ -395,6 +392,7 @@ namespace Financial
                                 obsMovimento = dr["obsMovimento"].ToString(),
                                 tipoMovimento = dr["tipoMovimento"].ToString(),
                                 dataMovimento = Convert.ToDateTime(dr["dataMovimento"].ToString()),
+                                dataBaixa = Convert.ToDateTime(dr["dataBaixa"].ToString()),
                                 statusMovimento = Convert.ToChar(dr["statusMovimento"].ToString())
 
                             });
@@ -410,6 +408,7 @@ namespace Financial
 
             }
         }
+        
         //Load do form
         private void frmFinancial_Load(object sender, EventArgs e)
         {
@@ -427,28 +426,31 @@ namespace Financial
         }
 
 
-
-
-
+        //Botõoes e configurações
         private void abrir_Entradas()
         {
             Application.Run(new frmEntradas());            
-        }
-
-        //Abrir tela de entradas
+        }        
         private void btnEntradas_Click(object sender, EventArgs e)
         {
-            Thread t1 = new Thread(abrir_Entradas);
-            t1.SetApartmentState(ApartmentState.STA);
-            t1.Start();
+            Thread tAbrirEntradas = new Thread(abrir_Entradas);
+            tAbrirEntradas.SetApartmentState(ApartmentState.STA);
+            tAbrirEntradas.Start();
         }
-      
-    
+        private void abrir_Saidas()
+        {
+            Application.Run(new frmSaidas());
+        }
+        private void btnSaidas_Click(object sender, EventArgs e)
+        {
+            Thread tAbrirSaidas = new Thread(abrir_Saidas);
+            tAbrirSaidas.SetApartmentState(ApartmentState.STA);
+            tAbrirSaidas.Start();
+        }
         private void abrirCadastros()
         {
             Application.Run(new frmCadastros());
         }
-
         private void btnCadastros_Click(object sender, EventArgs e)
         {
             Thread tAbrirCadastros = new Thread(abrirCadastros);
@@ -467,6 +469,11 @@ namespace Financial
             DialogResult result = mm.exibirMensagem();
             if (result == DialogResult.Yes)
                 Application.Exit();
+        }
+        //
+        private void frmFinancial_KeyDown(object sender, KeyEventArgs e)
+        {
+            
         }
     }
 }

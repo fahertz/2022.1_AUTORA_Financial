@@ -66,3 +66,6 @@ C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Finan
 C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmLocaisNovo.resources
 C:\Users\rafael\Documents\AUTORA\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmEntradasEditar.resources
 C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmEntradasEditar.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmEntradasEditarObs.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmSaidasNovo.resources
+C:\Users\fahel\OneDrive\Documents\Trabalho\Autoral\2022.1_AUTORA_Financial\Financial\Financial\obj\Debug\Financial.Forms.frmSaidas.resources
