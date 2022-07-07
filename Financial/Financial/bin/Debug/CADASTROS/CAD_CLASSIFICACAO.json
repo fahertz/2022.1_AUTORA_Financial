@@ -6,5 +6,9 @@
   {
     "idClassificacao": 2,
     "nomeClassificacao": "Devedor"
+  },
+  {
+    "idClassificacao": 3,
+    "nomeClassificacao": "Chernobyl"
   }
 ]

@@ -1,10 +1,10 @@
 ﻿[
   {
-    "idEntidade": 1,
+    "idEntidade": 3,
     "idClassificacao": 1
   },
   {
-    "idEntidade": 2,
-    "idClassificacao": 2
+    "idEntidade": 3,
+    "idClassificacao": 3
   }
 ]

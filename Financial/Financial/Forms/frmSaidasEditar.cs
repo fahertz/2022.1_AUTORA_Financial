@@ -20,16 +20,28 @@ namespace Financial.Forms
         public frmSaidasEditar()
         {
             InitializeComponent();
-        }
-
-        private void frmSaidasEditar_Load(object sender, EventArgs e)
-        {
             txtCodEntidade.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtCodCategoria.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtCodLocalArmazenamento.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtParcelas.KeyPress += CaixaDeTexto.txt_justInt_KeyPress;
             txtValor.KeyPress += CaixaDeTexto.txt_justDouble_KeyPress;
             txtValor.Validating += CaixaDeTexto.txt_convertDouble_Validated;
+        }
+
+        private void frmSaidasEditar_Load(object sender, EventArgs e)
+        {
+            Formulario.configuracaoPadrao(this);
+            carregar_Saida(idOperacao);
+
+            //Bloqueios
+            txtDescEntidade.ReadOnly = true;
+            txtDescCategoria.ReadOnly = true;
+            txtCodLocalArmazenamento.ReadOnly = true;
+            txtDescLocalArmazenamento.ReadOnly = true;
+            txtObservacao.ReadOnly = true;
+
+            //Carregar
+            lblID.Text = lblID.Text + idOperacao.ToString();
         }
 
         //Instância local
@@ -127,25 +139,8 @@ namespace Financial.Forms
                 }
             }
         }
-        private void frmSaidaNovo_Load(object sender, EventArgs e)
-        {
-            Formulario.configuracaoPadrao(this);
-            carregar_Saida(idOperacao);
-
-            //Bloqueios
-            txtDescEntidade.ReadOnly = true;
-            txtDescCategoria.ReadOnly = true;
-            txtCodLocalArmazenamento.ReadOnly = true;
-            txtDescLocalArmazenamento.ReadOnly = true;
-            txtObservacao.ReadOnly = true;
-
-            //Carregar
-            lblID.Text = lblID.Text + idOperacao.ToString();
-
-        }
-
+        
         //Botões e suas configurações
-
         private void abrirEntidades()
         {
             Application.Run(new frmEntidades());

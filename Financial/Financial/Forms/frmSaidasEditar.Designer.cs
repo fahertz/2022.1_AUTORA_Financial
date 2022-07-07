@@ -79,6 +79,7 @@
             this.btnBaixarsSaldo.TabIndex = 82;
             this.btnBaixarsSaldo.Text = "Baixar s/ Saldo";
             this.btnBaixarsSaldo.UseVisualStyleBackColor = true;
+            this.btnBaixarsSaldo.Click += new System.EventHandler(this.btnBaixarsSaldo_Click);
             // 
             // btnDeletar
             // 
@@ -89,6 +90,7 @@
             this.btnDeletar.TabIndex = 81;
             this.btnDeletar.Text = "Deletar";
             this.btnDeletar.UseVisualStyleBackColor = true;
+            this.btnDeletar.Click += new System.EventHandler(this.btnDeletar_Click);
             // 
             // lblStatus
             // 
@@ -110,6 +112,7 @@
             this.btnBaixarcSaldo.TabIndex = 79;
             this.btnBaixarcSaldo.Text = "Baixar c/ Saldo";
             this.btnBaixarcSaldo.UseVisualStyleBackColor = true;
+            this.btnBaixarcSaldo.Click += new System.EventHandler(this.btnBaixar_Click);
             // 
             // lblValor
             // 
@@ -138,6 +141,7 @@
             this.btnLocal.TabIndex = 73;
             this.btnLocal.Text = "Local";
             this.btnLocal.UseVisualStyleBackColor = true;
+            this.btnLocal.Click += new System.EventHandler(this.btnLocal_Click);
             // 
             // btnCategoria
             // 
@@ -148,6 +152,7 @@
             this.btnCategoria.TabIndex = 71;
             this.btnCategoria.Text = "Categoria";
             this.btnCategoria.UseVisualStyleBackColor = true;
+            this.btnCategoria.Click += new System.EventHandler(this.btnCategoria_Click);
             // 
             // btnEntidades
             // 
@@ -158,6 +163,7 @@
             this.btnEntidades.TabIndex = 70;
             this.btnEntidades.Text = "Entidades";
             this.btnEntidades.UseVisualStyleBackColor = true;
+            this.btnEntidades.Click += new System.EventHandler(this.btnEntidades_Click);
             // 
             // lblLocalArmazenamento
             // 
@@ -228,6 +234,7 @@
             this.btnCancelar.TabIndex = 67;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnSalvar
             // 
@@ -238,6 +245,7 @@
             this.btnSalvar.TabIndex = 69;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // lblObs
             // 

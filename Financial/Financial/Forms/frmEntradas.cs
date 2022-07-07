@@ -42,10 +42,13 @@ namespace Financial.Forms
         }
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            frmEntradasEditar frmEditar = new frmEntradasEditar();
-            frmEditar.idOperacao = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value);
-            frmEditar.ShowDialog();
-            EntradaFinanceira.carregar(dgvDados);
+            if (dgvDados.CurrentRow != null)
+            {
+                frmEntradasEditar frmEditar = new frmEntradasEditar();
+                frmEditar.idOperacao = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value);
+                frmEditar.ShowDialog();
+                EntradaFinanceira.carregar(dgvDados);
+            }
         }
         private void filtrar_Dados()
         {
@@ -98,11 +101,8 @@ namespace Financial.Forms
 
         //Configurações em cima do datagridview
         private void dgvDados_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (dgvDados.CurrentRow.Cells != null)
-            {
-                btnEditar_Click(this, new EventArgs());
-            }
+        {           
+                btnEditar_Click(this, new EventArgs());           
         }
 
      

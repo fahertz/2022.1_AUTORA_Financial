@@ -280,6 +280,9 @@
     <EmbeddedResource Include="Forms\frmSaidasEditar.resx">
       <DependentUpon>frmSaidasEditar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSaidasEditarObs.resx">
+      <DependentUpon>frmSaidasEditarObs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSaidasNovo.resx">
       <DependentUpon>frmSaidasNovo.cs</DependentUpon>
     </EmbeddedResource>

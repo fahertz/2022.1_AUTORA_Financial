@@ -41,7 +41,7 @@ namespace Financial.Forms
         private void btnEditar_Click(object sender, EventArgs e)
         {
             frmSaidasEditar frmEditar = new frmSaidasEditar();
-            //frmEditar.idOperacao = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value);
+            frmEditar.idOperacao = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value);
             frmEditar.ShowDialog();
             SaidaFinanceira.carregar(dgvDados);
         }
@@ -103,4 +103,5 @@ namespace Financial.Forms
             }
         }
     }
+     
 }
